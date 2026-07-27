@@ -27,18 +27,26 @@ async function assetResponse(request, env, pathname) {
   return null;
 }
 
+async function firstAsset(request, env, pathnames) {
+  for (const pathname of pathnames) {
+    const response = await assetResponse(request, env, pathname);
+    if (response) return response;
+  }
+  return null;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const pathname = url.pathname === '/' ? '/index.html' : url.pathname;
-    const asset = await assetResponse(request, env, pathname);
+    const asset = await firstAsset(request, env, [pathname, '/dist' + pathname]);
     if (asset) {
       const headers = new Headers(asset.headers);
       headers.set('content-type', headers.get('content-type') || contentType(pathname));
       return new Response(asset.body, { status: asset.status, headers });
     }
 
-    const fallback = await assetResponse(request, env, '/index.html');
+    const fallback = await firstAsset(request, env, ['/index.html', '/dist/index.html']);
     if (fallback) {
       const headers = new Headers(fallback.headers);
       headers.set('content-type', 'text/html; charset=utf-8');
