@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/configure-pages@v5
       - run: npm ci
       - name: Build
         env:
@@ -35,6 +36,9 @@ jobs:
             -e "s#url('/images/#url('${BASE}images/#g" \
             -e "s#url(\"/images/#url(\"${BASE}images/#g" \
             -e "s#url(/images/#url(${BASE}images/#g" \
+            -e "s#url('/zhang-dai-hero.png#url('${BASE}zhang-dai-hero.png#g" \
+            -e "s#url(\"/zhang-dai-hero.png#url(\"${BASE}zhang-dai-hero.png#g" \
+            -e "s#url(/zhang-dai-hero.png#url(${BASE}zhang-dai-hero.png#g" \
             -e "s#'/images/#'${BASE}images/#g" \
             -e "s#\"/images/#\"${BASE}images/#g" \
             -e "s#'/zhang-dai-hero.png#'${BASE}zhang-dai-hero.png#g" \
