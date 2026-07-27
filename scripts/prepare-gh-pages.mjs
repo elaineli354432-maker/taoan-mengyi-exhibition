@@ -16,11 +16,13 @@ for (const name of readdirSync(assetsDir)) {
     .replaceAll('url(/images/', `url(${base}images/`)
     .replaceAll("'/images/", `'${base}images/`)
     .replaceAll('"/images/', `"${base}images/`)
+    .replaceAll('`/images/', `\`${base}images/`)
     .replaceAll("url('/zhang-dai-hero.png", `url('${base}zhang-dai-hero.png`)
     .replaceAll('url("/zhang-dai-hero.png', `url("${base}zhang-dai-hero.png`)
     .replaceAll('url(/zhang-dai-hero.png', `url(${base}zhang-dai-hero.png`)
     .replaceAll("'/zhang-dai-hero.png", `'${base}zhang-dai-hero.png`)
-    .replaceAll('"/zhang-dai-hero.png', `"${base}zhang-dai-hero.png`);
+    .replaceAll('"/zhang-dai-hero.png', `"${base}zhang-dai-hero.png`)
+    .replaceAll('`/zhang-dai-hero.png', `\`${base}zhang-dai-hero.png`);
 
   writeFileSync(file, text);
 }
