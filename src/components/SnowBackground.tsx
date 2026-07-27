@@ -1,0 +1,1 @@
+export function SnowBackground() { return <div className="snow" aria-hidden="true">{Array.from({ length: 36 }, (_, i) => <i key={i} style={{ left: `${(i * 29) % 101}%`, animationDelay: `${-(i % 12)}s`, animationDuration: `${10 + (i % 8)}s`, opacity: 0.25 + (i % 5) / 10 }} />)}</div> }

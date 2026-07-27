@@ -1,0 +1,2 @@
+const links = [['top', '入梦'], ['atlas', '生平'], ['route', '行迹'], ['history', '明史对照'], ['lu-wang', '鲁王'], ['qi-biaojia', '祁世培'], ['writing-history', '写史']]
+export function SectionNav() { return <nav className="section-nav" aria-label="章节导航">{links.map(([id,label]) => <button key={id} onClick={() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })} title={label}><span></span><b>{label}</b></button>)}</nav> }
