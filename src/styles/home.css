@@ -255,8 +255,7 @@
   line-height: 1.9;
 }
 .collapse-step.step-5 {
-  max-width: 760px;
-  margin-left: auto;
+  width: 100%;
   background: #d5dcd8;
 }
 .chapter-writing {
