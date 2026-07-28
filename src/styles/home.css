@@ -1,0 +1,299 @@
+.home-page {
+  background: var(--bg-main);
+}
+.dream-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+}
+.dream-hero .responsive-image {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+  background: #d9ded8;
+}
+.dream-hero .responsive-image::before {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #d6ddd7;
+  background-position: 52% 48%;
+}
+.dream-hero-copy {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 86vw);
+  margin-left: max(24px, 10vw);
+  padding-top: 50px;
+}
+.dream-hero-copy h1 {
+  font-size: clamp(58px, 10vw, 126px);
+  line-height: 1;
+  letter-spacing: .16em;
+  font-weight: 500;
+  margin: 0 0 22px;
+}
+.dream-hero-copy p,
+.dream-hero-copy span {
+  display: block;
+  font-size: clamp(17px, 2vw, 24px);
+  letter-spacing: .08em;
+  line-height: 1.8;
+}
+.dream-hero-copy span {
+  margin-top: 26px;
+  color: var(--accent-red);
+}
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font: 12px/1.4 var(--sans);
+  letter-spacing: .14em;
+}
+.home-chapter,
+.archive-entrances {
+  padding: clamp(86px, 11vw, 150px) max(24px, calc((100vw - 1120px) / 2));
+}
+.chapter-head {
+  max-width: 780px;
+  margin-bottom: 48px;
+}
+.event-strip {
+  display: grid;
+  grid-template-columns: 1.08fr .92fr;
+  min-height: 500px;
+  background: var(--bg-secondary);
+  margin-bottom: 30px;
+}
+.event-strip.is-reverse {
+  grid-template-columns: .92fr 1.08fr;
+}
+.event-strip.is-reverse .responsive-image {
+  order: 2;
+}
+.event-strip .responsive-image {
+  min-height: 500px;
+}
+.event-strip > div,
+.event-mini > div,
+.night-opera > div,
+.collapse-step > div {
+  padding: clamp(26px, 4vw, 56px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.event-strip span,
+.event-mini span,
+.night-opera span,
+.collapse-step span {
+  color: var(--accent-red);
+  font: 12px/1.4 var(--sans);
+  letter-spacing: .12em;
+}
+.event-strip h3,
+.event-mini h3,
+.night-opera h3,
+.collapse-step h3 {
+  font-size: clamp(26px, 3.5vw, 48px);
+  line-height: 1.2;
+  letter-spacing: .08em;
+  font-weight: 500;
+  margin: 14px 0;
+}
+.detail-grid,
+.obsession-branches,
+.archive-entrances > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(36, 38, 36, .18);
+}
+.event-mini {
+  background: #f7f3ea;
+  display: grid;
+  grid-template-rows: 220px 1fr;
+}
+.event-mini p {
+  color: #56615b;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.chapter-prosperity {
+  background: #ece8df;
+}
+.night-opera {
+  position: relative;
+  min-height: 86svh;
+  display: grid;
+  align-items: end;
+  margin: 48px 0;
+  color: #f2eee6;
+  background: var(--deep-green);
+  overflow: hidden;
+}
+.night-opera .responsive-image {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+}
+.night-opera .responsive-image::before {
+  filter: brightness(.62) saturate(.72);
+}
+.night-opera > div {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin-left: max(24px, 8vw);
+  padding-bottom: max(60px, 10vw);
+}
+.night-opera p {
+  color: #dce2dc;
+  line-height: 1.95;
+}
+.night-opera a {
+  color: #f2eee6;
+  border-color: #c6d0c8;
+}
+.asymmetric-pair {
+  display: grid;
+  grid-template-columns: .76fr 1.24fr;
+  gap: 30px;
+}
+.chapter-obsession {
+  background: var(--deep-green);
+  color: #f2eee6;
+}
+.chapter-obsession .chapter-head p,
+.chapter-obsession .curatorial-text,
+.chapter-obsession .image-caption {
+  color: #c5d0ca;
+}
+.obsession-layout {
+  display: grid;
+  grid-template-columns: 1.3fr .7fr;
+  gap: 0;
+  background: #192622;
+}
+.obsession-layout .responsive-image {
+  min-height: 620px;
+}
+.obsession-layout aside {
+  padding: clamp(34px, 5vw, 70px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 28px;
+}
+.westlake-maplet {
+  position: relative;
+  min-height: 120px;
+  border-top: 1px solid rgba(238, 233, 223, .24);
+  border-bottom: 1px solid rgba(238, 233, 223, .24);
+  color: #dbe3de;
+  padding: 28px 0;
+  font: 12px var(--sans);
+}
+.westlake-maplet i {
+  position: absolute;
+  left: 54%;
+  top: 48%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-red);
+}
+.westlake-maplet b {
+  position: absolute;
+  left: 58%;
+  top: 44%;
+  font-weight: 400;
+}
+.obsession-branches {
+  margin-top: 30px;
+}
+.obsession-branches p {
+  background: #202f2b;
+  margin: 0;
+  padding: 24px;
+  color: #cbd6d0;
+  line-height: 1.85;
+}
+.obsession-branches strong {
+  display: block;
+  color: #efece4;
+  margin-bottom: 8px;
+}
+.chapter-collapse {
+  background: linear-gradient(#e8e7df, #dce3df);
+}
+.collapse-sequence {
+  display: grid;
+  gap: 24px;
+}
+.collapse-step {
+  display: grid;
+  grid-template-columns: minmax(220px, .9fr) 1.1fr;
+  background: rgba(247, 243, 234, .72);
+}
+.collapse-step .responsive-image {
+  filter: saturate(.85);
+}
+.collapse-step.step-3 .responsive-image,
+.collapse-step.step-4 .responsive-image,
+.collapse-step.step-5 .responsive-image {
+  filter: saturate(.56) grayscale(.18);
+}
+.collapse-step p {
+  color: #56615b;
+  line-height: 1.9;
+}
+.collapse-step.step-5 {
+  max-width: 760px;
+  margin-left: auto;
+  background: #d5dcd8;
+}
+.chapter-writing {
+  background: #d9dfdc;
+}
+.writing-layout .event-strip {
+  background: rgba(247, 243, 234, .7);
+}
+.chapter-writing > .verified-quote {
+  max-width: 720px;
+  margin: 64px auto 0;
+  padding: 38px 0 38px 24px;
+}
+.archive-entrances {
+  background: var(--bg-main);
+}
+.archive-entrances > div {
+  background: transparent;
+  gap: 26px;
+}
+.archive-entrances a {
+  text-decoration: none;
+  display: block;
+  color: var(--text-primary);
+}
+.archive-entrances .responsive-image {
+  min-height: 210px;
+  margin-bottom: 18px;
+}
+.archive-entrances strong {
+  display: block;
+  font-size: 24px;
+  letter-spacing: .06em;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.archive-entrances a > span {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
