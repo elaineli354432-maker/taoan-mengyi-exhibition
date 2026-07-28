@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { assetUrl } from '../utils/assetUrl'
 
 // Event IDs are intentionally mapped one-to-one to assets. Do not use one
 // illustration as a visual fallback for another episode in the narrative.
@@ -36,7 +37,7 @@ const images: Record<string, string> = {
 }
 
 export function SceneImage({ kind, variant, className = '', priority = false }: { kind: string; variant?: string; className?: string; priority?: boolean }) {
-  const src = images[variant || kind] || '/images/jiangnan-antique-map-wash.png'
+  const src = assetUrl(images[variant || kind] || '/images/jiangnan-antique-map-wash.png')
   const ref = useRef<HTMLDivElement>(null)
   const [shouldLoad, setShouldLoad] = useState(priority || kind === 'cover' || variant === 'cover')
 
