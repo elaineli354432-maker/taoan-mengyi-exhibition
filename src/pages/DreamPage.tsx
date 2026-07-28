@@ -43,7 +43,7 @@ export function DreamPage() {
       </nav>
 
       <section id="top" className="dream-hero">
-        <SceneImage kind="snow" variant="cover" />
+        <SceneImage kind="snow" variant="cover" priority />
         <div className="dream-hero-copy">
           <h1>陶庵一梦</h1>
           <h2>从《陶庵梦忆》进入张岱的一生</h2>

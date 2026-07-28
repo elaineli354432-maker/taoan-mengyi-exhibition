@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 
 // Event IDs are intentionally mapped one-to-one to assets. Do not use one
 // illustration as a visual fallback for another episode in the narrative.
@@ -35,14 +35,52 @@ const images: Record<string, string> = {
   snow: '/images/huxinting.png',
 }
 
-export function SceneImage({ kind, variant, className = '' }: { kind: string; variant?: string; className?: string }) {
+export function SceneImage({ kind, variant, className = '', priority = false }: { kind: string; variant?: string; className?: string; priority?: boolean }) {
   const src = images[variant || kind] || '/images/jiangnan-antique-map-wash.png'
+  const ref = useRef<HTMLDivElement>(null)
+  const [shouldLoad, setShouldLoad] = useState(priority || kind === 'cover' || variant === 'cover')
+
+  useEffect(() => {
+    if (shouldLoad) return
+    const node = ref.current
+    if (!node) return
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '450px 0px' },
+    )
+
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [shouldLoad])
 
   return (
     <div
+      ref={ref}
       aria-hidden="true"
-      style={{ '--scene-image': `url('${src}')` } as CSSProperties}
-      className={`scene-image scene-${kind} ${className}`}
-    />
+      style={{ '--scene-image': shouldLoad ? `url('${src}')` : 'none' } as CSSProperties}
+      className={`scene-image scene-${kind} ${className} ${shouldLoad ? 'is-loaded' : 'is-pending'}`}
+    >
+      {shouldLoad && (
+        <img
+          alt=""
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          loading={priority ? 'eager' : 'lazy'}
+          src={src}
+          width="1600"
+          height="900"
+        />
+      )}
+    </div>
   )
 }
