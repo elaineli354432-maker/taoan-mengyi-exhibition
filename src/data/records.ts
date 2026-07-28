@@ -126,7 +126,18 @@ const eventMeta: Record<string, {
   'old-zhangdai': { startYear: null, dateCertainty: 'unknown', locationIds: ['shaoxing-shanyin', 'hangzhou-xihu'], sourceVolume: 0, sourceChapter: '自序', chapterIds: ['dream-preface'], themes: ['memory', 'writing'] },
 }
 
-const verifiedChapterIds = new Set(['huxinting', 'nanzhen', 'xuanyaoting', 'jinshan', 'lanxue', 'baiyang'])
+const verifiedChapterIds = new Set([
+  'huxinting',
+  'nanzhen',
+  'xuanyaoting',
+  'jinshan',
+  'lanxue',
+  'baiyang',
+  'buxiyuan',
+  'zhaoqing',
+  'shanzhong',
+  'zhongqiu',
+])
 
 const chapterDefinitions: Array<{
   id: string
