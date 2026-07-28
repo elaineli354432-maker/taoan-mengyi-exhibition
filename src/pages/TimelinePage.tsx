@@ -22,7 +22,7 @@ export function TimelinePage() {
   const [params] = useSearchParams()
   const [filter, setFilter] = useState('全部')
   const target = params.get('event')
-  const visible = events.filter((event) => (filter === '全部' || event.stageId === filter) && (target ? event.id === target : true))
+  const visible = events.filter((event) => filter === '全部' || event.stageId === filter)
 
   return (
     <main className="sub-page timeline-page">
@@ -44,7 +44,7 @@ export function TimelinePage() {
             const readTarget = chapter?.id ?? event.id
 
             return (
-              <article className="chrono-event" key={event.id}>
+              <article className={`chrono-event ${target === event.id ? 'target' : ''}`} key={event.id} id={`event-${event.id}`}>
                 <div className="chrono-year">
                   <i className={event.dateCertainty} title={certaintyLabel[event.dateCertainty]} />
                   <b>{event.displayDate}</b>
@@ -60,7 +60,10 @@ export function TimelinePage() {
                     <p className="curatorial-note">策展叙述 · 原文摘录待核对</p>
                   )}
                   <span>{event.curatorialSummary}</span>
-                  <div><Link to={`/map?event=${event.id}`}>地图中查看</Link><Link to={`/read?chapter=${readTarget}`}>阅读原文</Link></div>
+                  <div>
+                    <Link to={`/map?location=${event.locationIds[0]}&year=${event.startYear ?? ''}&event=${event.id}`}>地图中查看</Link>
+                    <Link to={`/read?chapter=${readTarget}&event=${event.id}`}>阅读原文</Link>
+                  </div>
                 </div>
               </article>
             )
