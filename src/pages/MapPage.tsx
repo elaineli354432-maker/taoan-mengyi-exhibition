@@ -1,54 +1,73 @@
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { dreamEvents } from '../data/dreamEvents'
+import { events, locations, getEvent, getLocation, getPrimaryChapterForEvent } from '../data/records'
 import { SceneImage } from '../components/SceneImage'
 
-const spots = [
-  { name: '绍兴', ancient: '山阴', x: 67, y: 64, events: ['birth', 'xuanyaoting', 'nanzhen', 'lanxue', 'qinpai'] },
-  { name: '杭州', ancient: '钱塘', x: 48, y: 42, events: ['huxinting', 'baiyang', 'zhaoqing'] },
-  { name: '苏州', ancient: '吴中', x: 30, y: 35, events: ['fengmen'] },
-  { name: '镇江', ancient: '润州', x: 34, y: 22, events: ['jinshan'] },
-  { name: '剡县', ancient: '剡', x: 72, y: 76, events: ['shanzhong'] },
-]
+const mapLocations = locations.filter((location) => typeof location.svgX === 'number' && typeof location.svgY === 'number')
+
+const firstEventForLocation = (locationId: string) => locations.find((location) => location.id === locationId)?.eventIds[0]
 
 export function MapPage() {
   const [params] = useSearchParams()
-  const initial = dreamEvents.find((event) => event.id === params.get('event'))?.id || 'huxinting'
-  const [eventId, setEventId] = useState(initial)
+  const requestedEvent = params.get('event')
+  const requestedLocation = params.get('location')
+  const requestedYear = Number(params.get('year'))
+  const initialEvent = requestedEvent ? getEvent(requestedEvent) : undefined
+  const initialLocation = requestedLocation ? getLocation(requestedLocation) : undefined
+  const [eventId, setEventId] = useState(initialEvent?.id || (initialLocation ? firstEventForLocation(initialLocation.id) : undefined) || 'huxinting')
+  const [locationId, setLocationId] = useState(initialEvent?.locationIds[0] || initialLocation?.id || 'hangzhou-xihu')
   const [mode, setMode] = useState('地点模式')
-  const current = dreamEvents.find((event) => event.id === eventId)!
+
+  const current = getEvent(eventId)
+  const currentLocation = getLocation(locationId) ?? (current?.locationIds[0] ? getLocation(current.locationIds[0]) : undefined) ?? locations[0]
+  const yearLimit = Number.isFinite(requestedYear) ? requestedYear : current?.startYear
   const shown = mode === '年代模式'
-    ? dreamEvents.filter((event) => Number(event.year.slice(0, 4)) <= Number(current.year.slice(0, 4)))
-    : mode === '人生阶段模式' ? dreamEvents.filter((event) => event.stage === current.stage) : dreamEvents
-  const city = current.place.split(' / ')[0]
-  const uniqueWorks = (events: typeof dreamEvents) => events
-    .filter((event, index, list) => list.findIndex((item) => item.work === event.work) === index)
-  const samePlace = uniqueWorks(shown.filter((event) => event.id !== current.id && event.place.split(' / ')[0] === city))
-  const sameAct = uniqueWorks(shown.filter((event) => event.id !== current.id && event.stage === current.stage && !samePlace.some((item) => item.work === event.work)))
-  const nearby = uniqueWorks(shown.filter((event) => event.id !== current.id && !samePlace.some((item) => item.work === event.work) && !sameAct.some((item) => item.work === event.work)))
-  const related = [...samePlace, ...sameAct, ...nearby].slice(0, 4)
+    ? events.filter((event) => event.startYear !== null && yearLimit !== null && yearLimit !== undefined && event.startYear <= yearLimit)
+    : mode === '人生阶段模式' && current ? events.filter((event) => event.stageId === current.stageId) : events
+  const relatedEvents = shown.filter((event) => currentLocation.eventIds.includes(event.id)).slice(0, 5)
+  const panelEvent = current && current.locationIds.includes(currentLocation.id) ? current : relatedEvents[0]
+
+  const chooseLocation = (id: string) => {
+    setLocationId(id)
+    const nextEvent = firstEventForLocation(id)
+    if (nextEvent) setEventId(nextEvent)
+  }
 
   return (
     <main className="sub-page map-page">
-      <header className="page-head"><p>JOURNEYS</p><h1>张岱行迹</h1><span>晚明江南游踪图与数字故事地图。</span></header>
+      <header className="page-head"><p>JOURNEYS</p><h1>张岱行迹</h1><span>地点、年份与篇目来自统一数据；地图点位为示意坐标。</span></header>
       <div className="map-mode">{['地点模式', '年代模式', '人生阶段模式'].map((item) => <button onClick={() => setMode(item)} className={mode === item ? 'on' : ''} key={item}>{item}</button>)}</div>
       <section className="story-map">
         <div className="painted-map">
           <div className="map-river" /><div className="map-route before" /><div className="map-route after" />
-          {spots.map((spot) => {
-            const active = spot.events.includes(eventId)
-            return <button style={{ left: `${spot.x}%`, top: `${spot.y}%` }} className={active ? 'active' : ''} onClick={() => setEventId(spot.events[0])} key={spot.name}><i /><span>{spot.name}<small>古称·{spot.ancient}</small></span></button>
+          {mapLocations.map((location) => {
+            const active = location.id === currentLocation.id
+            return (
+              <button style={{ left: `${location.svgX}%`, top: `${location.svgY}%` }} className={active ? 'active' : ''} onClick={() => chooseLocation(location.id)} key={location.id}>
+                <i /><span>{location.modernName}<small>{location.historicalName ? `古称·${location.historicalName}` : location.region}</small></span>
+              </button>
+            )
           })}
           <em>长江</em><strong>太湖</strong>
         </div>
         <aside className="place-panel">
-          <SceneImage kind={current.image} variant={current.id} />
-          <p>{current.place} · {current.year}</p><h2>{current.title}</h2><span>{current.description}</span>
-          <h3>相关篇目</h3>
-          {related.map((event) => <Link to={`/read?chapter=${event.id}`} key={event.work}>{event.work}<small>{event.year} · {event.quote}</small></Link>)}
+          <SceneImage kind={panelEvent?.heroImage ?? currentLocation.image ?? 'snow'} variant={panelEvent?.id} />
+          <p>{currentLocation.modernName} · {currentLocation.region ?? '区域待核对'}</p>
+          <h2>{currentLocation.historicalName ?? currentLocation.modernName}</h2>
+          <span>{currentLocation.description}</span>
+          <h3>相关年份与篇目</h3>
+          {relatedEvents.length ? relatedEvents.map((event) => {
+            const chapter = getPrimaryChapterForEvent(event.id)
+            return (
+              <Link to={`/read?chapter=${chapter?.id ?? event.id}`} key={event.id}>
+                {event.displayDate} · {event.title}
+                <small>{event.sourceChapter ?? '篇目待核对'} · {event.curatorialSummary}</small>
+              </Link>
+            )
+          }) : <small>本地点已作为基础地图点，相关篇目待补充。</small>}
         </aside>
       </section>
-      <div className="map-timeline"><span>1600</span>{dreamEvents.map((event) => <button className={eventId === event.id ? 'on' : ''} onClick={() => setEventId(event.id)} key={event.id}>{event.year}</button>)}<span>1646</span></div>
+      <div className="map-timeline"><span>1600</span>{events.filter((event) => event.startYear !== null).map((event) => <button className={eventId === event.id ? 'on' : ''} onClick={() => { setEventId(event.id); setLocationId(event.locationIds[0]) }} key={event.id}>{event.displayDate}</button>)}<span>1646</span></div>
     </main>
   )
 }

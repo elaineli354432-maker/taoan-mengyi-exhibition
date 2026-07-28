@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { dreamEvents, stages } from '../data/dreamEvents'
+import { events, stageRecords } from '../data/records'
 
 type Props = { currentStage: string; currentScene?: string }
 
@@ -13,13 +13,13 @@ export function ActNavigator({ currentStage, currentScene }: Props) {
         <span>浏览五幕</span><b>{open ? '收起 −' : '展开 +'}</b>
       </button>
       {open && <nav>
-        {stages.map((stage, index) => {
-          const scenes = dreamEvents.filter((event) => event.stage === stage)
-          return <section key={stage} className={stage === currentStage ? 'active' : ''}>
-            <Link to={`/dream/${encodeURIComponent(stage)}`} onClick={() => setOpen(false)}>
-              <small>{String(index + 1).padStart(2, '0')}</small>{stage}
+        {stageRecords.map((stage) => {
+          const scenes = events.filter((event) => event.stageId === stage.id)
+          return <section key={stage.id} className={stage.title === currentStage ? 'active' : ''}>
+            <Link to={`/dream/${encodeURIComponent(stage.title)}`} onClick={() => setOpen(false)}>
+              <small>{stage.number}</small>{stage.title}
             </Link>
-            <div>{scenes.map((scene) => <Link to={`/dream/${encodeURIComponent(stage)}#${scene.id}`} onClick={() => setOpen(false)} className={scene.id === currentScene ? 'current' : ''} key={scene.id}>{scene.title}</Link>)}</div>
+            <div>{scenes.map((scene) => <Link to={`/dream/${encodeURIComponent(stage.title)}#${scene.id}`} onClick={() => setOpen(false)} className={scene.id === currentScene ? 'current' : ''} key={scene.id}>{scene.title}</Link>)}</div>
           </section>
         })}
       </nav>}

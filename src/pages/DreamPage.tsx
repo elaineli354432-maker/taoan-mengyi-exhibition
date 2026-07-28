@@ -1,29 +1,27 @@
 import { Link } from 'react-router-dom'
-import { dreamEvents, stages, type DreamEvent } from '../data/dreamEvents'
+import { events, stageRecords, type EventRecord } from '../data/records'
 import { SceneImage } from '../components/SceneImage'
 
-const stageIds = stages.map((stage, index) => ({
-  id: `act-${index + 1}`,
-  number: String(index + 1).padStart(2, '0'),
-  title: stage,
-}))
+const stageIds = stageRecords.map((stage) => ({ id: stage.id, number: stage.number, title: stage.title }))
 
-const byId = (id: string) => dreamEvents.find((event) => event.id === id)!
+const byId = (id: string) => events.find((event) => event.id === id)!
 const pick = (ids: string[]) => ids.map(byId).filter(Boolean)
 
-function EventCard({ event, compact = false }: { event: DreamEvent; compact?: boolean }) {
+function EventCard({ event, compact = false }: { event: EventRecord; compact?: boolean }) {
+  const chapterId = event.relatedChapterIds?.[0] ?? event.id
+
   return (
     <article className={compact ? 'home-event compact' : 'home-event'}>
-      <SceneImage kind={event.image} variant={event.id} />
+      <SceneImage kind={event.heroImage ?? event.id} variant={event.id} />
       <div>
-        <p className="event-meta">{event.year} · {event.place}</p>
+        <p className="event-meta">{event.displayDate} · {event.sourceChapter ?? event.title}</p>
         <h3>{event.title}</h3>
-        <p className="event-summary">{event.description}</p>
-        <p className="event-work">关联篇目 · {event.work}</p>
+        <p className="event-summary">{event.curatorialSummary}</p>
+        <p className="event-work">关联篇目 · {event.sourceWork ? `《${event.sourceWork}》` : '待核对'}</p>
         <div className="event-links">
           <Link to={`/timeline?event=${event.id}`}>年谱</Link>
           <Link to={`/map?event=${event.id}`}>行迹</Link>
-          <Link to={`/read?chapter=${event.id}`}>原文</Link>
+          <Link to={`/read?chapter=${chapterId}`}>原文</Link>
         </div>
       </div>
     </article>
@@ -61,11 +59,11 @@ export function DreamPage() {
           <p>书亭、祈梦、茶事与琴声，先于功名和乱世，塑造了张岱感受世界的方式。</p>
         </header>
         <div className="home-feature">
-          <SceneImage kind={youth[1].image} variant={youth[1].id} />
+          <SceneImage kind={youth[1].heroImage ?? youth[1].id} variant={youth[1].id} />
           <div>
-            <p className="event-meta">{youth[1].year} · {youth[1].place}</p>
+            <p className="event-meta">{youth[1].displayDate} · 南镇</p>
             <h3>{youth[1].title}</h3>
-            <p>{youth[1].description}</p>
+            <p>{youth[1].curatorialSummary}</p>
             <div className="event-links"><Link to="/timeline?event=nanzhen">回到年谱</Link><Link to="/read?chapter=nanzhen">核对篇目</Link></div>
           </div>
         </div>
@@ -93,11 +91,11 @@ export function DreamPage() {
           <p>极寒、空湖、小舟与两三人，把张岱的“痴”从热闹中抽离出来，凝成一个清冷的文学瞬间。</p>
         </header>
         <div className="huxinting-center">
-          <SceneImage kind={huxinting.image} variant={huxinting.id} />
+          <SceneImage kind={huxinting.heroImage ?? huxinting.id} variant={huxinting.id} />
           <aside>
-            <p className="verified-label">《陶庵梦忆》原文摘录 · 待逐字复核</p>
-            <p className="original-snippet">雾凇沆砀，天与云与山与水，上下一白。</p>
-            <p>{huxinting.description}</p>
+            <p className="verified-label">《陶庵梦忆》原文摘录</p>
+            <p className="original-snippet">{huxinting.originalQuote}</p>
+            <p>{huxinting.curatorialSummary}</p>
             <div className="event-links"><Link to="/read?chapter=huxinting">阅读完整原文</Link><Link to="/timeline?event=huxinting">回到1632年</Link><Link to="/map?event=huxinting">查看西湖位置</Link></div>
           </aside>
         </div>
