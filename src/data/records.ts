@@ -107,11 +107,11 @@ const eventMeta: Record<string, {
   qinpai: { startYear: 1616, endYear: 1618, dateCertainty: 'approximate', locationIds: ['shaoxing-shanyin'], sourceVolume: 2, sourceChapter: '绍兴琴派', themes: ['music'] },
   fengmen: { startYear: 1622, dateCertainty: 'inferred', locationIds: ['suzhou-fengmen'], sourceVolume: 1, sourceChapter: '葑门荷宕', themes: ['city', 'travel'] },
   jinshan: { startYear: 1629, dateCertainty: 'exact', dynastyDate: '崇祯二年', locationIds: ['zhenjiang-jinshan'], sourceVolume: 1, sourceChapter: '金山夜戏', themes: ['opera', 'night'] },
-  huxinting: { startYear: 1632, dateCertainty: 'exact', dynastyDate: '崇祯五年十二月', locationIds: ['hangzhou-xihu'], sourceVolume: 2, sourceChapter: '湖心亭看雪', verifiedQuote: true, themes: ['snow', 'obsession'] },
+  huxinting: { startYear: 1632, dateCertainty: 'exact', dynastyDate: '崇祯五年十二月', locationIds: ['hangzhou-xihu'], sourceVolume: 3, sourceChapter: '湖心亭看雪', verifiedQuote: true, themes: ['snow', 'obsession'] },
   zhongqiu: { startYear: 1634, dateCertainty: 'inferred', locationIds: ['shaoxing-shanyin'], sourceVolume: 7, sourceChapter: '闰中秋', themes: ['festival'] },
   buxiyuan: { startYear: 1634, dateCertainty: 'inferred', locationIds: ['shaoxing-buxiyuan'], sourceVolume: 4, sourceChapter: '不系园', themes: ['garden'] },
-  baiyang: { startYear: 1640, dateCertainty: 'inferred', locationIds: ['hangzhou-baiyang'], sourceVolume: 3, sourceChapter: '白洋湖', themes: ['tide'] },
-  'snow-obsession': { startYear: 1632, dateCertainty: 'exact', locationIds: ['hangzhou-xihu'], sourceVolume: 2, sourceChapter: '湖心亭看雪', chapterIds: ['huxinting'], verifiedQuote: true, themes: ['snow', 'obsession'] },
+  baiyang: { startYear: 1640, dateCertainty: 'inferred', locationIds: ['hangzhou-baiyang'], sourceVolume: 3, sourceChapter: '白洋潮', themes: ['tide'] },
+  'snow-obsession': { startYear: 1632, dateCertainty: 'exact', locationIds: ['hangzhou-xihu'], sourceVolume: 3, sourceChapter: '湖心亭看雪', chapterIds: ['huxinting'], verifiedQuote: true, themes: ['snow', 'obsession'] },
   'opera-obsession': { startYear: 1629, dateCertainty: 'exact', locationIds: ['zhenjiang-jinshan'], sourceVolume: 1, sourceChapter: '金山夜戏', chapterIds: ['jinshan'], themes: ['opera', 'obsession'] },
   'tea-obsession': { startYear: 1614, dateCertainty: 'inferred', locationIds: ['shaoxing-shanyin'], sourceVolume: 3, sourceChapter: '兰雪茶', chapterIds: ['lanxue'], themes: ['tea', 'obsession'] },
   'qin-obsession': { startYear: 1616, endYear: 1618, dateCertainty: 'approximate', locationIds: ['shaoxing-shanyin'], sourceVolume: 2, sourceChapter: '绍兴琴派', chapterIds: ['qinpai'], themes: ['music', 'obsession'] },
@@ -126,7 +126,7 @@ const eventMeta: Record<string, {
   'old-zhangdai': { startYear: null, dateCertainty: 'unknown', locationIds: ['shaoxing-shanyin', 'hangzhou-xihu'], sourceVolume: 0, sourceChapter: '自序', chapterIds: ['dream-preface'], themes: ['memory', 'writing'] },
 }
 
-const verifiedChapterIds = new Set(['huxinting', 'nanzhen', 'xuanyaoting'])
+const verifiedChapterIds = new Set(['huxinting', 'nanzhen', 'xuanyaoting', 'jinshan', 'lanxue', 'baiyang'])
 
 const chapterDefinitions: Array<{
   id: string
@@ -145,7 +145,7 @@ const chapterDefinitions: Array<{
   { id: 'books', volume: 2, orderInVolume: 14, title: '三世藏书', eventIds: ['books'], locationIds: ['shaoxing-shanyin'], sourceReference: '目录页：卷二，第37页' },
   { id: 'nanzhen', volume: 3, orderInVolume: 2, title: '南镇祈梦', eventIds: ['nanzhen'], locationIds: ['shaoxing-nanzhen'], sourceReference: '目录页：卷三，第40页' },
   { id: 'lanxue', volume: 3, orderInVolume: 4, title: '兰雪茶', eventIds: ['lanxue', 'tea-obsession'], locationIds: ['shaoxing-shanyin'], sourceReference: '目录页：卷三，第44页' },
-  { id: 'baiyang', volume: 3, orderInVolume: 5, title: '白洋湖', eventIds: ['baiyang'], locationIds: ['hangzhou-baiyang'], sourceReference: '目录页：卷三，第45页' },
+  { id: 'baiyang', volume: 3, orderInVolume: 5, title: '白洋潮', eventIds: ['baiyang'], locationIds: ['hangzhou-baiyang'], sourceReference: '目录页：卷三，第45页；正文标题作“白洋潮”' },
   { id: 'huxinting', volume: 3, orderInVolume: 12, title: '湖心亭看雪', eventIds: ['huxinting', 'snow-obsession'], locationIds: ['hangzhou-xihu'], sourceReference: '目录页：卷三，第56页' },
   { id: 'buxiyuan', volume: 4, orderInVolume: 1, title: '不系园', eventIds: ['buxiyuan', 'garden-obsession'], locationIds: ['shaoxing-buxiyuan'], sourceReference: '目录页：卷四，第58页' },
   { id: 'lanterns', volume: 6, orderInVolume: 4, title: '绍兴灯景', eventIds: ['lanterns'], locationIds: ['shaoxing-shanyin'], sourceReference: '目录页：卷六，第96页' },
