@@ -1,0 +1,20 @@
+@keyframes softScale {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+.dream-hero .responsive-image::before,
+.night-opera .responsive-image::before {
+  animation: softScale 18s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}

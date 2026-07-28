@@ -1,0 +1,13 @@
+:root {
+  --bg-main: #f2efe8;
+  --bg-secondary: #e6e2d9;
+  --bg-cool: #dce3df;
+  --text-primary: #242624;
+  --text-secondary: #73756f;
+  --blue-gray: #71817a;
+  --deep-green: #263432;
+  --accent-red: #9a4a3f;
+  --line-soft: rgba(36, 38, 36, .16);
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun, serif;
+  --sans: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+}

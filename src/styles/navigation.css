@@ -1,0 +1,99 @@
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 80;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 max(20px, 5vw);
+  color: var(--text-primary);
+  transition: background .35s ease, border-color .35s ease;
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-scrolled {
+  background: rgba(242, 239, 232, .86);
+  border-color: var(--line-soft);
+  backdrop-filter: blur(14px);
+}
+.site-brand {
+  text-decoration: none;
+}
+.site-brand strong {
+  display: block;
+  font-size: 18px;
+  letter-spacing: .14em;
+  font-weight: 500;
+}
+.site-brand span {
+  display: block;
+  margin-top: 3px;
+  color: var(--text-secondary);
+  font: 10px/1.2 var(--sans);
+  letter-spacing: .08em;
+}
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-family: var(--sans);
+}
+.site-header nav a {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: .1em;
+  padding: 25px 0;
+}
+.site-header nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  height: 1px;
+  background: var(--accent-red);
+}
+.menu-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+}
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1px;
+  margin: 7px auto;
+  background: currentColor;
+}
+.chapter-progress {
+  position: fixed;
+  z-index: 50;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  gap: 10px;
+}
+.chapter-progress a {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  color: #53605a;
+  text-decoration: none;
+  font: 11px/1.3 var(--sans);
+  letter-spacing: .06em;
+}
+.chapter-progress a::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--blue-gray);
+  border-radius: 50%;
+  background: var(--bg-main);
+}
+.chapter-progress span { color: var(--accent-red); }
