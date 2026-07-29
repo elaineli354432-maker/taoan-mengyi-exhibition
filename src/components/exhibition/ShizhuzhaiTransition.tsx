@@ -1,3 +1,17 @@
-export function ShizhuzhaiTransition({ variant }: { variant: 'bamboo' | 'snow' | 'loss' | 'blank' }) {
-  return <div className={`shizhuzhai-transition shizhuzhai-${variant}`} aria-hidden="true" />
+type ShizhuzhaiVariant = 'bamboo' | 'snow' | 'loss' | 'blank'
+type ShizhuzhaiPlate = 1 | 2 | 3 | 4 | 5 | 6
+
+export function ShizhuzhaiTransition({ variant, plate }: { variant: ShizhuzhaiVariant; plate?: ShizhuzhaiPlate }) {
+  const plateId = plate ? String(plate).padStart(2, '0') : undefined
+
+  return (
+    <div className={`shizhuzhai-transition shizhuzhai-${variant} ${plate ? `shizhuzhai-plate shizhuzhai-plate-${plate}` : ''}`} aria-hidden="true">
+      {plateId && (
+        <>
+          <img className="shizhuzhai-art shizhuzhai-art-main" src={`/images/jianpu/shizhuzhai-${plateId}.png`} alt="" />
+          <img className="shizhuzhai-art shizhuzhai-art-ghost" src={`/images/jianpu/shizhuzhai-${plateId}.png`} alt="" />
+        </>
+      )}
+    </div>
+  )
 }

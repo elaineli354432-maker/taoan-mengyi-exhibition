@@ -325,7 +325,7 @@ export function DreamPage() {
         </div>
       </section>
 
-      <ShizhuzhaiTransition variant="bamboo" />
+      <ShizhuzhaiTransition variant="bamboo" plate={1} />
 
       <section id="prosperity" className="home-chapter chapter-prosperity">
         <header className="chapter-head">
@@ -349,7 +349,7 @@ export function DreamPage() {
         </div>
       </section>
 
-      <ShizhuzhaiTransition variant="snow" />
+      <ShizhuzhaiTransition variant="snow" plate={2} />
 
       <section id="obsession" className="home-chapter chapter-obsession">
         <header className="chapter-head">
@@ -394,7 +394,7 @@ export function DreamPage() {
         </div>
       </section>
 
-      <ShizhuzhaiTransition variant="loss" />
+      <ShizhuzhaiTransition variant="loss" plate={3} />
 
       <section id="collapse" className="home-chapter chapter-collapse">
         <header className="chapter-head">
@@ -416,7 +416,7 @@ export function DreamPage() {
         </div>
       </section>
 
-      <ShizhuzhaiTransition variant="loss" />
+      <ShizhuzhaiTransition variant="loss" plate={4} />
 
       <section id="south-ming" className="home-chapter chapter-south-ming">
         <header className="chapter-head">
@@ -446,7 +446,7 @@ export function DreamPage() {
         </div>
       </section>
 
-      <ShizhuzhaiTransition variant="blank" />
+      <ShizhuzhaiTransition variant="blank" plate={5} />
 
       <section id="writing" className="home-chapter chapter-writing">
         <header className="chapter-head">
@@ -460,7 +460,7 @@ export function DreamPage() {
         <VerifiedQuote quote="五十年来，总成一梦。" source="《陶庵梦忆·梦忆序》" />
       </section>
 
-      <ShizhuzhaiTransition variant="blank" />
+      <ShizhuzhaiTransition variant="blank" plate={6} />
 
       <section id="archive" className="archive-entrances">
         <header className="chapter-head">

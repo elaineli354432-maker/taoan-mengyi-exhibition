@@ -58,7 +58,7 @@
 
 .shizhuzhai-transition {
   position: relative;
-  min-height: clamp(180px, 28svh, 360px);
+  min-height: clamp(260px, 34svh, 460px);
   overflow: hidden;
   background: #ece8df;
   scroll-snap-align: center;
@@ -84,6 +84,94 @@
   opacity: .82;
 }
 
+.shizhuzhai-art {
+  position: absolute;
+  z-index: 1;
+  width: clamp(220px, 27vw, 520px);
+  height: auto;
+  opacity: .74;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter:
+    saturate(1.58)
+    contrast(1.08)
+    brightness(1.04)
+    drop-shadow(0 18px 36px rgba(36, 38, 36, .08));
+}
+
+.shizhuzhai-art-main {
+  transform: translate3d(0, 0, 0) rotate(var(--jianpu-rotate, 0deg));
+}
+
+.shizhuzhai-art-ghost {
+  z-index: 0;
+  opacity: .18;
+  transform:
+    translate3d(var(--jianpu-ghost-x, 18px), var(--jianpu-ghost-y, -14px), 0)
+    rotate(var(--jianpu-rotate, 0deg));
+  filter:
+    saturate(2.1)
+    hue-rotate(-18deg)
+    contrast(1.12)
+    brightness(1.06);
+  mix-blend-mode: color-burn;
+}
+
+.shizhuzhai-plate::before {
+  z-index: 2;
+}
+
+.shizhuzhai-plate::after {
+  z-index: 3;
+}
+
+.shizhuzhai-plate-1 .shizhuzhai-art {
+  left: 7vw;
+  top: 4%;
+  --jianpu-rotate: -4deg;
+}
+
+.shizhuzhai-plate-2 .shizhuzhai-art {
+  right: 12vw;
+  top: -2%;
+  width: clamp(210px, 24vw, 480px);
+  --jianpu-rotate: 3deg;
+  --jianpu-ghost-x: -18px;
+  --jianpu-ghost-y: 13px;
+}
+
+.shizhuzhai-plate-3 .shizhuzhai-art {
+  left: 50%;
+  top: -8%;
+  width: clamp(230px, 25vw, 500px);
+  --jianpu-rotate: 7deg;
+}
+
+.shizhuzhai-plate-4 .shizhuzhai-art {
+  left: 9vw;
+  bottom: -30%;
+  width: clamp(260px, 30vw, 560px);
+  --jianpu-rotate: -8deg;
+  --jianpu-ghost-x: 16px;
+  --jianpu-ghost-y: 18px;
+}
+
+.shizhuzhai-plate-5 .shizhuzhai-art {
+  right: 8vw;
+  bottom: -26%;
+  width: clamp(240px, 28vw, 540px);
+  --jianpu-rotate: 5deg;
+  --jianpu-ghost-x: -22px;
+  --jianpu-ghost-y: -10px;
+}
+
+.shizhuzhai-plate-6 .shizhuzhai-art {
+  left: 13vw;
+  top: -10%;
+  width: clamp(220px, 25vw, 500px);
+  --jianpu-rotate: -2deg;
+}
+
 .shizhuzhai-bamboo {
   background:
     linear-gradient(180deg, #f2efe8 0%, #ece8df 42%, #e6e8dd 100%);
@@ -91,8 +179,8 @@
 
 .shizhuzhai-bamboo::after {
   background:
-    radial-gradient(ellipse at 16% 78%, rgba(72,103,86,.2), transparent 34%),
-    radial-gradient(ellipse at 82% 18%, rgba(154,74,63,.08), transparent 28%),
+    radial-gradient(ellipse at 16% 78%, rgba(42,116,84,.2), transparent 34%),
+    radial-gradient(ellipse at 82% 18%, rgba(204,89,55,.12), transparent 28%),
     linear-gradient(120deg, transparent 0 48%, rgba(72,103,86,.12) 49% 50%, transparent 51% 100%);
 }
 
@@ -104,6 +192,7 @@
 .shizhuzhai-snow::after {
   background:
     radial-gradient(ellipse at 50% 34%, rgba(255,255,255,.5), transparent 36%),
+    radial-gradient(ellipse at 74% 62%, rgba(227,108,62,.14), transparent 28%),
     linear-gradient(180deg, transparent 0%, rgba(255,255,255,.24) 48%, rgba(20,32,29,.52) 100%);
 }
 
@@ -115,6 +204,7 @@
 .shizhuzhai-loss::after {
   background:
     repeating-linear-gradient(110deg, transparent 0 52px, rgba(255,255,255,.18) 53px 54px, transparent 55px 104px),
+    radial-gradient(ellipse at 24% 74%, rgba(211,91,53,.14), transparent 26%),
     linear-gradient(180deg, rgba(20,32,29,.72), transparent 52%, rgba(247,243,234,.22));
 }
 
@@ -126,5 +216,36 @@
 .shizhuzhai-blank::after {
   background:
     radial-gradient(ellipse at 22% 18%, rgba(255,255,255,.42), transparent 30%),
-    radial-gradient(ellipse at 76% 78%, rgba(72,103,86,.12), transparent 34%);
+    radial-gradient(ellipse at 76% 78%, rgba(42,116,84,.15), transparent 34%),
+    radial-gradient(ellipse at 84% 28%, rgba(204,89,55,.1), transparent 24%);
+}
+
+@media (max-width: 720px) {
+  .shizhuzhai-transition {
+    min-height: 260px;
+  }
+
+  .shizhuzhai-art {
+    width: clamp(180px, 54vw, 310px);
+    opacity: .62;
+  }
+
+  .shizhuzhai-plate-1 .shizhuzhai-art,
+  .shizhuzhai-plate-3 .shizhuzhai-art,
+  .shizhuzhai-plate-4 .shizhuzhai-art,
+  .shizhuzhai-plate-6 .shizhuzhai-art {
+    left: 6vw;
+  }
+
+  .shizhuzhai-plate-2 .shizhuzhai-art,
+  .shizhuzhai-plate-5 .shizhuzhai-art {
+    right: 4vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shizhuzhai-art,
+  .shizhuzhai-art-ghost {
+    transform: none;
+  }
 }
