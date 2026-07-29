@@ -58,13 +58,13 @@
 
 .shizhuzhai-transition {
   position: relative;
-  min-height: clamp(260px, 32svh, 430px);
+  min-height: clamp(320px, 42svh, 560px);
   overflow: hidden;
   background:
     radial-gradient(ellipse at 24% 28%, rgba(255, 255, 255, .48), transparent 38%),
     radial-gradient(ellipse at 78% 70%, rgba(188, 176, 150, .16), transparent 34%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 42px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.035) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(92deg, rgba(255,255,255,.13) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(0deg, rgba(70,62,48,.03) 0 1px, transparent 1px 16px),
     linear-gradient(180deg, #eee9df 0%, #f7f3ea 54%, #eeeae1 100%);
   scroll-snap-align: center;
 }
@@ -78,10 +78,11 @@
 }
 
 .shizhuzhai-transition::before {
-  opacity: .45;
+  opacity: .34;
   background:
-    repeating-linear-gradient(115deg, transparent 0 28px, rgba(108, 96, 72, .035) 29px 30px, transparent 31px 58px),
-    linear-gradient(180deg, rgba(255,255,255,.2), transparent 42%, rgba(124,110,84,.08));
+    radial-gradient(ellipse at 16% 34%, rgba(255,255,255,.62), transparent 34%),
+    repeating-linear-gradient(115deg, transparent 0 30px, rgba(108, 96, 72, .026) 31px 32px, transparent 33px 60px),
+    linear-gradient(180deg, rgba(255,255,255,.18), transparent 42%, rgba(124,110,84,.06));
   mix-blend-mode: multiply;
 }
 
@@ -93,21 +94,13 @@
   position: absolute;
   z-index: 1;
   width: auto;
-  height: clamp(210px, 27svh, 350px);
-  max-width: min(34vw, 520px);
-  max-height: calc(100% - 48px);
-  opacity: .9;
+  height: min(92%, 500px);
+  max-width: min(58vw, 760px);
+  max-height: calc(100% - 18px);
+  opacity: .98;
   object-fit: contain;
   mix-blend-mode: multiply;
-  filter: none;
-}
-
-.shizhuzhai-art-main {
-  transform: none;
-}
-
-.shizhuzhai-art-ghost {
-  display: none;
+  filter: saturate(1.06) contrast(1.02);
 }
 
 .shizhuzhai-plate::before {
@@ -120,37 +113,37 @@
 
 .shizhuzhai-plate-1 .shizhuzhai-art {
   left: 8vw;
-  bottom: 22px;
+  top: 4%;
 }
 
 .shizhuzhai-plate-2 .shizhuzhai-art {
-  right: 12vw;
-  bottom: 22px;
-  max-width: min(30vw, 460px);
+  right: 18vw;
+  top: 5%;
+  max-width: min(54vw, 700px);
 }
 
 .shizhuzhai-plate-3 .shizhuzhai-art {
-  left: 48%;
-  bottom: 18px;
-  max-width: min(30vw, 460px);
+  left: 38%;
+  top: 3%;
+  max-width: min(56vw, 720px);
 }
 
 .shizhuzhai-plate-4 .shizhuzhai-art {
   left: 9vw;
-  bottom: 18px;
-  max-width: min(32vw, 500px);
+  top: 3%;
+  max-width: min(58vw, 760px);
 }
 
 .shizhuzhai-plate-5 .shizhuzhai-art {
-  right: 8vw;
-  bottom: 20px;
-  max-width: min(32vw, 500px);
+  right: 15vw;
+  top: 4%;
+  max-width: min(56vw, 720px);
 }
 
 .shizhuzhai-plate-6 .shizhuzhai-art {
-  left: 13vw;
-  bottom: 22px;
-  max-width: min(30vw, 470px);
+  left: 12vw;
+  top: 4%;
+  max-width: min(56vw, 720px);
 }
 
 .shizhuzhai-bamboo {
@@ -204,14 +197,14 @@
 
 @media (max-width: 720px) {
   .shizhuzhai-transition {
-    min-height: 260px;
+    min-height: 300px;
   }
 
   .shizhuzhai-art {
     width: auto;
-    height: clamp(180px, 24svh, 260px);
-    max-width: 58vw;
-    opacity: .86;
+    height: min(88%, 270px);
+    max-width: 76vw;
+    opacity: .94;
   }
 
   .shizhuzhai-plate-1 .shizhuzhai-art,

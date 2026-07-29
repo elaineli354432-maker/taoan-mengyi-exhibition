@@ -7,10 +7,7 @@ export function ShizhuzhaiTransition({ variant, plate }: { variant: ShizhuzhaiVa
   return (
     <div className={`shizhuzhai-transition shizhuzhai-${variant} ${plate ? `shizhuzhai-plate shizhuzhai-plate-${plate}` : ''}`} aria-hidden="true">
       {plateId && (
-        <>
-          <img className="shizhuzhai-art shizhuzhai-art-main" src={`/images/jianpu/shizhuzhai-${plateId}.png`} alt="" />
-          <img className="shizhuzhai-art shizhuzhai-art-ghost" src={`/images/jianpu/shizhuzhai-${plateId}.png`} alt="" />
-        </>
+        <img className="shizhuzhai-art" src={`/images/jianpu/cutouts/shizhuzhai-cutout-${plateId}.png`} alt="" />
       )}
     </div>
   )
