@@ -10,7 +10,7 @@ import { ImageCaption } from '../components/shared/ImageCaption'
 import { ResponsiveImage } from '../components/shared/ResponsiveImage'
 import { VerifiedQuote } from '../components/shared/VerifiedQuote'
 import { events, getEvent, type EventRecord } from '../data/events'
-import { getScenePassages } from '../data/scenePassages'
+import { getScenePassages, type ScenePassage } from '../data/scenePassages'
 import { sceneImageUrl } from '../components/exhibition/sceneImage'
 
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
@@ -71,8 +71,36 @@ type TourAct = {
   number: string
   title: string
   description: string
-  events: EventRecord[]
+  slides: TourSlide[]
 }
+
+type TourSlide = {
+  event: EventRecord
+  image?: string
+  title?: string
+  description?: string
+  kicker?: string
+  passageOrder?: number
+}
+
+const eventSlides = (items: EventRecord[]): TourSlide[] => items.map((event) => ({ event }))
+
+const passageTitle = (sceneId: string, passage: ScenePassage) => {
+  const luwangTitles = ['仓促接驾', '七重御席', '献膳奏乐', '戏台回声', '夜色退场']
+  const qidreamTitles = ['时事日非', '青衣持刺', '梦中问答', '星落如雨', '以文字存梦']
+  const titles = sceneId === 'luwang' ? luwangTitles : sceneId === 'qidream' ? qidreamTitles : []
+  return titles[passage.order - 1] ?? `${passage.sourceChapter} ${String(passage.order).padStart(2, '0')}`
+}
+
+const passageSlides = (sceneId: string, event: EventRecord): TourSlide[] =>
+  getScenePassages(sceneId).map((passage) => ({
+    event,
+    image: passage.image,
+    title: `${event.title} · ${passageTitle(sceneId, passage)}`,
+    description: passage.curatorialNote ?? passage.originalText,
+    kicker: `${event.displayDate} · ${passage.sourceChapter}`,
+    passageOrder: passage.order,
+  }))
 
 function ActTour({ acts }: { acts: TourAct[] }) {
   const [params, setParams] = useSearchParams()
@@ -83,14 +111,14 @@ function ActTour({ acts }: { acts: TourAct[] }) {
   if (!act) return null
 
   const requestedStep = Number(params.get('step') ?? 0)
-  const total = act.events.length + 1
+  const total = act.slides.length + 1
   const step = Math.min(Math.max(Number.isFinite(requestedStep) ? requestedStep : 0, 0), total - 1)
-  const event = step > 0 ? act.events[step - 1] : undefined
+  const slide = step > 0 ? act.slides[step - 1] : undefined
 
   const openActStep = (nextActIndex: number, nextStep: number) => {
     const wrappedActIndex = (nextActIndex + acts.length) % acts.length
     const nextAct = acts[wrappedActIndex]
-    const nextTotal = nextAct.events.length + 1
+    const nextTotal = nextAct.slides.length + 1
     const wrappedStep = (nextStep + nextTotal) % nextTotal
     setParams(new URLSearchParams({ tour: nextAct.id, step: String(wrappedStep) }))
   }
@@ -102,7 +130,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
     }
     if (nextStep < 0) {
       const previousActIndex = (actIndex - 1 + acts.length) % acts.length
-      openActStep(previousActIndex, acts[previousActIndex].events.length)
+      openActStep(previousActIndex, acts[previousActIndex].slides.length)
       return
     }
     setParams(new URLSearchParams({ tour: act.id, step: String(nextStep) }))
@@ -121,14 +149,14 @@ function ActTour({ acts }: { acts: TourAct[] }) {
           <h1>{act.title}</h1>
           <p>{act.description}</p>
         </article>
-      ) : event && (
+      ) : slide && (
         <article className="act-tour-image">
-          <img src={sceneImageUrl(event.heroImage ?? event.id)} alt={event.title} />
+          <img src={sceneImageUrl(slide.image ?? slide.event.heroImage ?? slide.event.id)} alt={slide.title ?? slide.event.title} />
           <div>
-            <span>{event.displayDate} · {event.sourceChapter}</span>
-            <h2>{event.title}</h2>
-            <p>{event.curatorialText}</p>
-            <Link to={`/?scene=${event.id}&passage=1&returnTour=${act.id}&returnStep=${step}`}>进入此景</Link>
+            <span>{slide.kicker ?? `${slide.event.displayDate} · ${slide.event.sourceChapter}`}</span>
+            <h2>{slide.title ?? slide.event.title}</h2>
+            <p>{slide.description ?? slide.event.curatorialText}</p>
+            <Link to={`/?scene=${slide.event.id}&passage=${slide.passageOrder ?? 1}&returnTour=${act.id}&returnStep=${step}`}>进入此景</Link>
           </div>
         </article>
       )}
@@ -156,42 +184,45 @@ export function DreamPage() {
       number: '01',
       title: '感官的形成',
       description: '张岱后来能敏锐记录声音、光线、器物和空间，不是偶然才情，而是童年书斋、园林、茶事与琴社长期训练出的辨别力。',
-      events: formation,
+      slides: eventSlides(formation),
     },
     {
       id: 'prosperity',
       number: '02',
       title: '创造一种生活',
       description: '张岱不是晚明生活的旁观者。他组织戏曲、雅集、游赏和园林，把审美变成一套可以被实践的生活方式。',
-      events: prosperity,
+      slides: eventSlides(prosperity),
     },
     {
       id: 'obsession',
       number: '03',
       title: '天地一痴人',
       description: '痴，不是一种标签，而是一种用行动进入世界的方法。湖心亭是主轴，茶、琴、园只是它的旁笺。',
-      events: [huxinting, ...pick(['lanxue', 'qinpai', 'buxiyuan'])],
+      slides: eventSlides([huxinting, ...pick(['lanxue', 'qinpai', 'buxiyuan'])]),
     },
     {
       id: 'collapse',
       number: '04',
       title: '人间散场',
       description: '灯景、寺火、饥荒、香路断绝与国破家亡，让城市生活逐渐失去支撑。',
-      events: collapse,
+      slides: eventSlides(collapse),
     },
     {
       id: 'south-ming',
       number: '04B',
       title: '南明余影',
       description: '鲁王过越是外部政治行进，祁世培入梦是内部精神坍塌。两者共同通向“以文字存梦”。',
-      events: southMing,
+      slides: [
+        ...passageSlides('luwang', southMing[0]),
+        ...passageSlides('qidream', southMing[1]),
+      ],
     },
     {
       id: 'writing',
       number: '05',
       title: '以文字存梦',
       description: '当园林、藏书、城市和交游消失之后，写作成为张岱保存感官世界的方式。',
-      events: writing,
+      slides: eventSlides(writing),
     },
   ]
 
