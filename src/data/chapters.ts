@@ -1,4 +1,5 @@
 import { getEvent } from './events'
+import { getChapterScenePassageIds } from './scenePassages'
 
 export interface ChapterRecord {
   id: string
@@ -14,11 +15,12 @@ export interface ChapterRecord {
   relatedEventIds: string[]
   relatedLocationIds: string[]
   relatedPersonIds: string[]
+  scenePassageIds?: string[]
 }
 
 const unverifiedNote = '本篇原文仍在校核，当前仅提供策展说明。'
 
-export const chapters: ChapterRecord[] = [
+const chapterRecords: ChapterRecord[] = [
   {
     id: 'huxinting',
     volume: 3,
@@ -173,7 +175,40 @@ export const chapters: ChapterRecord[] = [
     relatedLocationIds: ['jiangnan', 'shaoxing-shanyin', 'hangzhou-xihu'],
     relatedPersonIds: ['zhang-dai'],
   },
+  {
+    id: 'luwang',
+    volume: 0,
+    orderInVolume: 2,
+    title: '鲁王过越',
+    originalText: '',
+    originalTextVerified: false,
+    editorialNote: '本专题复用既有《陶庵梦忆补·鲁王》材料，作为场景原文容器，仍待版本逐字核对。',
+    sourceReference: '《陶庵梦忆·补遗·鲁王》',
+    curatorialIntroduction: getEvent('luwang')?.curatorialText,
+    relatedEventIds: ['luwang'],
+    relatedLocationIds: ['shaoxing-shanyin'],
+    relatedPersonIds: ['zhang-dai', 'lu-wang-zhu-yihai', 'chen-hongshou'],
+  },
+  {
+    id: 'qidream',
+    volume: 0,
+    orderInVolume: 3,
+    title: '祁世培入梦',
+    originalText: '',
+    originalTextVerified: false,
+    editorialNote: '本专题复用既有《陶庵梦忆补·祁世培》材料，作为空间记忆容器，仍待版本逐字核对。',
+    sourceReference: '《陶庵梦忆·补遗·祁世培》',
+    curatorialIntroduction: getEvent('qidream')?.curatorialText,
+    relatedEventIds: ['qidream'],
+    relatedLocationIds: ['shengzhou-shanzhong'],
+    relatedPersonIds: ['zhang-dai', 'qi-biaojia'],
+  },
 ]
+
+export const chapters: ChapterRecord[] = chapterRecords.map((chapter) => ({
+  ...chapter,
+  scenePassageIds: getChapterScenePassageIds(chapter.id),
+}))
 
 export const sortedChapters = [...chapters].sort((a, b) => a.volume - b.volume || a.orderInVolume - b.orderInVolume)
 export const getChapter = (id: string) => chapters.find((chapter) => chapter.id === id)

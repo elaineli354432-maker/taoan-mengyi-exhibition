@@ -4,6 +4,8 @@ import { chapters, getChapter, sortedChapters } from '../data/chapters'
 import { getEvent } from '../data/events'
 import { getLocation } from '../data/locations'
 import { getPerson, people } from '../data/people'
+import { getScenePassage } from '../data/scenePassages'
+import { ResponsiveImage } from '../components/shared/ResponsiveImage'
 
 type ReaderMode = 'clean' | 'annotated' | 'night'
 
@@ -21,6 +23,7 @@ export function ReadPage() {
   const previous = sortedChapters[selectedIndex - 1]
   const next = sortedChapters[selectedIndex + 1]
   const relatedEvents = chapter.relatedEventIds.map(getEvent).filter(Boolean)
+  const chapterScenePassages = (chapter.scenePassageIds ?? []).map(getScenePassage).filter(Boolean)
   const relatedLocations = chapter.relatedLocationIds.map(getLocation).filter(Boolean)
   const relatedPeople = chapter.relatedPersonIds.map(getPerson).filter(Boolean)
 
@@ -88,6 +91,7 @@ export function ReadPage() {
 
       <article className="reading-pane" style={{ fontSize: `${fontSize}px`, lineHeight }}>
         <header>
+          {relatedEvents[0]?.heroImage && <ResponsiveImage image={relatedEvents[0].heroImage} alt={`${chapter.title}关联场景`} className="reader-scene-thumb" />}
           <p>《陶庵梦忆》精选阅读</p>
           <h1>{chapter.title}</h1>
           <span>{chapter.sourceReference ?? '卷次与篇目正在持续校核'} · {chapter.originalTextVerified ? '原文已校核' : '原文校核中'}</span>
@@ -105,7 +109,16 @@ export function ReadPage() {
         {chapter.originalTextVerified ? (
           chapter.originalText.split('\n').map((paragraph, index) => <p key={`${chapter.id}-${index}`}>{paragraph}</p>)
         ) : (
-          <p className="unverified-text">本篇原文仍在校核，当前仅提供策展说明。</p>
+          <section className="reader-scene-passages">
+            <p className="unverified-text">本篇完整原文仍在校核；以下先显示已绑定到首页场景的段落。</p>
+            {chapterScenePassages.length ? chapterScenePassages.map((passage) => passage && (
+              <article key={passage.id}>
+                <span>{passage.sourceReference} · {passage.originalTextVerified ? '已校核' : '待人工核对'}</span>
+                <blockquote>{passage.originalText}</blockquote>
+                {passage.curatorialNote && <small>{passage.curatorialNote}</small>}
+              </article>
+            )) : <p className="unverified-text">本篇尚未绑定可展示段落。</p>}
+          </section>
         )}
         {chapter.curatorialIntroduction && <p className="reader-curatorial">{chapter.curatorialIntroduction}</p>}
 
@@ -128,10 +141,13 @@ export function ReadPage() {
           {relatedPeople.map((person) => person && <span key={person.id}>{person.name}：{person.description}</span>)}
           <p>关联事件</p>
           {relatedEvents.map((event) => event && (
-            <Link to={`/timeline?event=${event.id}`} key={event.id}>
-              {event.displayDate} · {event.title}
-              <small>{event.ageDisplay ?? '年龄待核'}</small>
-            </Link>
+            <section key={event.id}>
+              <Link to={`/timeline?event=${event.id}`}>
+                {event.displayDate} · {event.title}
+                <small>{event.ageDisplay ?? '年龄待核'}</small>
+              </Link>
+              {(event.sceneExhibitionEnabled ?? chapterScenePassages.some((passage) => passage?.eventId === event.id)) && <Link to={`/?scene=${event.id}`}>返回场景展览</Link>}
+            </section>
           ))}
           {relatedEvents[0] && <Link to={`/map?event=${relatedEvents[0].id}&location=${relatedEvents[0].locationIds[0]}${relatedEvents[0].startYear ? `&year=${relatedEvents[0].startYear}` : ''}`}>在地图中查看</Link>}
         </aside>

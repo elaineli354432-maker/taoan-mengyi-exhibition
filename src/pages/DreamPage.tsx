@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ChapterProgress } from '../components/navigation/ChapterProgress'
+import { SceneExhibition } from '../components/exhibition/SceneExhibition'
+import { SceneTrigger } from '../components/exhibition/SceneTrigger'
 import { CuratorialText } from '../components/shared/CuratorialText'
 import { ImageCaption } from '../components/shared/ImageCaption'
 import { ResponsiveImage } from '../components/shared/ResponsiveImage'
@@ -11,7 +13,7 @@ const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as
 function EventMini({ event }: { event: EventRecord }) {
   return (
     <article className="event-mini">
-      <ResponsiveImage image={event.heroImage ?? event.id} alt={event.title} />
+      <SceneTrigger event={event} />
       <div>
         <span>{event.displayDate} · {event.sourceChapter}</span>
         <h3>{event.title}</h3>
@@ -24,16 +26,17 @@ function EventMini({ event }: { event: EventRecord }) {
 function EventStrip({ event, reverse = false }: { event: EventRecord; reverse?: boolean }) {
   return (
     <article className={`event-strip ${reverse ? 'is-reverse' : ''}`}>
-      <ResponsiveImage image={event.heroImage ?? event.id} alt={event.title} />
+      <SceneTrigger event={event} />
       <div>
         <span>{event.displayDate} · {event.sourceChapter}</span>
         <h3>{event.title}</h3>
         <CuratorialText>{event.curatorialText}</CuratorialText>
         <ImageCaption>{event.imageCaption ?? '现有视觉素材重排。'}</ImageCaption>
         <div className="text-links">
+          <Link to={`/?scene=${event.id}`}>场景</Link>
           <Link to={`/timeline?event=${event.id}`}>年谱</Link>
           <Link to={`/map?event=${event.id}`}>行迹</Link>
-          <Link to={`/read?chapter=${event.relatedChapterIds[0] ?? event.id}`}>原文</Link>
+          <Link to={`/read?chapter=${event.relatedChapterIds[0] ?? event.id}`}>完整篇目</Link>
         </div>
       </div>
     </article>
@@ -45,6 +48,7 @@ export function DreamPage() {
   const prosperity = pick(['fengmen', 'jinshan', 'zhongqiu', 'buxiyuan'])
   const huxinting = getEvent('huxinting')!
   const collapse = pick(['lanterns', 'zhaoqing', 'famine', 'roadblock', 'mingwang'])
+  const southMing = pick(['luwang', 'qidream'])
   const writing = pick(['books', 'shanzhong', 'old-zhangdai'])
 
   return (
@@ -83,12 +87,12 @@ export function DreamPage() {
         </header>
         <EventStrip event={prosperity[0]} />
         <article className="night-opera">
-          <ResponsiveImage image={prosperity[1].heroImage ?? prosperity[1].id} alt={prosperity[1].title} />
+          <SceneTrigger event={prosperity[1]} />
           <div>
             <span>{prosperity[1].displayDate} · {prosperity[1].sourceChapter}</span>
             <h3>金山夜戏</h3>
             <p>从黑暗江面到寺院灯火，再到戏曲开始，张岱把一次夜游组织成完整的现场。这里的“痴”尚未显出孤绝，却已经是一种把感受付诸行动的能力。</p>
-            <Link to="/read?chapter=jinshan&event=jinshan">进入篇目</Link>
+            <Link to="/?scene=jinshan">进入场景</Link>
           </div>
         </article>
         <div className="asymmetric-pair">
@@ -104,7 +108,7 @@ export function DreamPage() {
           <p>这一章只把《湖心亭看雪》放在中心。“痴”不是抽象标签，而是愿意亲自进入极端场景、用行动确认感受。</p>
         </header>
         <div className="obsession-layout">
-          <ResponsiveImage image="huxinting" alt="湖心亭雪景" />
+          <SceneTrigger event={huxinting} image="huxinting" alt="湖心亭雪景" />
           <aside>
             {huxinting.originalQuote && <VerifiedQuote quote={huxinting.originalQuote} source="《陶庵梦忆·湖心亭看雪》" />}
             <CuratorialText>{huxinting.curatorialText}</CuratorialText>
@@ -115,6 +119,7 @@ export function DreamPage() {
             </div>
             <div className="text-links">
               <Link to="/read?chapter=huxinting&event=huxinting">阅读《湖心亭看雪》</Link>
+              <Link to="/?scene=huxinting">进入雪中</Link>
               <Link to="/timeline?year=1632&event=huxinting">回到1632年</Link>
             </div>
           </aside>
@@ -135,7 +140,7 @@ export function DreamPage() {
         <div className="collapse-sequence">
           {collapse.map((event, index) => (
             <article className={`collapse-step step-${index + 1}`} key={event.id}>
-              <ResponsiveImage image={event.heroImage ?? event.id} alt={event.title} />
+              <SceneTrigger event={event} />
               <div>
                 <span>{event.displayDate}</span>
                 <h3>{event.title}</h3>
@@ -143,6 +148,34 @@ export function DreamPage() {
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section id="south-ming" className="home-chapter chapter-south-ming">
+        <header className="chapter-head">
+          <span>04B</span>
+          <h2>南明余影</h2>
+          <p>这里不新增历史人物叙事，只复用既有鲁王与祁氏视觉素材：一个外部政治行进，一个内部精神坍塌，把“人间散场”沉降到“以文字存梦”。</p>
+        </header>
+        <div className="south-ming-dual">
+          {southMing.map((event) => (
+            <article key={event.id} className={`south-ming-card south-ming-${event.id}`}>
+              <SceneTrigger event={event} image={event.heroImage ?? event.id} />
+              <div>
+                <span>{event.displayDate} · {event.sourceChapter}</span>
+                <h3>{event.title}</h3>
+                <p>{event.curatorialText}</p>
+                <Link to={`/?scene=${event.id}`}>进入此笺</Link>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="south-ming-flow" aria-label="鲁王过越与祁世培入梦关系">
+          <span>外部行进</span>
+          <span>历史秩序残影</span>
+          <span>内部坍塌</span>
+          <span>空间记忆化</span>
+          <span>以文字存梦</span>
         </div>
       </section>
 
@@ -182,6 +215,7 @@ export function DreamPage() {
           </Link>
         </div>
       </section>
+      <SceneExhibition />
     </main>
   )
 }

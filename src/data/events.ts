@@ -1,3 +1,5 @@
+import { getScenePassageIds } from './scenePassages'
+
 export type DateCertainty = 'exact' | 'inferred' | 'approximate' | 'unknown'
 export type SourceType = 'taoan-mengyi' | 'other-zhangdai-work' | 'historical-source' | 'curatorial'
 
@@ -25,13 +27,15 @@ export interface EventRecord {
   imageCaption?: string
   heroImage?: string
   galleryImages?: string[]
+  scenePassageIds?: string[]
+  sceneExhibitionEnabled?: boolean
   relatedEventIds: string[]
   relatedChapterIds: string[]
   themes: string[]
   weight: 'major' | 'minor'
 }
 
-export const events: EventRecord[] = [
+const eventRecords: EventRecord[] = [
   {
     id: 'xuanyaoting',
     title: '悬杪亭读书',
@@ -336,7 +340,7 @@ export const events: EventRecord[] = [
   },
   {
     id: 'roadblock',
-    title: '行旅道路阻断',
+    title: '香路断绝',
     startYear: 1642,
     endYear: 1643,
     displayDate: '1642前后',
@@ -346,11 +350,13 @@ export const events: EventRecord[] = [
     stageId: 'collapse',
     locationIds: ['jiangnan'],
     personIds: ['zhang-dai'],
-    sourceType: 'historical-source',
-    sourceChapter: '梦忆序',
+    sourceType: 'taoan-mengyi',
+    sourceWork: '陶庵梦忆',
+    sourceVolume: 7,
+    sourceChapter: '西湖香市',
     originalQuoteVerified: false,
-    curatorialText: '张岱曾经自由往来的水路、山寺和城市，被战乱切断。行旅受阻以后，江南不再是一张可随意展开的游赏地图，而变成危险和隔绝的空间。',
-    imageCaption: '道路阻断素材以断线和冷色留白处理。',
+    curatorialText: '香客断绝以后，西湖香市不再只是变冷清，而是失去赖以成立的人流和路线。香路一断，持续数月的市集空间随之废弃。',
+    imageCaption: '香路断绝素材以断线和冷色留白处理。',
     heroImage: 'roadblock',
     relatedEventIds: ['mingwang'],
     relatedChapterIds: ['dream-preface'],
@@ -419,7 +425,7 @@ export const events: EventRecord[] = [
     locationIds: ['shengzhou-shanzhong'],
     personIds: ['zhang-dai'],
     sourceType: 'other-zhangdai-work',
-    sourceChapter: '鹿苑寺方柬',
+    sourceChapter: '鹿苑寺方柿',
     originalQuoteVerified: false,
     curatorialText: '山中小屋、孤灯和残卷让写作变成最后的秩序。张岱不再组织城市生活，却开始整理那些已经无法重来的场景。',
     imageCaption: '山中晚年素材以小屋、孤灯和残卷为主。',
@@ -454,6 +460,69 @@ export const events: EventRecord[] = [
     themes: ['memory', 'writing'],
     weight: 'major',
   },
+  {
+    id: 'luwang',
+    title: '鲁王过越',
+    startYear: 1645,
+    endYear: 1645,
+    displayDate: '1645',
+    dynastyDate: '乙酉',
+    dateCertainty: 'approximate',
+    dateSource: '据项目既有《陶庵梦忆·补遗·鲁王》专题材料整理，纪年待核。',
+    ageDisplay: '四十九岁前后',
+    stageId: 'collapse',
+    locationIds: ['shaoxing-shanyin'],
+    personIds: ['zhang-dai', 'lu-wang-zhu-yihai', 'chen-hongshou'],
+    sourceType: 'other-zhangdai-work',
+    sourceWork: '陶庵梦忆补',
+    sourceChapter: '鲁王',
+    originalQuote: '岱接驾，无所考仪注，以意为之。',
+    originalQuoteVerified: false,
+    curatorialText: '鲁王过越不是新增南明史章节，而是复用既有鲁王素材形成的外层过渡：行进、经过、停驻之间，短暂显出旧礼制与旧秩序的残影。',
+    imageCaption: '复用项目既有鲁王到来越中、设座、献膳与戏台素材。',
+    heroImage: '/images/lu-wang-arrival.png',
+    galleryImages: ['/images/lu-wang-banquet.png', '/images/lu-wang-offering.png', '/images/lu-wang-opera-mud-horse.png', '/images/lu-wang-night-exit.png'],
+    relatedEventIds: ['mingwang', 'qidream'],
+    relatedChapterIds: ['luwang'],
+    themes: ['southern-ming', 'procession', 'ritual-shadow'],
+    weight: 'minor',
+  },
+  {
+    id: 'qidream',
+    title: '祁世培入梦',
+    startYear: 1646,
+    endYear: 1646,
+    displayDate: '1646前后',
+    dynastyDate: '丙戌',
+    dateCertainty: 'approximate',
+    dateSource: '据项目既有《陶庵梦忆·补遗·祁世培》专题材料整理，纪年待核。',
+    ageDisplay: '五十岁前后',
+    stageId: 'collapse',
+    locationIds: ['shengzhou-shanzhong'],
+    personIds: ['zhang-dai', 'qi-biaojia'],
+    sourceType: 'other-zhangdai-work',
+    sourceWork: '陶庵梦忆补',
+    sourceChapter: '祁世培',
+    originalQuote: '世培曰：“天下事至此，已不可为矣。”',
+    originalQuoteVerified: false,
+    curatorialText: '祁世培入梦在本轮作为“空间记忆”容器使用：不新增人物肖像，不重建人物关系，只复用既有祁氏梦境素材，表现园林、旅店、星落与著史使命之间的心理沉降。',
+    imageCaption: '复用项目既有祁氏/祁世培梦境图像体系。',
+    heroImage: '/images/qi-dream-shikui-whisper.png',
+    galleryImages: ['/images/qi-dream-blue-servant.png', '/images/qi-dream-white-entry.png', '/images/qi-dream-dialogue.png', '/images/qi-dream-falling-stars.png'],
+    relatedEventIds: ['luwang', 'old-zhangdai'],
+    relatedChapterIds: ['qidream'],
+    themes: ['dream', 'space-memory', 'writing'],
+    weight: 'major',
+  },
 ]
+
+export const events: EventRecord[] = eventRecords.map((event) => {
+  const scenePassageIds = getScenePassageIds(event.id)
+  return {
+    ...event,
+    scenePassageIds,
+    sceneExhibitionEnabled: scenePassageIds.length > 0,
+  }
+})
 
 export const getEvent = (id: string) => events.find((event) => event.id === id)

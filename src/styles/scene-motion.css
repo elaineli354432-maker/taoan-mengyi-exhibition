@@ -1,0 +1,62 @@
+.scene-exhibition {
+  animation: sceneEnter .28s ease both;
+}
+
+.scene-artwork img {
+  animation: sceneImageEnter .7s ease both;
+}
+
+.scene-passage-panel {
+  animation: passageEnter .55s ease both;
+}
+
+.scene-passage-panel blockquote {
+  animation: inkEnter .9s ease both;
+}
+
+@keyframes sceneEnter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sceneImageEnter {
+  from { transform: scale(calc(var(--focus-scale) - .04)); }
+  to { transform: scale(var(--focus-scale)); }
+}
+
+@keyframes passageEnter {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes inkEnter {
+  from {
+    opacity: 0;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-exhibition,
+  .scene-artwork img,
+  .scene-passage-panel,
+  .scene-passage-panel blockquote,
+  .scene-trigger-cue {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .scene-artwork img {
+    transform: none !important;
+  }
+}

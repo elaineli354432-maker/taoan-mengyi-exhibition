@@ -35,7 +35,7 @@ export function ResponsiveImage({
   priority?: boolean
   className?: string
 }) {
-  const src = assetUrl(imagePaths[image] ?? imagePaths.cover)
+  const src = assetUrl(imagePaths[image] ?? (image.startsWith('/images/') ? image : imagePaths.cover))
   return (
     <figure className={`responsive-image ${className}`} style={{ '--image-src': `url("${src}")` } as CSSProperties}>
       <img src={src} alt={alt} width="1600" height="900" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />
