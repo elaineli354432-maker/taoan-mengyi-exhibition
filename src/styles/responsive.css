@@ -45,6 +45,26 @@
   .home-guide-actions {
     flex-direction: column;
   }
+  .act-tour-title {
+    margin-left: 20px;
+    padding-left: 28px;
+    padding-right: 22px;
+  }
+  .act-tour-title h1 {
+    font-size: clamp(54px, 17vw, 86px);
+  }
+  .act-tour-title p {
+    font-size: 18px;
+  }
+  .act-tour-image > div {
+    left: 22px;
+    right: 22px;
+    bottom: 96px;
+    width: auto;
+  }
+  .act-tour-image h2 {
+    font-size: clamp(40px, 14vw, 64px);
+  }
   .home-chapter,
   .archive-entrances,
   .sub-page {

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 import { ChapterProgress } from '../components/navigation/ChapterProgress'
 import { SceneExhibition } from '../components/exhibition/SceneExhibition'
 import { SceneTrigger } from '../components/exhibition/SceneTrigger'
@@ -10,6 +11,7 @@ import { ResponsiveImage } from '../components/shared/ResponsiveImage'
 import { VerifiedQuote } from '../components/shared/VerifiedQuote'
 import { events, getEvent, type EventRecord } from '../data/events'
 import { getScenePassages } from '../data/scenePassages'
+import { sceneImageUrl } from '../components/exhibition/sceneImage'
 
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
 
@@ -64,6 +66,54 @@ function EventStrip({ event, reverse = false }: { event: EventRecord; reverse?: 
   )
 }
 
+function ActTour({ formation }: { formation: EventRecord[] }) {
+  const [params, setParams] = useSearchParams()
+  const navigate = useNavigate()
+  if (params.get('tour') !== 'formation') return null
+
+  const requestedStep = Number(params.get('step') ?? 0)
+  const total = formation.length + 1
+  const step = Math.min(Math.max(Number.isFinite(requestedStep) ? requestedStep : 0, 0), total - 1)
+  const event = step > 0 ? formation[step - 1] : undefined
+
+  const setStep = (nextStep: number) => {
+    const wrapped = (nextStep + total) % total
+    setParams(new URLSearchParams({ tour: 'formation', step: String(wrapped) }))
+  }
+
+  return (
+    <section className={`act-tour ${step === 0 ? 'is-title' : 'is-image'}`} role="dialog" aria-modal="true" aria-label="感官的形成专场">
+      <div className="act-tour-topbar">
+        <button type="button" onClick={() => navigate({ pathname: '/', search: '' })} aria-label="退出专场"><X size={18} aria-hidden="true" />退出</button>
+        <span>{String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+      </div>
+
+      {step === 0 ? (
+        <article className="act-tour-title">
+          <span>01</span>
+          <h1>感官的形成</h1>
+          <p>张岱后来能敏锐记录声音、光线、器物和空间，不是偶然才情，而是童年书斋、园林、茶事与琴社长期训练出的辨别力。</p>
+        </article>
+      ) : event && (
+        <article className="act-tour-image">
+          <img src={sceneImageUrl(event.heroImage ?? event.id)} alt={event.title} />
+          <div>
+            <span>{event.displayDate} · {event.sourceChapter}</span>
+            <h2>{event.title}</h2>
+            <p>{event.curatorialText}</p>
+            <Link to={`/?scene=${event.id}&passage=1`}>进入此景</Link>
+          </div>
+        </article>
+      )}
+
+      <div className="act-tour-arrows">
+        <button type="button" onClick={() => setStep(step - 1)} aria-label="上一场"><ArrowLeft size={18} aria-hidden="true" /></button>
+        <button type="button" onClick={() => setStep(step + 1)} aria-label="下一场"><ArrowRight size={18} aria-hidden="true" /></button>
+      </div>
+    </section>
+  )
+}
+
 export function DreamPage() {
   const [guideOpen, setGuideOpen] = useState(false)
   const navigate = useNavigate()
@@ -76,12 +126,13 @@ export function DreamPage() {
 
   const enterFirstAct = () => {
     setGuideOpen(false)
-    navigate({ pathname: '/', search: 'scene=xuanyaoting&passage=1' })
+    navigate({ pathname: '/', search: 'tour=formation&step=0' })
   }
 
   return (
     <main className="home-page">
       <ChapterProgress />
+      <ActTour formation={formation} />
 
       <section id="top" className={`dream-hero ${guideOpen ? 'guide-open' : ''}`} onClick={() => setGuideOpen(true)}>
         <ResponsiveImage image="huxinting" alt="湖心亭雪景" priority />
