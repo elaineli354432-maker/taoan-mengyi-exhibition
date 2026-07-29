@@ -27,6 +27,8 @@ export function SceneExhibition() {
   const sceneId = params.get('scene')
   const passageParam = Number(params.get('passage') ?? 0)
   const readingParam = params.get('reading')
+  const returnTour = params.get('returnTour')
+  const returnStep = params.get('returnStep')
   const event = sceneId ? getEvent(sceneId) : undefined
   const passages = useMemo(() => sceneId ? getScenePassages(sceneId) : [], [sceneId])
   const activeIndex = Math.min(Math.max((passageParam || 1) - 1, 0), Math.max(passages.length - 1, 0))
@@ -49,6 +51,12 @@ export function SceneExhibition() {
   }
 
   const close = () => {
+    if (returnTour) {
+      const next = new URLSearchParams({ tour: returnTour })
+      if (returnStep) next.set('step', returnStep)
+      navigate({ pathname: '/', search: next.toString() })
+      return
+    }
     navigate({ pathname: '/', search: '' })
   }
 

@@ -128,7 +128,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
             <span>{event.displayDate} · {event.sourceChapter}</span>
             <h2>{event.title}</h2>
             <p>{event.curatorialText}</p>
-            <Link to={`/?scene=${event.id}&passage=1`}>进入此景</Link>
+            <Link to={`/?scene=${event.id}&passage=1&returnTour=${act.id}&returnStep=${step}`}>进入此景</Link>
           </div>
         </article>
       )}
