@@ -10,10 +10,14 @@ type MapMode = 'place' | 'year' | 'stage'
 
 const mapLocations = locations.filter((location) => typeof location.svgX === 'number' && typeof location.svgY === 'number')
 
-function eventCoversYear(event: (typeof events)[number], year: number) {
-  if (event.startYear === null) return false
-  const endYear = event.endYear ?? event.startYear
-  return event.startYear <= year && year <= endYear
+function eventReachedByYear(event: (typeof events)[number], year: number) {
+  return event.startYear !== null && event.startYear <= year
+}
+
+function latestEventByYear(year: number) {
+  return [...events]
+    .filter((event) => eventReachedByYear(event, year))
+    .sort((a, b) => (b.startYear ?? 0) - (a.startYear ?? 0))[0]
 }
 
 export function MapPage() {
@@ -39,11 +43,21 @@ export function MapPage() {
       setLocationId(nextLocation.id)
       setEventId('')
     }
-    if (Number.isFinite(requestedYear)) setYear(requestedYear!)
+    if (Number.isFinite(requestedYear)) {
+      setMode('year')
+      setYear(requestedYear!)
+      if (!nextEvent) {
+        const latest = latestEventByYear(requestedYear!)
+        if (latest) {
+          setEventId(latest.id)
+          setLocationId(latest.locationIds[0])
+        }
+      }
+    }
   }, [requestedEvent, requestedLocation, requestedYear])
 
   const filteredEvents = useMemo(() => {
-    if (mode === 'year') return events.filter((event) => eventCoversYear(event, year))
+    if (mode === 'year') return events.filter((event) => eventReachedByYear(event, year))
     if (mode === 'stage') {
       const selected = eventId ? getEvent(eventId) : undefined
       return selected ? events.filter((event) => event.stageId === selected.stageId) : events.filter((event) => event.stageId === 'prosperity')
@@ -51,9 +65,32 @@ export function MapPage() {
     return events
   }, [mode, year, eventId])
 
+  const visibleLocationIds = useMemo(() => new Set(filteredEvents.flatMap((event) => event.locationIds)), [filteredEvents])
   const relatedEvents = filteredEvents.filter((event) => event.locationIds.includes(location.id))
 
+  const enterYearMode = () => {
+    setMode('year')
+    const latest = latestEventByYear(year)
+    if (!latest) return
+    setEventId(latest.id)
+    setLocationId(latest.locationIds[0])
+    setParams(new URLSearchParams({ year: String(year), event: latest.id, location: latest.locationIds[0] }))
+  }
+
+  const chooseYear = (nextYear: number) => {
+    setYear(nextYear)
+    const latest = latestEventByYear(nextYear)
+    if (!latest) {
+      setParams(new URLSearchParams({ year: String(nextYear) }))
+      return
+    }
+    setEventId(latest.id)
+    setLocationId(latest.locationIds[0])
+    setParams(new URLSearchParams({ year: String(nextYear), event: latest.id, location: latest.locationIds[0] }))
+  }
+
   const chooseLocation = (id: string) => {
+    if (mode === 'year' && !visibleLocationIds.has(id)) return
     setLocationId(id)
     setEventId('')
     const next = new URLSearchParams({ location: id })
@@ -81,9 +118,9 @@ export function MapPage() {
 
       <div className="map-controls">
         <button className={mode === 'place' ? 'on' : ''} onClick={() => setMode('place')}>地点模式</button>
-        <button className={mode === 'year' ? 'on' : ''} onClick={() => setMode('year')}>年代模式</button>
+        <button className={mode === 'year' ? 'on' : ''} onClick={enterYearMode}>年代模式</button>
         <button className={mode === 'stage' ? 'on' : ''} onClick={() => setMode('stage')}>人生阶段</button>
-        {mode === 'year' && <input type="range" min="1600" max="1646" value={year} onChange={(event) => setYear(Number(event.target.value))} aria-label="年份" />}
+        {mode === 'year' && <input type="range" min="1600" max="1646" value={year} onChange={(event) => chooseYear(Number(event.target.value))} aria-label="年份" />}
         {mode === 'year' && <strong>{year}</strong>}
       </div>
 
@@ -95,7 +132,7 @@ export function MapPage() {
           </svg>
           {mapLocations.map((item) => (
             <button
-              className={item.id === location.id ? 'active' : ''}
+              className={`${item.id === location.id ? 'active' : ''} ${mode === 'year' && !visibleLocationIds.has(item.id) ? 'muted' : ''} ${mode === 'year' && visibleLocationIds.has(item.id) ? 'visible-year' : ''}`}
               style={{ left: `${item.svgX}%`, top: `${item.svgY}%` }}
               onClick={() => chooseLocation(item.id)}
               key={item.id}

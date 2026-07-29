@@ -47,6 +47,7 @@
   background: transparent;
   color: var(--deep-green);
   padding: 0;
+  transition: opacity .2s ease, filter .2s ease, transform .2s ease;
 }
 .map-canvas > button i {
   display: block;
@@ -59,6 +60,20 @@
 }
 .map-canvas > button.active i {
   background: var(--accent-red);
+}
+.map-canvas > button.visible-year i {
+  box-shadow: 0 0 0 6px rgba(154, 74, 63, .12);
+}
+.map-canvas > button.muted {
+  opacity: .24;
+  filter: grayscale(1);
+  cursor: default;
+}
+.map-canvas > button.muted i {
+  border-color: #8f9690;
+}
+.map-canvas > button.muted span {
+  color: #7d857f;
 }
 .map-canvas > button span {
   display: block;
