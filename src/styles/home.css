@@ -331,3 +331,173 @@
   color: var(--text-secondary);
   line-height: 1.8;
 }
+
+@supports selector(html:has(.home-page)) {
+  html:has(.home-page) {
+    scroll-snap-type: y proximity;
+  }
+}
+
+.home-page {
+  background:
+    linear-gradient(180deg, #f2efe8 0%, #ece8df 26%, #172420 50%, #dce3df 73%, #d9dfdc 100%);
+}
+
+.dream-hero,
+.home-chapter,
+.archive-entrances {
+  scroll-snap-align: start;
+  scroll-margin-top: 72px;
+}
+
+.home-chapter,
+.archive-entrances {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  overflow: hidden;
+  padding-top: clamp(96px, 12vw, 170px);
+  padding-bottom: clamp(96px, 12vw, 170px);
+}
+
+.home-chapter::before,
+.archive-entrances::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.24), transparent 18%, transparent 78%, rgba(18,28,25,.08)),
+    radial-gradient(circle at 18% 12%, rgba(255,255,255,.22), transparent 28%),
+    radial-gradient(circle at 82% 88%, rgba(154,74,63,.08), transparent 30%);
+}
+
+.home-chapter > *,
+.archive-entrances > * {
+  position: relative;
+  z-index: 1;
+}
+
+.chapter-head {
+  margin-bottom: clamp(38px, 5vw, 72px);
+}
+
+.chapter-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chapter-head span::after {
+  content: "";
+  width: 54px;
+  height: 1px;
+  background: currentColor;
+  opacity: .42;
+}
+
+.event-strip,
+.obsession-layout,
+.collapse-step,
+.south-ming-card,
+.writing-layout .event-strip {
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 34px 90px rgba(28, 34, 31, .12);
+  backdrop-filter: blur(4px);
+}
+
+.event-strip {
+  min-height: min(72svh, 760px);
+  background: rgba(247, 243, 234, .62);
+}
+
+.event-strip .responsive-image,
+.event-strip > .scene-trigger {
+  min-height: min(72svh, 760px);
+}
+
+.detail-grid,
+.obsession-branches,
+.archive-entrances > div {
+  gap: clamp(14px, 2vw, 26px);
+  background: transparent;
+}
+
+.event-mini,
+.obsession-branch-card,
+.archive-entrances a {
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow: 0 20px 52px rgba(28, 34, 31, .1);
+}
+
+.event-mini {
+  background: rgba(247, 243, 234, .68);
+}
+
+.night-opera {
+  width: 100vw;
+  margin: clamp(48px, 7vw, 90px) calc(50% - 50vw);
+  min-height: 100svh;
+  border-top: 1px solid rgba(255,255,255,.16);
+  border-bottom: 1px solid rgba(255,255,255,.16);
+}
+
+.chapter-obsession {
+  background:
+    linear-gradient(180deg, #233330 0%, #172420 34%, #14201d 100%);
+}
+
+.obsession-layout {
+  min-height: 78svh;
+  background: rgba(15, 28, 25, .78);
+}
+
+.obsession-layout .responsive-image,
+.obsession-layout > .scene-trigger {
+  min-height: 78svh;
+}
+
+.chapter-collapse {
+  background:
+    linear-gradient(180deg, #e7e4db 0%, #dce3df 52%, #d4dcd8 100%);
+}
+
+.collapse-sequence {
+  gap: clamp(18px, 3vw, 40px);
+}
+
+.collapse-step {
+  min-height: 56svh;
+  background: rgba(247, 243, 234, .58);
+}
+
+.collapse-step .responsive-image,
+.collapse-step > .scene-trigger {
+  min-height: 56svh;
+}
+
+.chapter-south-ming {
+  background:
+    linear-gradient(180deg, #d4dcd8 0%, #cfd8d4 42%, #d9dfdc 100%);
+}
+
+.south-ming-dual {
+  gap: clamp(16px, 2vw, 28px);
+  background: transparent;
+}
+
+.south-ming-card {
+  background: rgba(247, 243, 234, .62);
+}
+
+.chapter-writing {
+  background:
+    linear-gradient(180deg, #d9dfdc 0%, #e5e7df 55%, #f2efe8 100%);
+}
+
+.archive-entrances {
+  background:
+    linear-gradient(180deg, #f2efe8 0%, #ece8df 100%);
+}
