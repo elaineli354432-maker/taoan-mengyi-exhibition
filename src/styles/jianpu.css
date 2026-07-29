@@ -61,11 +61,9 @@
   min-height: clamp(320px, 42svh, 560px);
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(248,252,244,.48), rgba(255,255,255,.06) 42%, rgba(33,119,136,.1)),
-    linear-gradient(90deg, rgba(31,119,140,.3), rgba(75,158,126,.26) 44%, rgba(202,154,72,.08)),
-    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
-    #eaf3e9;
-  background-blend-mode: screen, color, multiply, normal;
+    linear-gradient(90deg, rgba(255,255,255,.1), transparent 42%, rgba(255,255,255,.22)),
+    url('/images/jianpu/transition-uploaded-bg.png') center 42% / cover no-repeat,
+    #f1eee8;
   scroll-snap-align: center;
 }
 
@@ -78,20 +76,14 @@
 }
 
 .shizhuzhai-transition::before {
-  opacity: .28;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,0) 44%, rgba(223,240,228,.16)),
-    radial-gradient(ellipse at 28% 42%, rgba(239,250,242,.45), transparent 34%),
-    radial-gradient(ellipse at 74% 38%, rgba(232,248,240,.38), transparent 32%);
-  mix-blend-mode: screen;
+  opacity: .18;
+  background: linear-gradient(180deg, rgba(255,255,255,.32), transparent 50%, rgba(255,255,255,.12));
+  mix-blend-mode: normal;
 }
 
 .shizhuzhai-transition::after {
-  opacity: .26;
-  background:
-    radial-gradient(ellipse at 36% 92%, rgba(28,104,124,.2), transparent 30%),
-    radial-gradient(ellipse at 70% 90%, rgba(62,139,111,.16), transparent 34%),
-    linear-gradient(90deg, rgba(255,255,255,.14), transparent 42%, rgba(255,255,255,.2));
+  opacity: .08;
+  background: linear-gradient(180deg, transparent 0 60%, rgba(76,90,82,.18));
   mix-blend-mode: multiply;
 }
 
@@ -153,24 +145,20 @@
 
 .shizhuzhai-bamboo {
   background:
-    linear-gradient(180deg, rgba(248,252,244,.5), rgba(255,255,255,.08) 44%, rgba(55,143,118,.14)),
-    linear-gradient(90deg, rgba(31,119,140,.26), rgba(75,158,126,.32) 48%, rgba(202,154,72,.08)),
-    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
-    #eaf4e8;
-  background-blend-mode: screen, color, multiply, normal;
+    linear-gradient(90deg, rgba(255,255,255,.08), transparent 46%, rgba(255,255,255,.22)),
+    url('/images/jianpu/transition-uploaded-bg.png') center 42% / cover no-repeat,
+    #f1eee8;
 }
 
 .shizhuzhai-bamboo::after {
-  background: linear-gradient(90deg, transparent 0 56%, rgba(240,250,242,.24));
+  background: linear-gradient(90deg, transparent 0 56%, rgba(255,255,255,.18));
 }
 
 .shizhuzhai-snow {
   background:
-    linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.08) 42%, rgba(32,122,146,.12)),
-    linear-gradient(90deg, rgba(35,126,151,.28), rgba(78,154,137,.18) 48%, rgba(255,255,255,.1)),
-    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
-    #edf5f1;
-  background-blend-mode: screen, color, multiply, normal;
+    linear-gradient(90deg, rgba(255,255,255,.12), transparent 46%, rgba(255,255,255,.24)),
+    url('/images/jianpu/transition-uploaded-bg.png') center 42% / cover no-repeat,
+    #f2f0eb;
 }
 
 .shizhuzhai-snow::after {
@@ -179,11 +167,9 @@
 
 .shizhuzhai-loss {
   background:
-    linear-gradient(180deg, rgba(247,250,243,.34), rgba(255,255,255,.04) 42%, rgba(30,111,126,.16)),
-    linear-gradient(90deg, rgba(24,96,118,.32), rgba(54,134,112,.24) 48%, rgba(162,112,58,.08)),
-    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
-    #e6eee8;
-  background-blend-mode: screen, color, multiply, normal;
+    linear-gradient(90deg, rgba(255,255,255,.08), transparent 44%, rgba(255,255,255,.2)),
+    url('/images/jianpu/transition-uploaded-bg.png') center 42% / cover no-repeat,
+    #ece9e3;
 }
 
 .shizhuzhai-loss::after {
@@ -192,11 +178,9 @@
 
 .shizhuzhai-blank {
   background:
-    linear-gradient(180deg, rgba(250,253,248,.46), rgba(255,255,255,.08) 42%, rgba(55,143,118,.1)),
-    linear-gradient(90deg, rgba(31,119,140,.24), rgba(75,158,126,.24) 48%, rgba(202,154,72,.06)),
-    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
-    #edf4e9;
-  background-blend-mode: screen, color, multiply, normal;
+    linear-gradient(90deg, rgba(255,255,255,.1), transparent 46%, rgba(255,255,255,.22)),
+    url('/images/jianpu/transition-uploaded-bg.png') center 42% / cover no-repeat,
+    #f1eee8;
 }
 
 .shizhuzhai-blank::after {
