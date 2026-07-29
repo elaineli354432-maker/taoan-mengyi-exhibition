@@ -755,6 +755,69 @@
   line-height: 1.95;
 }
 
+.act-tour-ending {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: max(90px, 12vh) max(28px, 10vw);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(154, 74, 63, .12), transparent 26%),
+    linear-gradient(90deg, rgba(244, 241, 234, .98), rgba(244, 241, 234, .88)),
+    url('/images/old-zhangdai.png') center / cover;
+  color: #242624;
+}
+
+.act-tour-ending::before {
+  content: "";
+  position: absolute;
+  inset: max(34px, 5vw);
+  border-left: 1px solid rgba(154, 74, 63, .28);
+  border-bottom: 1px solid rgba(154, 74, 63, .16);
+  pointer-events: none;
+}
+
+.act-tour-ending span {
+  position: relative;
+  color: #9a4a3f;
+  font: 14px/1.2 var(--sans);
+  letter-spacing: .18em;
+  margin-bottom: clamp(24px, 5vh, 50px);
+}
+
+.act-tour-ending h1 {
+  position: relative;
+  margin: 0 0 26px;
+  max-width: 980px;
+  font-size: clamp(58px, 7vw, 118px);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: .08em;
+}
+
+.act-tour-ending p {
+  position: relative;
+  max-width: 880px;
+  color: #5f6862;
+  font-size: clamp(18px, 1.8vw, 27px);
+  line-height: 2;
+}
+
+.act-tour-ending button {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 34px;
+  border: 1px solid rgba(154, 74, 63, .36);
+  background: rgba(244, 241, 234, .68);
+  color: #9a4a3f;
+  min-height: 48px;
+  padding: 0 22px;
+  font: 13px/1.2 var(--sans);
+  letter-spacing: .12em;
+  backdrop-filter: blur(12px);
+}
+
 .act-tour-image {
   position: relative;
   min-height: 100svh;

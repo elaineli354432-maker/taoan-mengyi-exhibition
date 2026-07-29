@@ -102,12 +102,45 @@ const passageSlides = (sceneId: string, event: EventRecord): TourSlide[] =>
     passageOrder: passage.order,
   }))
 
+const TOUR_END_ID = 'ending'
+
 function ActTour({ acts }: { acts: TourAct[] }) {
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
   const tourId = params.get('tour')
   const actIndex = acts.findIndex((act) => act.id === tourId)
   const act = actIndex >= 0 ? acts[actIndex] : undefined
+  const isEnding = tourId === TOUR_END_ID
+  if (!act && !isEnding) return null
+
+  const enterHome = () => navigate({ pathname: '/', search: '' })
+  const returnToFinalSlide = () => {
+    const finalAct = acts[acts.length - 1]
+    setParams(new URLSearchParams({ tour: finalAct.id, step: String(finalAct.slides.length) }))
+  }
+
+  if (isEnding) {
+    return (
+      <section className="act-tour is-ending" role="dialog" aria-modal="true" aria-label="展览结束">
+        <div className="act-tour-topbar">
+          <button type="button" onClick={enterHome} aria-label="进入网站主页"><X size={18} aria-hidden="true" />进入主页</button>
+          <span>展览结束</span>
+        </div>
+
+        <article className="act-tour-ending">
+          <span>终章</span>
+          <h1>梦醒仍在文字中</h1>
+          <p>五幕至此收束：感官、生活、痴念、散场与书写，都回到《陶庵梦忆》这一册记忆的容器。接下来进入网站主页，可重新选择章节、年谱、行迹与完整阅读。</p>
+          <button type="button" onClick={enterHome}>进入网站主页</button>
+        </article>
+
+        <div className="act-tour-arrows">
+          <button type="button" onClick={returnToFinalSlide} aria-label="回到上一幕"><ArrowLeft size={18} aria-hidden="true" /></button>
+          <button type="button" onClick={enterHome} aria-label="进入网站主页"><ArrowRight size={18} aria-hidden="true" /></button>
+        </div>
+      </section>
+    )
+  }
   if (!act) return null
 
   const requestedStep = Number(params.get('step') ?? 0)
@@ -125,6 +158,10 @@ function ActTour({ acts }: { acts: TourAct[] }) {
 
   const setStep = (nextStep: number) => {
     if (nextStep >= total) {
+      if (actIndex === acts.length - 1) {
+        setParams(new URLSearchParams({ tour: TOUR_END_ID }))
+        return
+      }
       openActStep(actIndex + 1, 0)
       return
     }
