@@ -7,8 +7,27 @@ import { ImageCaption } from '../components/shared/ImageCaption'
 import { ResponsiveImage } from '../components/shared/ResponsiveImage'
 import { VerifiedQuote } from '../components/shared/VerifiedQuote'
 import { events, getEvent, type EventRecord } from '../data/events'
+import { getScenePassages } from '../data/scenePassages'
 
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
+
+const obsessionBranchMeta: Record<string, { title: string; image: string; note: string }> = {
+  lanxue: {
+    title: '为茶而痴',
+    image: '/images/tea-obsession.png',
+    note: '辨水、候火和择器，使“痴”落在味觉细节。',
+  },
+  qinpai: {
+    title: '为琴而痴',
+    image: '/images/qin-obsession.png',
+    note: '琴社让听觉训练与社交组织相互支撑。',
+  },
+  buxiyuan: {
+    title: '为园林而痴',
+    image: '/images/garden-obsession.png',
+    note: '园林把审美安排为可居可游的日常。',
+  },
+}
 
 function EventMini({ event }: { event: EventRecord }) {
   return (
@@ -125,9 +144,22 @@ export function DreamPage() {
           </aside>
         </div>
         <div className="obsession-branches">
-          {pick(['lanxue', 'qinpai', 'buxiyuan']).map((event) => (
-            <p key={event.id}><strong>{event.title}</strong>{event.themes.includes('tea') ? '辨水、候火和择器，使“痴”落在味觉细节。' : event.themes.includes('music') ? '琴社让听觉训练与社交组织相互支撑。' : '园林把审美安排为可居可游的日常。'}</p>
-          ))}
+          {pick(['lanxue', 'qinpai', 'buxiyuan']).map((event) => {
+            const branch = obsessionBranchMeta[event.id]
+            const passage = getScenePassages(event.id)[0]
+            return (
+              <article className="obsession-branch-card" key={event.id}>
+                <SceneTrigger event={event} image={branch.image} alt={branch.title} />
+                <div>
+                  <span>{event.displayDate} · {event.sourceChapter}</span>
+                  <h3>{branch.title}</h3>
+                  <p>{branch.note}</p>
+                  {passage && <blockquote>{passage.originalText}</blockquote>}
+                  <Link to={`/?scene=${event.id}`}>进入旁笺</Link>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </section>
 
