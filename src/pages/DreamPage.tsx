@@ -66,33 +66,60 @@ function EventStrip({ event, reverse = false }: { event: EventRecord; reverse?: 
   )
 }
 
-function ActTour({ formation }: { formation: EventRecord[] }) {
+type TourAct = {
+  id: string
+  number: string
+  title: string
+  description: string
+  events: EventRecord[]
+}
+
+function ActTour({ acts }: { acts: TourAct[] }) {
   const [params, setParams] = useSearchParams()
   const navigate = useNavigate()
-  if (params.get('tour') !== 'formation') return null
+  const tourId = params.get('tour')
+  const actIndex = acts.findIndex((act) => act.id === tourId)
+  const act = actIndex >= 0 ? acts[actIndex] : undefined
+  if (!act) return null
 
   const requestedStep = Number(params.get('step') ?? 0)
-  const total = formation.length + 1
+  const total = act.events.length + 1
   const step = Math.min(Math.max(Number.isFinite(requestedStep) ? requestedStep : 0, 0), total - 1)
-  const event = step > 0 ? formation[step - 1] : undefined
+  const event = step > 0 ? act.events[step - 1] : undefined
+
+  const openActStep = (nextActIndex: number, nextStep: number) => {
+    const wrappedActIndex = (nextActIndex + acts.length) % acts.length
+    const nextAct = acts[wrappedActIndex]
+    const nextTotal = nextAct.events.length + 1
+    const wrappedStep = (nextStep + nextTotal) % nextTotal
+    setParams(new URLSearchParams({ tour: nextAct.id, step: String(wrappedStep) }))
+  }
 
   const setStep = (nextStep: number) => {
-    const wrapped = (nextStep + total) % total
-    setParams(new URLSearchParams({ tour: 'formation', step: String(wrapped) }))
+    if (nextStep >= total) {
+      openActStep(actIndex + 1, 0)
+      return
+    }
+    if (nextStep < 0) {
+      const previousActIndex = (actIndex - 1 + acts.length) % acts.length
+      openActStep(previousActIndex, acts[previousActIndex].events.length)
+      return
+    }
+    setParams(new URLSearchParams({ tour: act.id, step: String(nextStep) }))
   }
 
   return (
-    <section className={`act-tour ${step === 0 ? 'is-title' : 'is-image'}`} role="dialog" aria-modal="true" aria-label="感官的形成专场">
+    <section className={`act-tour ${step === 0 ? 'is-title' : 'is-image'}`} role="dialog" aria-modal="true" aria-label={`${act.title}专场`}>
       <div className="act-tour-topbar">
         <button type="button" onClick={() => navigate({ pathname: '/', search: '' })} aria-label="退出专场"><X size={18} aria-hidden="true" />退出</button>
-        <span>{String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
+        <span>{act.number} · {String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
       </div>
 
       {step === 0 ? (
         <article className="act-tour-title">
-          <span>01</span>
-          <h1>感官的形成</h1>
-          <p>张岱后来能敏锐记录声音、光线、器物和空间，不是偶然才情，而是童年书斋、园林、茶事与琴社长期训练出的辨别力。</p>
+          <span>{act.number}</span>
+          <h1>{act.title}</h1>
+          <p>{act.description}</p>
         </article>
       ) : event && (
         <article className="act-tour-image">
@@ -123,6 +150,50 @@ export function DreamPage() {
   const collapse = pick(['lanterns', 'zhaoqing', 'famine', 'roadblock', 'mingwang'])
   const southMing = pick(['luwang', 'qidream'])
   const writing = pick(['books', 'shanzhong', 'old-zhangdai'])
+  const tourActs: TourAct[] = [
+    {
+      id: 'formation',
+      number: '01',
+      title: '感官的形成',
+      description: '张岱后来能敏锐记录声音、光线、器物和空间，不是偶然才情，而是童年书斋、园林、茶事与琴社长期训练出的辨别力。',
+      events: formation,
+    },
+    {
+      id: 'prosperity',
+      number: '02',
+      title: '创造一种生活',
+      description: '张岱不是晚明生活的旁观者。他组织戏曲、雅集、游赏和园林，把审美变成一套可以被实践的生活方式。',
+      events: prosperity,
+    },
+    {
+      id: 'obsession',
+      number: '03',
+      title: '天地一痴人',
+      description: '痴，不是一种标签，而是一种用行动进入世界的方法。湖心亭是主轴，茶、琴、园只是它的旁笺。',
+      events: [huxinting, ...pick(['lanxue', 'qinpai', 'buxiyuan'])],
+    },
+    {
+      id: 'collapse',
+      number: '04',
+      title: '人间散场',
+      description: '灯景、寺火、饥荒、香路断绝与国破家亡，让城市生活逐渐失去支撑。',
+      events: collapse,
+    },
+    {
+      id: 'south-ming',
+      number: '04B',
+      title: '南明余影',
+      description: '鲁王过越是外部政治行进，祁世培入梦是内部精神坍塌。两者共同通向“以文字存梦”。',
+      events: southMing,
+    },
+    {
+      id: 'writing',
+      number: '05',
+      title: '以文字存梦',
+      description: '当园林、藏书、城市和交游消失之后，写作成为张岱保存感官世界的方式。',
+      events: writing,
+    },
+  ]
 
   const enterFirstAct = () => {
     setGuideOpen(false)
@@ -132,7 +203,7 @@ export function DreamPage() {
   return (
     <main className="home-page">
       <ChapterProgress />
-      <ActTour formation={formation} />
+      <ActTour acts={tourActs} />
 
       <section id="top" className={`dream-hero ${guideOpen ? 'guide-open' : ''}`} onClick={() => setGuideOpen(true)}>
         <ResponsiveImage image="huxinting" alt="湖心亭雪景" priority />
@@ -153,12 +224,11 @@ export function DreamPage() {
               <span>先看结构，或直接进入第一幕满屏展厅。</span>
             </div>
             <nav aria-label="主展结构">
-              <a href="#formation" onClick={() => setGuideOpen(false)}>01 感官的形成</a>
-              <a href="#prosperity" onClick={() => setGuideOpen(false)}>02 创造一种生活</a>
-              <a href="#obsession" onClick={() => setGuideOpen(false)}>03 天地一痴人</a>
-              <a href="#collapse" onClick={() => setGuideOpen(false)}>04 人间散场</a>
-              <a href="#south-ming" onClick={() => setGuideOpen(false)}>04B 南明余影</a>
-              <a href="#writing" onClick={() => setGuideOpen(false)}>05 以文字存梦</a>
+              {tourActs.map((act) => (
+                <Link to={`/?tour=${act.id}&step=0`} onClick={() => setGuideOpen(false)} key={act.id}>
+                  {act.number} {act.title}
+                </Link>
+              ))}
             </nav>
             <div className="home-guide-tools">
               <Link to="/timeline">年谱</Link>
