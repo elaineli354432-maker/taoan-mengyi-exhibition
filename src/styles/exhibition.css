@@ -323,6 +323,10 @@ body.scene-is-open {
   gap: 10px;
 }
 
+.scene-arrows.is-image {
+  right: 24px;
+}
+
 .scene-arrows button {
   width: 44px;
   padding: 0;
