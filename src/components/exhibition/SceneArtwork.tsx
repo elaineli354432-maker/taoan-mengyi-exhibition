@@ -33,7 +33,6 @@ export function SceneArtwork({
       aria-label={showPassage ? `切换${title}下一段原文` : `显示${title}原文`}
     >
       <img src={sceneImageUrl(passage?.image ?? image)} alt={title} />
-      {!showPassage && <span className="scene-second-cue">再次点击，见原文</span>}
     </button>
   )
 }

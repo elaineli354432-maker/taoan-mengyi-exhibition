@@ -214,20 +214,6 @@ body.scene-is-open {
   filter: saturate(.42) brightness(.82) contrast(.94);
 }
 
-.scene-second-cue {
-  position: absolute;
-  left: 50%;
-  bottom: max(34px, 8vh);
-  transform: translateX(-50%);
-  color: #f5efe6;
-  border: 1px solid rgba(245, 239, 230, .34);
-  background: rgba(11, 18, 16, .34);
-  backdrop-filter: blur(10px);
-  padding: 10px 14px;
-  font: 12px/1.3 var(--sans);
-  letter-spacing: .14em;
-}
-
 .scene-exhibition.has-passage {
   grid-template-columns: minmax(0, 1fr) minmax(360px, 34vw);
 }
