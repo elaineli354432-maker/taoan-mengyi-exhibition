@@ -382,6 +382,8 @@
 
 .chapter-head {
   margin-bottom: clamp(38px, 5vw, 72px);
+  padding-left: clamp(16px, 2.4vw, 30px);
+  border-left: 1px solid rgba(154, 74, 63, .38);
 }
 
 .chapter-head span {
@@ -396,6 +398,23 @@
   height: 1px;
   background: currentColor;
   opacity: .42;
+}
+
+.chapter-obsession .chapter-head,
+.chapter-obsession .chapter-head p {
+  color: #e9eee8;
+}
+
+.chapter-obsession .chapter-head {
+  border-left-color: rgba(215, 161, 138, .46);
+}
+
+.chapter-obsession .chapter-head span {
+  color: #d7a18a;
+}
+
+.chapter-head p {
+  max-width: 640px;
 }
 
 .event-strip,
@@ -423,6 +442,38 @@
 .archive-entrances > div {
   gap: clamp(14px, 2vw, 26px);
   background: transparent;
+}
+
+.detail-grid,
+.obsession-branches {
+  align-items: stretch;
+}
+
+@media (min-width: 981px) {
+  .detail-grid,
+  .obsession-branches {
+    display: flex;
+    overflow-x: auto;
+    padding: 8px max(24px, calc((100vw - 1120px) / 2)) 22px;
+    margin-left: min(-24px, calc((1120px - 100vw) / 2));
+    margin-right: min(-24px, calc((1120px - 100vw) / 2));
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .detail-grid > *,
+  .obsession-branches > * {
+    flex: 0 0 min(360px, 32vw);
+    scroll-snap-align: center;
+  }
+
+  .asymmetric-pair {
+    align-items: stretch;
+  }
+
+  .asymmetric-pair > .event-mini {
+    min-height: 72svh;
+  }
 }
 
 .event-mini,
@@ -476,6 +527,14 @@
 .collapse-step .responsive-image,
 .collapse-step > .scene-trigger {
   min-height: 56svh;
+}
+
+.collapse-step:nth-child(even) {
+  grid-template-columns: 1.1fr minmax(220px, .9fr);
+}
+
+.collapse-step:nth-child(even) > .scene-trigger {
+  order: 2;
 }
 
 .chapter-south-ming {

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ChapterProgress } from '../components/navigation/ChapterProgress'
 import { SceneExhibition } from '../components/exhibition/SceneExhibition'
 import { SceneTrigger } from '../components/exhibition/SceneTrigger'
+import { ShizhuzhaiTransition } from '../components/exhibition/ShizhuzhaiTransition'
 import { CuratorialText } from '../components/shared/CuratorialText'
 import { ImageCaption } from '../components/shared/ImageCaption'
 import { ResponsiveImage } from '../components/shared/ResponsiveImage'
@@ -98,6 +99,8 @@ export function DreamPage() {
         </div>
       </section>
 
+      <ShizhuzhaiTransition variant="bamboo" />
+
       <section id="prosperity" className="home-chapter chapter-prosperity">
         <header className="chapter-head">
           <span>02</span>
@@ -119,6 +122,8 @@ export function DreamPage() {
           <EventStrip event={prosperity[3]} reverse />
         </div>
       </section>
+
+      <ShizhuzhaiTransition variant="snow" />
 
       <section id="obsession" className="home-chapter chapter-obsession">
         <header className="chapter-head">
@@ -163,6 +168,8 @@ export function DreamPage() {
         </div>
       </section>
 
+      <ShizhuzhaiTransition variant="loss" />
+
       <section id="collapse" className="home-chapter chapter-collapse">
         <header className="chapter-head">
           <span>04</span>
@@ -182,6 +189,8 @@ export function DreamPage() {
           ))}
         </div>
       </section>
+
+      <ShizhuzhaiTransition variant="loss" />
 
       <section id="south-ming" className="home-chapter chapter-south-ming">
         <header className="chapter-head">
@@ -211,6 +220,8 @@ export function DreamPage() {
         </div>
       </section>
 
+      <ShizhuzhaiTransition variant="blank" />
+
       <section id="writing" className="home-chapter chapter-writing">
         <header className="chapter-head">
           <span>05</span>
@@ -222,6 +233,8 @@ export function DreamPage() {
         </div>
         <VerifiedQuote quote="五十年来，总成一梦。" source="《陶庵梦忆·梦忆序》" />
       </section>
+
+      <ShizhuzhaiTransition variant="blank" />
 
       <section id="archive" className="archive-entrances">
         <header className="chapter-head">

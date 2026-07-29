@@ -57,5 +57,74 @@
 }
 
 .shizhuzhai-transition {
-  height: 28px;
+  position: relative;
+  min-height: clamp(180px, 28svh, 360px);
+  overflow: hidden;
+  background: #ece8df;
+  scroll-snap-align: center;
+}
+
+.shizhuzhai-transition::before,
+.shizhuzhai-transition::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.shizhuzhai-transition::before {
+  opacity: .52;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 38px, rgba(255,255,255,.28) 39px 40px, transparent 41px 76px),
+    repeating-linear-gradient(0deg, transparent 0 46px, rgba(28,34,31,.045) 47px 48px, transparent 49px 92px);
+  mix-blend-mode: soft-light;
+}
+
+.shizhuzhai-transition::after {
+  opacity: .82;
+}
+
+.shizhuzhai-bamboo {
+  background:
+    linear-gradient(180deg, #f2efe8 0%, #ece8df 42%, #e6e8dd 100%);
+}
+
+.shizhuzhai-bamboo::after {
+  background:
+    radial-gradient(ellipse at 16% 78%, rgba(72,103,86,.2), transparent 34%),
+    radial-gradient(ellipse at 82% 18%, rgba(154,74,63,.08), transparent 28%),
+    linear-gradient(120deg, transparent 0 48%, rgba(72,103,86,.12) 49% 50%, transparent 51% 100%);
+}
+
+.shizhuzhai-snow {
+  background:
+    linear-gradient(180deg, #ece8df 0%, #dfe2dc 46%, #233330 100%);
+}
+
+.shizhuzhai-snow::after {
+  background:
+    radial-gradient(ellipse at 50% 34%, rgba(255,255,255,.5), transparent 36%),
+    linear-gradient(180deg, transparent 0%, rgba(255,255,255,.24) 48%, rgba(20,32,29,.52) 100%);
+}
+
+.shizhuzhai-loss {
+  background:
+    linear-gradient(180deg, #172420 0%, #87918a 54%, #dce3df 100%);
+}
+
+.shizhuzhai-loss::after {
+  background:
+    repeating-linear-gradient(110deg, transparent 0 52px, rgba(255,255,255,.18) 53px 54px, transparent 55px 104px),
+    linear-gradient(180deg, rgba(20,32,29,.72), transparent 52%, rgba(247,243,234,.22));
+}
+
+.shizhuzhai-blank {
+  background:
+    linear-gradient(180deg, #d9dfdc 0%, #e8e8df 55%, #f2efe8 100%);
+}
+
+.shizhuzhai-blank::after {
+  background:
+    radial-gradient(ellipse at 22% 18%, rgba(255,255,255,.42), transparent 30%),
+    radial-gradient(ellipse at 76% 78%, rgba(72,103,86,.12), transparent 34%);
 }
