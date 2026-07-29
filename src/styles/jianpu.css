@@ -90,14 +90,16 @@
 .shizhuzhai-art {
   position: absolute;
   z-index: 4;
-  width: auto;
-  height: min(96%, 540px);
-  max-width: min(62vw, 840px);
-  max-height: calc(100% - 18px);
-  opacity: 1;
+  left: clamp(28px, 4.8vw, 92px);
+  top: 50%;
+  width: min(62vw, 1080px);
+  height: auto;
+  max-height: 78%;
+  opacity: .96;
   object-fit: contain;
-  mix-blend-mode: normal;
-  filter: saturate(1.03) contrast(1.02);
+  transform: translateY(-50%);
+  mix-blend-mode: multiply;
+  filter: saturate(1.02) contrast(1.01);
 }
 
 .shizhuzhai-plate::before {
@@ -106,41 +108,6 @@
 
 .shizhuzhai-plate::after {
   z-index: 2;
-}
-
-.shizhuzhai-plate-1 .shizhuzhai-art {
-  left: 8vw;
-  top: 4%;
-}
-
-.shizhuzhai-plate-2 .shizhuzhai-art {
-  right: 18vw;
-  top: 5%;
-  max-width: min(54vw, 700px);
-}
-
-.shizhuzhai-plate-3 .shizhuzhai-art {
-  left: 38%;
-  top: 3%;
-  max-width: min(56vw, 720px);
-}
-
-.shizhuzhai-plate-4 .shizhuzhai-art {
-  left: 9vw;
-  top: 3%;
-  max-width: min(58vw, 760px);
-}
-
-.shizhuzhai-plate-5 .shizhuzhai-art {
-  right: 15vw;
-  top: 4%;
-  max-width: min(56vw, 720px);
-}
-
-.shizhuzhai-plate-6 .shizhuzhai-art {
-  left: 12vw;
-  top: 4%;
-  max-width: min(56vw, 720px);
 }
 
 .shizhuzhai-bamboo {
@@ -193,22 +160,10 @@
   }
 
   .shizhuzhai-art {
-    width: auto;
-    height: min(88%, 270px);
-    max-width: 76vw;
+    left: 18px;
+    width: min(92vw, 680px);
+    max-height: 64%;
     opacity: .94;
-  }
-
-  .shizhuzhai-plate-1 .shizhuzhai-art,
-  .shizhuzhai-plate-3 .shizhuzhai-art,
-  .shizhuzhai-plate-4 .shizhuzhai-art,
-  .shizhuzhai-plate-6 .shizhuzhai-art {
-    left: 6vw;
-  }
-
-  .shizhuzhai-plate-2 .shizhuzhai-art,
-  .shizhuzhai-plate-5 .shizhuzhai-art {
-    right: 4vw;
   }
 }
 
