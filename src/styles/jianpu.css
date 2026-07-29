@@ -63,9 +63,9 @@
   background:
     radial-gradient(ellipse at 24% 28%, rgba(255, 255, 255, .48), transparent 38%),
     radial-gradient(ellipse at 78% 70%, rgba(188, 176, 150, .16), transparent 34%),
-    repeating-linear-gradient(92deg, rgba(255,255,255,.13) 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.03) 0 1px, transparent 1px 16px),
+    url('/images/jianpu/xuan-paper-texture.png'),
     linear-gradient(180deg, #eee9df 0%, #f7f3ea 54%, #eeeae1 100%);
+  background-size: cover, cover, 720px 720px, cover;
   scroll-snap-align: center;
 }
 
@@ -78,11 +78,10 @@
 }
 
 .shizhuzhai-transition::before {
-  opacity: .34;
+  opacity: .42;
   background:
-    radial-gradient(ellipse at 16% 34%, rgba(255,255,255,.62), transparent 34%),
-    repeating-linear-gradient(115deg, transparent 0 30px, rgba(108, 96, 72, .026) 31px 32px, transparent 33px 60px),
-    linear-gradient(180deg, rgba(255,255,255,.18), transparent 42%, rgba(124,110,84,.06));
+    radial-gradient(ellipse at 16% 34%, rgba(255,255,255,.56), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,.14), transparent 42%, rgba(124,110,84,.05));
   mix-blend-mode: multiply;
 }
 
@@ -150,9 +149,9 @@
   background:
     radial-gradient(ellipse at 18% 76%, rgba(118, 143, 114, .12), transparent 32%),
     radial-gradient(ellipse at 80% 24%, rgba(190, 98, 74, .08), transparent 26%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 1px, transparent 1px 42px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.035) 0 1px, transparent 1px 18px),
+    url('/images/jianpu/xuan-paper-texture.png'),
     linear-gradient(180deg, #eee9df 0%, #f7f3ea 54%, #eeeae1 100%);
+  background-size: cover, cover, 720px 720px, cover;
 }
 
 .shizhuzhai-bamboo::after {
@@ -162,9 +161,10 @@
 .shizhuzhai-snow {
   background:
     radial-gradient(ellipse at 60% 42%, rgba(158, 174, 166, .16), transparent 34%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 1px, transparent 1px 42px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.032) 0 1px, transparent 1px 18px),
+    radial-gradient(ellipse at 18% 70%, rgba(255,255,255,.28), transparent 32%),
+    url('/images/jianpu/xuan-paper-texture.png'),
     linear-gradient(180deg, #ece8df 0%, #f5f2ea 52%, #e8ebe3 100%);
+  background-size: cover, cover, 720px 720px, cover;
 }
 
 .shizhuzhai-snow::after {
@@ -174,9 +174,10 @@
 .shizhuzhai-loss {
   background:
     radial-gradient(ellipse at 72% 50%, rgba(115, 128, 116, .18), transparent 34%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 1px, transparent 1px 42px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.04) 0 1px, transparent 1px 18px),
+    radial-gradient(ellipse at 20% 78%, rgba(106,92,70,.08), transparent 32%),
+    url('/images/jianpu/xuan-paper-texture.png'),
     linear-gradient(180deg, #e5e1d8 0%, #f1eee6 52%, #e3e8e2 100%);
+  background-size: cover, cover, 720px 720px, cover;
 }
 
 .shizhuzhai-loss::after {
@@ -186,9 +187,10 @@
 .shizhuzhai-blank {
   background:
     radial-gradient(ellipse at 26% 30%, rgba(255,255,255,.38), transparent 30%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.15) 0 1px, transparent 1px 42px),
-    repeating-linear-gradient(0deg, rgba(70,62,48,.032) 0 1px, transparent 1px 18px),
+    radial-gradient(ellipse at 76% 74%, rgba(188,176,150,.12), transparent 32%),
+    url('/images/jianpu/xuan-paper-texture.png'),
     linear-gradient(180deg, #e8e9e1 0%, #f7f3ea 56%, #eee9df 100%);
+  background-size: cover, cover, 720px 720px, cover;
 }
 
 .shizhuzhai-blank::after {
