@@ -31,6 +31,20 @@
     margin-left: 22px;
     width: min(560px, 86vw);
   }
+  .home-guide {
+    left: 20px;
+    right: 20px;
+    bottom: 74px;
+    width: auto;
+  }
+  .home-guide nav {
+    grid-template-columns: 1fr;
+    max-height: 36svh;
+    overflow: auto;
+  }
+  .home-guide-actions {
+    flex-direction: column;
+  }
   .home-chapter,
   .archive-entrances,
   .sub-page {

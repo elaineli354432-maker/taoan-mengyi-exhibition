@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChapterProgress } from '../components/navigation/ChapterProgress'
 import { SceneExhibition } from '../components/exhibition/SceneExhibition'
@@ -64,6 +65,7 @@ function EventStrip({ event, reverse = false }: { event: EventRecord; reverse?: 
 }
 
 export function DreamPage() {
+  const [guideOpen, setGuideOpen] = useState(false)
   const formation = pick(['xuanyaoting', 'nanzhen', 'lanxue', 'qinpai'])
   const prosperity = pick(['fengmen', 'jinshan', 'zhongqiu', 'buxiyuan'])
   const huxinting = getEvent('huxinting')!
@@ -71,18 +73,52 @@ export function DreamPage() {
   const southMing = pick(['luwang', 'qidream'])
   const writing = pick(['books', 'shanzhong', 'old-zhangdai'])
 
+  const enterFirstAct = () => {
+    setGuideOpen(false)
+    document.getElementById('formation')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
     <main className="home-page">
       <ChapterProgress />
 
-      <section id="top" className="dream-hero">
+      <section id="top" className={`dream-hero ${guideOpen ? 'guide-open' : ''}`} onClick={() => setGuideOpen(true)}>
         <ResponsiveImage image="huxinting" alt="湖心亭雪景" priority />
         <div className="dream-hero-copy">
           <h1>陶庵一梦</h1>
           <p>《陶庵梦忆》中的张岱与晚明生活</p>
           <span>五十年来，总成一梦。</span>
         </div>
-        <a className="scroll-cue" href="#formation">向下，进入旧梦</a>
+        <button className="scroll-cue" type="button" onClick={(event) => {
+          event.stopPropagation()
+          setGuideOpen(true)
+        }}>点击，打开展览导览</button>
+        {guideOpen && (
+          <div className="home-guide" role="dialog" aria-modal="true" aria-label="展览导览" onClick={(event) => event.stopPropagation()}>
+            <div>
+              <p>展览导览</p>
+              <h2>选择进入方式</h2>
+              <span>先看结构，或直接进入第一幕满屏展厅。</span>
+            </div>
+            <nav aria-label="主展结构">
+              <a href="#formation" onClick={() => setGuideOpen(false)}>01 感官的形成</a>
+              <a href="#prosperity" onClick={() => setGuideOpen(false)}>02 创造一种生活</a>
+              <a href="#obsession" onClick={() => setGuideOpen(false)}>03 天地一痴人</a>
+              <a href="#collapse" onClick={() => setGuideOpen(false)}>04 人间散场</a>
+              <a href="#south-ming" onClick={() => setGuideOpen(false)}>04B 南明余影</a>
+              <a href="#writing" onClick={() => setGuideOpen(false)}>05 以文字存梦</a>
+            </nav>
+            <div className="home-guide-tools">
+              <Link to="/timeline">年谱</Link>
+              <Link to="/map">行迹</Link>
+              <Link to="/read">阅读器</Link>
+            </div>
+            <div className="home-guide-actions">
+              <button type="button" onClick={enterFirstAct}>直接进入</button>
+              <button type="button" onClick={() => setGuideOpen(false)}>留在封面</button>
+            </div>
+          </div>
+        )}
       </section>
 
       <section id="formation" className="home-chapter chapter-formation">
