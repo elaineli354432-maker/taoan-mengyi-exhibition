@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ChapterProgress } from '../components/navigation/ChapterProgress'
 import { SceneExhibition } from '../components/exhibition/SceneExhibition'
 import { SceneTrigger } from '../components/exhibition/SceneTrigger'
@@ -66,6 +66,7 @@ function EventStrip({ event, reverse = false }: { event: EventRecord; reverse?: 
 
 export function DreamPage() {
   const [guideOpen, setGuideOpen] = useState(false)
+  const navigate = useNavigate()
   const formation = pick(['xuanyaoting', 'nanzhen', 'lanxue', 'qinpai'])
   const prosperity = pick(['fengmen', 'jinshan', 'zhongqiu', 'buxiyuan'])
   const huxinting = getEvent('huxinting')!
@@ -75,7 +76,7 @@ export function DreamPage() {
 
   const enterFirstAct = () => {
     setGuideOpen(false)
-    document.getElementById('formation')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    navigate({ pathname: '/', search: 'scene=xuanyaoting&passage=1' })
   }
 
   return (
