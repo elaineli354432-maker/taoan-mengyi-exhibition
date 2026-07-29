@@ -61,9 +61,9 @@
   min-height: clamp(320px, 42svh, 560px);
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 20% 32%, rgba(255,255,255,.7), transparent 28%),
-    radial-gradient(ellipse at 64% 42%, rgba(221,226,218,.62), transparent 34%),
-    linear-gradient(180deg, #e8e3d7 0%, #f7f4ec 46%, #e9eee8 100%);
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08) 44%, rgba(246,241,232,.22)),
+    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
+    #f6f1e8;
   scroll-snap-align: center;
 }
 
@@ -76,23 +76,18 @@
 }
 
 .shizhuzhai-transition::before {
-  opacity: .78;
+  opacity: .5;
   background:
-    radial-gradient(ellipse at 18% 66%, rgba(255,255,255,.8) 0 20%, transparent 42%),
-    radial-gradient(ellipse at 48% 58%, rgba(255,255,255,.62) 0 18%, transparent 40%),
-    radial-gradient(ellipse at 78% 65%, rgba(255,255,255,.72) 0 22%, transparent 44%),
-    linear-gradient(180deg, rgba(255,255,255,.34), transparent 48%, rgba(206,214,205,.22));
+    linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,0) 42%, rgba(255,255,255,.2)),
+    radial-gradient(ellipse at 28% 42%, rgba(255,255,255,.58), transparent 34%),
+    radial-gradient(ellipse at 74% 38%, rgba(255,255,255,.5), transparent 32%);
   mix-blend-mode: screen;
 }
 
 .shizhuzhai-transition::after {
-  opacity: .48;
-  background:
-    linear-gradient(154deg, transparent 0 36%, rgba(123,136,126,.16) 36.4% 36.8%, transparent 37.2% 100%),
-    linear-gradient(18deg, transparent 0 50%, rgba(123,136,126,.12) 50.4% 50.8%, transparent 51.2% 100%),
-    radial-gradient(ellipse at 28% 90%, rgba(138,151,140,.18), transparent 28%),
-    radial-gradient(ellipse at 72% 88%, rgba(138,151,140,.14), transparent 30%);
-  mix-blend-mode: multiply;
+  opacity: .16;
+  background: linear-gradient(90deg, rgba(255,255,255,.18), transparent 42%, rgba(255,255,255,.26));
+  mix-blend-mode: screen;
 }
 
 .shizhuzhai-art {
@@ -102,10 +97,10 @@
   height: min(96%, 540px);
   max-width: min(62vw, 840px);
   max-height: calc(100% - 18px);
-  opacity: .98;
+  opacity: 1;
   object-fit: contain;
-  mix-blend-mode: multiply;
-  filter: saturate(1.06) contrast(1.02);
+  mix-blend-mode: normal;
+  filter: saturate(1.03) contrast(1.02);
 }
 
 .shizhuzhai-plate::before {
@@ -153,58 +148,46 @@
 
 .shizhuzhai-bamboo {
   background:
-    radial-gradient(ellipse at 22% 32%, rgba(255,255,255,.74), transparent 30%),
-    radial-gradient(ellipse at 70% 44%, rgba(215,225,210,.58), transparent 36%),
-    linear-gradient(180deg, #ebe3d5 0%, #f8f4eb 48%, #e7eee4 100%);
+    linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.06) 44%, rgba(234,241,231,.18)),
+    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
+    #f6f1e8;
 }
 
 .shizhuzhai-bamboo::after {
-  background:
-    linear-gradient(150deg, transparent 0 36%, rgba(104,126,109,.14) 36.3% 36.8%, transparent 37.2% 100%),
-    radial-gradient(ellipse at 30% 88%, rgba(122,145,124,.16), transparent 28%),
-    radial-gradient(ellipse at 74% 84%, rgba(122,145,124,.1), transparent 32%);
+  background: linear-gradient(90deg, transparent 0 56%, rgba(255,255,255,.3));
 }
 
 .shizhuzhai-snow {
   background:
-    radial-gradient(ellipse at 40% 32%, rgba(255,255,255,.82), transparent 34%),
-    radial-gradient(ellipse at 78% 48%, rgba(207,217,211,.56), transparent 38%),
-    linear-gradient(180deg, #e7e4dc 0%, #f8f7f2 50%, #dfe9e6 100%);
+    linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.1) 42%, rgba(231,238,236,.18)),
+    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
+    #f7f5ef;
 }
 
 .shizhuzhai-snow::after {
-  background:
-    linear-gradient(18deg, transparent 0 53%, rgba(118,132,130,.12) 53.3% 53.8%, transparent 54.2% 100%),
-    radial-gradient(ellipse at 20% 90%, rgba(149,161,153,.14), transparent 30%),
-    radial-gradient(ellipse at 68% 88%, rgba(149,161,153,.12), transparent 30%);
+  background: linear-gradient(180deg, rgba(255,255,255,.18), transparent 62%);
 }
 
 .shizhuzhai-loss {
   background:
-    radial-gradient(ellipse at 24% 36%, rgba(255,255,255,.6), transparent 31%),
-    radial-gradient(ellipse at 72% 48%, rgba(194,205,196,.48), transparent 38%),
-    linear-gradient(180deg, #ddd8cd 0%, #f0eee7 50%, #d8e3dd 100%);
+    linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.04) 42%, rgba(218,225,219,.2)),
+    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
+    #efece5;
 }
 
 .shizhuzhai-loss::after {
-  background:
-    linear-gradient(155deg, transparent 0 33%, rgba(89,104,96,.18) 33.4% 34%, transparent 34.4% 100%),
-    linear-gradient(20deg, transparent 0 55%, rgba(89,104,96,.12) 55.4% 55.9%, transparent 56.3% 100%),
-    radial-gradient(ellipse at 44% 92%, rgba(111,128,116,.18), transparent 28%);
+  background: linear-gradient(90deg, rgba(70,82,76,.06), transparent 36%, rgba(255,255,255,.18));
 }
 
 .shizhuzhai-blank {
   background:
-    radial-gradient(ellipse at 34% 34%, rgba(255,255,255,.78), transparent 32%),
-    radial-gradient(ellipse at 74% 48%, rgba(222,226,218,.52), transparent 36%),
-    linear-gradient(180deg, #e7e4dc 0%, #f8f4eb 52%, #e3ebe6 100%);
+    linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.08) 42%, rgba(238,241,235,.18)),
+    url('/images/jianpu/cloud-mountain-transition.png') center bottom / cover no-repeat,
+    #f6f1e8;
 }
 
 .shizhuzhai-blank::after {
-  background:
-    linear-gradient(150deg, transparent 0 42%, rgba(124,137,128,.11) 42.4% 42.9%, transparent 43.3% 100%),
-    radial-gradient(ellipse at 24% 88%, rgba(145,158,147,.12), transparent 30%),
-    radial-gradient(ellipse at 78% 88%, rgba(145,158,147,.1), transparent 28%);
+  background: linear-gradient(90deg, rgba(255,255,255,.2), transparent 52%, rgba(255,255,255,.22));
 }
 
 @media (max-width: 720px) {
