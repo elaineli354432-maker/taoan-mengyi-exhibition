@@ -765,11 +765,12 @@
 
 .act-tour-title .tour-jianpu-print {
   z-index: 1;
-  left: max(30px, 7vw);
-  top: clamp(108px, 22vh, 220px);
-  width: min(28vw, 420px);
-  max-height: 44vh;
-  opacity: .94;
+  left: auto;
+  right: max(42px, 7vw);
+  top: 50%;
+  width: min(30vw, 460px);
+  max-height: 56vh;
+  opacity: .86;
   transform: none;
   --print-delay: .18s;
 }
