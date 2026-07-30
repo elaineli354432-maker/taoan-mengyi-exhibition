@@ -92,14 +92,14 @@
   z-index: 4;
   left: clamp(28px, 4.8vw, 92px);
   top: 50%;
-  width: min(62vw, 1080px);
+  width: min(30vw, 460px);
   height: auto;
-  max-height: 78%;
+  max-height: 82%;
   opacity: .96;
   object-fit: contain;
   transform: translateY(-50%);
-  mix-blend-mode: multiply;
-  filter: saturate(1.02) contrast(1.01);
+  mix-blend-mode: normal;
+  filter: saturate(1.08) contrast(1.04);
 }
 
 .shizhuzhai-plate::before {
@@ -161,8 +161,8 @@
 
   .shizhuzhai-art {
     left: 18px;
-    width: min(92vw, 680px);
-    max-height: 64%;
+    width: min(58vw, 300px);
+    max-height: 68%;
     opacity: .94;
   }
 }

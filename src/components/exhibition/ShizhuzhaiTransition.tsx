@@ -2,10 +2,12 @@ type ShizhuzhaiVariant = 'bamboo' | 'snow' | 'loss' | 'blank'
 type ShizhuzhaiPlate = 1 | 2 | 3 | 4 | 5 | 6
 
 export function ShizhuzhaiTransition({ variant, plate }: { variant: ShizhuzhaiVariant; plate?: ShizhuzhaiPlate }) {
+  const plateId = plate ? String(plate).padStart(2, '0') : undefined
+
   return (
     <div className={`shizhuzhai-transition shizhuzhai-${variant} ${plate ? `shizhuzhai-plate shizhuzhai-plate-${plate}` : ''}`} aria-hidden="true">
-      {plate && (
-        <img className="shizhuzhai-art" src="/images/jianpu/shizhuzhai-pattern-strip.png" alt="" />
+      {plateId && (
+        <img className="shizhuzhai-art" src={`/images/jianpu/patterns/shizhuzhai-pattern-${plateId}.png`} alt="" />
       )}
     </div>
   )
