@@ -713,6 +713,7 @@
 }
 
 .act-tour-title {
+  position: relative;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -720,9 +721,12 @@
   padding: max(90px, 12vh) max(28px, 8vw);
   border-left: 1px solid rgba(154, 74, 63, .36);
   margin-left: max(28px, 5vw);
+  overflow: hidden;
 }
 
 .act-tour-title span {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 22px;
@@ -741,6 +745,8 @@
 }
 
 .act-tour-title h1 {
+  position: relative;
+  z-index: 2;
   margin: 0 0 26px;
   font-size: clamp(72px, 9vw, 150px);
   line-height: 1.05;
@@ -749,10 +755,66 @@
 }
 
 .act-tour-title p {
+  position: relative;
+  z-index: 2;
   max-width: 980px;
   color: #68716b;
   font-size: clamp(19px, 2vw, 30px);
   line-height: 1.95;
+}
+
+.act-tour-title .tour-jianpu-print {
+  z-index: 1;
+  left: max(30px, 7vw);
+  top: clamp(108px, 22vh, 220px);
+  width: min(28vw, 420px);
+  max-height: 44vh;
+  opacity: .94;
+  transform: none;
+  --print-delay: .18s;
+}
+
+.act-tour-title .shizhuzhai-print-emboss {
+  mix-blend-mode: multiply;
+  opacity: .16;
+}
+
+.act-tour-title .shizhuzhai-print-color {
+  mix-blend-mode: multiply;
+}
+
+.act-tour-title .shizhuzhai-print-ink {
+  mix-blend-mode: normal;
+}
+
+.act-tour-title .shizhuzhai-plate-1 {
+  --print-color-opacity: .8;
+  --print-ink-opacity: .82;
+  --print-saturation: 1.08;
+}
+
+.act-tour-title .shizhuzhai-plate-2 {
+  --print-color-opacity: .7;
+  --print-ink-opacity: .76;
+  --print-saturation: .95;
+}
+
+.act-tour-title .shizhuzhai-plate-3 {
+  --print-color-opacity: .52;
+  --print-ink-opacity: .64;
+  --print-saturation: .72;
+}
+
+.act-tour-title .shizhuzhai-plate-4 {
+  --print-color-opacity: .34;
+  --print-ink-opacity: .48;
+  --print-saturation: .42;
+}
+
+.act-tour-title .shizhuzhai-plate-5 {
+  --print-color-opacity: .2;
+  --print-ink-opacity: .36;
+  --print-saturation: .2;
 }
 
 .act-tour-ending {
