@@ -98,8 +98,8 @@
   opacity: .96;
   object-fit: contain;
   transform: translateY(-50%);
-  mix-blend-mode: multiply;
-  filter: saturate(1.02) contrast(1);
+  mix-blend-mode: normal;
+  filter: none;
 }
 
 .shizhuzhai-plate::before {
