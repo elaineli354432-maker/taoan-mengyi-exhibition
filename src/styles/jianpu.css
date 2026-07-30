@@ -87,19 +87,58 @@
   mix-blend-mode: multiply;
 }
 
-.shizhuzhai-art {
+.shizhuzhai-print {
   position: absolute;
   z-index: 4;
   left: clamp(28px, 4.8vw, 92px);
   top: 50%;
   width: min(34vw, 520px);
-  height: auto;
   max-height: 82%;
-  opacity: .96;
-  object-fit: contain;
+  aspect-ratio: 1 / 1.12;
   transform: translateY(-50%);
-  mix-blend-mode: normal;
-  filter: none;
+  --print-color-opacity: .76;
+  --print-ink-opacity: .96;
+  --print-saturation: 1;
+  --print-delay: .12s;
+}
+
+.shizhuzhai-art,
+.shizhuzhai-print-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.shizhuzhai-print-layer {
+  display: block;
+  background: var(--jianpu-image) left center / contain no-repeat;
+}
+
+.shizhuzhai-print-emboss {
+  opacity: .34;
+  filter: grayscale(1) brightness(1.7) contrast(.78);
+  transform: translate(4px, 4px);
+  mix-blend-mode: soft-light;
+  animation: jianpu-emboss-in 1.1s ease both;
+}
+
+.shizhuzhai-print-color {
+  opacity: var(--print-color-opacity);
+  filter: saturate(var(--print-saturation)) contrast(.98);
+  mix-blend-mode: multiply;
+  animation: jianpu-color-in 1.15s ease both;
+  animation-delay: calc(var(--print-delay) + .12s);
+}
+
+.shizhuzhai-print-ink {
+  opacity: var(--print-ink-opacity);
+  filter: saturate(calc(var(--print-saturation) * .94)) contrast(1.02);
+  animation: jianpu-ink-in .9s ease both;
+  animation-delay: calc(var(--print-delay) + .34s);
 }
 
 .shizhuzhai-plate::before {
@@ -108,6 +147,42 @@
 
 .shizhuzhai-plate::after {
   z-index: 2;
+}
+
+.shizhuzhai-plate-1 .shizhuzhai-print {
+  --print-color-opacity: .88;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
+}
+
+.shizhuzhai-plate-2 .shizhuzhai-print {
+  --print-color-opacity: .8;
+  --print-ink-opacity: .94;
+  --print-saturation: 1.02;
+}
+
+.shizhuzhai-plate-3 .shizhuzhai-print {
+  --print-color-opacity: .6;
+  --print-ink-opacity: .86;
+  --print-saturation: .78;
+}
+
+.shizhuzhai-plate-4 .shizhuzhai-print {
+  --print-color-opacity: .42;
+  --print-ink-opacity: .74;
+  --print-saturation: .48;
+}
+
+.shizhuzhai-plate-5 .shizhuzhai-print {
+  --print-color-opacity: .18;
+  --print-ink-opacity: .52;
+  --print-saturation: .22;
+}
+
+.shizhuzhai-plate-6 .shizhuzhai-print {
+  --print-color-opacity: .08;
+  --print-ink-opacity: .34;
+  --print-saturation: .08;
 }
 
 .shizhuzhai-bamboo {
@@ -160,16 +235,59 @@
   }
 
   .shizhuzhai-art {
+    max-height: 68%;
+  }
+
+  .shizhuzhai-print {
     left: 18px;
     width: min(64vw, 340px);
     max-height: 68%;
-    opacity: .94;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .shizhuzhai-art,
-  .shizhuzhai-art-ghost {
+  .shizhuzhai-art-ghost,
+  .shizhuzhai-print-layer {
+    animation: none;
+  }
+
+  .shizhuzhai-art,
+  .shizhuzhai-art-ghost,
+  .shizhuzhai-print-layer {
     transform: none;
+  }
+}
+
+@keyframes jianpu-emboss-in {
+  from {
+    opacity: 0;
+    transform: translate(8px, 8px);
+  }
+  to {
+    opacity: .34;
+    transform: translate(4px, 4px);
+  }
+}
+
+@keyframes jianpu-color-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: var(--print-color-opacity);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes jianpu-ink-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: var(--print-ink-opacity);
+    transform: translateY(0);
   }
 }
