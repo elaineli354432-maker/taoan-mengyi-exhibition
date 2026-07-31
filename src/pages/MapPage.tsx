@@ -1,175 +1,385 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ResponsiveImage } from '../components/shared/ResponsiveImage'
-import { events, getEvent } from '../data/events'
-import { getPrimaryChapterForEvent } from '../data/chapters'
-import { getLocation, locations } from '../data/locations'
-import { stages } from '../data/stages'
+import {
+  getNodeWorks,
+  getRouteNode,
+  historicalOverlayNodes,
+  periodMatches,
+  routeNodes,
+  routeSegments,
+  type ContentState,
+  type MapLayerId,
+  type RouteNode,
+  type RoutePeriod,
+  type RouteSegment,
+  type WorkRelationType,
+  unmappedWorks,
+} from '../data/lifeRouteMap'
 
-type MapMode = 'place' | 'year' | 'stage'
-
-const mapLocations = locations.filter((location) => typeof location.svgX === 'number' && typeof location.svgY === 'number')
-
-function eventReachedByYear(event: (typeof events)[number], year: number) {
-  return event.startYear !== null && event.startYear <= year
+const layerLabels: Record<MapLayerId, { title: string; note: string }> = {
+  lifeRoute: {
+    title: '人生行迹层',
+    note: '只呈现确有居住、到访或途经证据的地点，路线按时期分段。',
+  },
+  workGeography: {
+    title: '作品地理层',
+    note: '呈现篇目和地点关系，但不把文学地点画成真实行走路线。',
+  },
+  historicalContext: {
+    title: '历史背景层',
+    note: '明亡、鲁王、避乱等背景只作半透明叠加，不与作品混写。',
+  },
 }
 
-function latestEventByYear(year: number) {
-  return [...events]
-    .filter((event) => eventReachedByYear(event, year))
-    .sort((a, b) => (b.startYear ?? 0) - (a.startYear ?? 0))[0]
+const periodLabels: Record<RoutePeriod, string> = {
+  all: '全部时期',
+  early: '出生至明亡前',
+  middle: '1622—1642',
+  late: '1645以后',
+  uncertain: '日期待考',
+}
+
+const relationLabels: Record<WorkRelationType, string> = {
+  all: '全部篇目关系',
+  direct: '直接写及',
+  context: '关联背景',
+}
+
+const stateLabels: Record<ContentState, string> = {
+  all: '全部节点',
+  hasWorks: '有对应篇目',
+  routeOnly: '仅行迹节点',
+  unmapped: '未定位作品',
+}
+
+const coordinateNodes = routeNodes.filter((node): node is RouteNode & { coordinate: NonNullable<RouteNode['coordinate']> } => Boolean(node.coordinate))
+const latitudes = coordinateNodes.map((node) => node.coordinate.lat)
+const longitudes = coordinateNodes.map((node) => node.coordinate.lng)
+const bounds = {
+  minLat: Math.min(...latitudes),
+  maxLat: Math.max(...latitudes),
+  minLng: Math.min(...longitudes),
+  maxLng: Math.max(...longitudes),
+}
+
+function projectNode(node: RouteNode) {
+  if (!node.coordinate) return null
+  const lngRange = bounds.maxLng - bounds.minLng || 1
+  const latRange = bounds.maxLat - bounds.minLat || 1
+  return {
+    x: 8 + ((node.coordinate.lng - bounds.minLng) / lngRange) * 84,
+    y: 8 + ((bounds.maxLat - node.coordinate.lat) / latRange) * 84,
+  }
+}
+
+function routePoints(segment: RouteSegment) {
+  return segment.nodeIds
+    .map((id) => getRouteNode(id))
+    .map((node) => (node ? projectNode(node) : null))
+    .filter((point): point is { x: number; y: number } => Boolean(point))
+}
+
+function hasVisibleText(node: RouteNode, searchTerm: string) {
+  if (!searchTerm) return true
+  const haystack = [
+    node.name,
+    node.modernRegion,
+    node.nodeType,
+    ...(node.historicalNames ?? []),
+    ...(node.subplaces ?? []),
+    ...(node.directWorks ?? []),
+    ...(node.contextWorks ?? []),
+    ...(node.visits ?? []).flatMap((visit) => [visit.period, visit.label]),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+  return haystack.includes(searchTerm.toLowerCase())
+}
+
+function contentStateMatches(node: RouteNode, state: ContentState) {
+  const workCount = (node.directWorks?.length ?? 0) + (node.contextWorks?.length ?? 0)
+  if (state === 'hasWorks') return workCount > 0
+  if (state === 'routeOnly') return workCount === 0
+  return true
+}
+
+function NestedCatalog({ catalog }: { catalog: Record<string, string[]> }) {
+  return (
+    <div className="map-catalog">
+      <h3>西湖梦寻目录</h3>
+      {Object.entries(catalog).map(([group, items]) => (
+        <details key={group}>
+          <summary>{group}<small>{items.length}</small></summary>
+          <div>
+            {items.map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </details>
+      ))}
+    </div>
+  )
+}
+
+function NodeDrawer({ node, relation }: { node: RouteNode; relation: WorkRelationType }) {
+  const directWorks = node.directWorks ?? []
+  const contextWorks = node.contextWorks ?? []
+  const visibleWorks = getNodeWorks(node, relation)
+
+  return (
+    <aside className="location-panel route-drawer">
+      <div className="drawer-kicker">
+        <span>{node.modernRegion ?? '区域待核'}</span>
+        <span>{node.nodeType}</span>
+      </div>
+      <h2>{node.name}</h2>
+      {node.historicalNames?.length ? <p>古称：{node.historicalNames.join(' / ')}</p> : <p>古称待核</p>}
+
+      <section>
+        <h3>到访记录</h3>
+        {node.visits?.length ? (
+          <ol className="visit-list">
+            {node.visits.map((visit) => (
+              <li key={`${visit.period}-${visit.label}`}>
+                <strong>{visit.period || '日期待考'}</strong>
+                <span>{visit.label}</span>
+              </li>
+            ))}
+          </ol>
+        ) : <small>日期待考，待人工补充行迹证据。</small>}
+      </section>
+
+      {node.subplaces?.length ? (
+        <section>
+          <h3>子地点</h3>
+          <div className="map-chip-grid">
+            {node.subplaces.map((place) => <span key={place}>{place}</span>)}
+          </div>
+        </section>
+      ) : null}
+
+      <section>
+        <h3>对应篇目</h3>
+        <div className="work-columns">
+          <div>
+            <strong>直接写及</strong>
+            {directWorks.length ? directWorks.map((work) => <span key={work}>{work}</span>) : <small>暂无</small>}
+          </div>
+          <div>
+            <strong>关联背景</strong>
+            {contextWorks.length ? contextWorks.map((work) => <span key={work}>{work}</span>) : <small>暂无</small>}
+          </div>
+        </div>
+        {relation !== 'all' && <small className="drawer-hint">当前筛选：{relationLabels[relation]}，本节点显示 {visibleWorks.length} 条。</small>}
+      </section>
+
+      {node.nestedCatalog ? <NestedCatalog catalog={node.nestedCatalog} /> : null}
+
+      {node.notes ? (
+        <section>
+          <h3>校核说明</h3>
+          <p>{node.notes}</p>
+        </section>
+      ) : null}
+
+      <Link className="map-timeline-link" to={`/timeline?location=${node.id}`}>在年谱中查看</Link>
+    </aside>
+  )
 }
 
 export function MapPage() {
   const [params, setParams] = useSearchParams()
-  const requestedEvent = params.get('event')
-  const requestedLocation = params.get('location')
-  const requestedYear = params.get('year') ? Number(params.get('year')) : undefined
-  const initialEvent = requestedEvent ? getEvent(requestedEvent) : undefined
-  const [mode, setMode] = useState<MapMode>('place')
-  const [locationId, setLocationId] = useState(requestedLocation ?? initialEvent?.locationIds[0] ?? 'hangzhou-xihu')
-  const [eventId, setEventId] = useState(initialEvent?.id ?? '')
-  const [year, setYear] = useState(Number.isFinite(requestedYear) ? requestedYear! : 1632)
-  const location = getLocation(locationId) ?? locations[0]
+  const layerParam = params.get('layer') as MapLayerId | null
+  const locationParam = params.get('location')
+  const [layer, setLayer] = useState<MapLayerId>(layerParam && layerParam in layerLabels ? layerParam : 'lifeRoute')
+  const [locationId, setLocationId] = useState(locationParam && getRouteNode(locationParam) ? locationParam : 'shaoxing')
+  const [period, setPeriod] = useState<RoutePeriod>('all')
+  const [relation, setRelation] = useState<WorkRelationType>('all')
+  const [contentState, setContentState] = useState<ContentState>('all')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [activeRouteId, setActiveRouteId] = useState('all')
 
   useEffect(() => {
-    const nextEvent = requestedEvent ? getEvent(requestedEvent) : undefined
-    const nextLocation = requestedLocation ? getLocation(requestedLocation) : undefined
-    if (nextEvent) {
-      setEventId(nextEvent.id)
-      setLocationId(nextLocation?.id ?? nextEvent.locationIds[0])
-      if (nextEvent.startYear) setYear(nextEvent.startYear)
-    } else if (nextLocation) {
-      setLocationId(nextLocation.id)
-      setEventId('')
-    }
-    if (Number.isFinite(requestedYear)) {
-      setMode('year')
-      setYear(requestedYear!)
-      if (!nextEvent) {
-        const latest = latestEventByYear(requestedYear!)
-        if (latest) {
-          setEventId(latest.id)
-          setLocationId(latest.locationIds[0])
-        }
-      }
-    }
-  }, [requestedEvent, requestedLocation, requestedYear])
+    const nextLayer = params.get('layer') as MapLayerId | null
+    const nextLocation = params.get('location')
+    if (nextLayer && nextLayer in layerLabels) setLayer(nextLayer)
+    if (nextLocation && getRouteNode(nextLocation)) setLocationId(nextLocation)
+  }, [params])
 
-  const filteredEvents = useMemo(() => {
-    if (mode === 'year') return events.filter((event) => eventReachedByYear(event, year))
-    if (mode === 'stage') {
-      const selected = eventId ? getEvent(eventId) : undefined
-      return selected ? events.filter((event) => event.stageId === selected.stageId) : events.filter((event) => event.stageId === 'prosperity')
-    }
-    return events
-  }, [mode, year, eventId])
+  const selectedNode = getRouteNode(locationId) ?? routeNodes[0]
 
-  const visibleLocationIds = useMemo(() => new Set(filteredEvents.flatMap((event) => event.locationIds)), [filteredEvents])
-  const relatedEvents = filteredEvents.filter((event) => event.locationIds.includes(location.id))
+  const visibleNodes = useMemo(() => {
+    return routeNodes.filter((node) => {
+      if (!periodMatches(node, period)) return false
+      if (!contentStateMatches(node, contentState)) return false
+      if (!hasVisibleText(node, searchTerm)) return false
+      if (layer === 'workGeography' && relation !== 'all' && getNodeWorks(node, relation).length === 0) return false
+      return Boolean(node.coordinate)
+    })
+  }, [contentState, layer, period, relation, searchTerm])
 
-  const enterYearMode = () => {
-    setMode('year')
-    const latest = latestEventByYear(year)
-    if (!latest) return
-    setEventId(latest.id)
-    setLocationId(latest.locationIds[0])
-    setParams(new URLSearchParams({ year: String(year), event: latest.id, location: latest.locationIds[0] }))
-  }
+  const visibleNodeIds = useMemo(() => new Set(visibleNodes.map((node) => node.id)), [visibleNodes])
 
-  const chooseYear = (nextYear: number) => {
-    setYear(nextYear)
-    const latest = latestEventByYear(nextYear)
-    if (!latest) {
-      setParams(new URLSearchParams({ year: String(nextYear) }))
-      return
-    }
-    setEventId(latest.id)
-    setLocationId(latest.locationIds[0])
-    setParams(new URLSearchParams({ year: String(nextYear), event: latest.id, location: latest.locationIds[0] }))
-  }
+  const visibleSegments = useMemo(() => {
+    if (layer !== 'lifeRoute') return []
+    return routeSegments.filter((segment) => {
+      if (activeRouteId !== 'all' && segment.id !== activeRouteId) return false
+      if (period !== 'all' && segment.period !== period) return false
+      return segment.nodeIds.some((id) => visibleNodeIds.has(id))
+    })
+  }, [activeRouteId, layer, period, visibleNodeIds])
 
-  const chooseLocation = (id: string) => {
-    if (mode === 'year' && !visibleLocationIds.has(id)) return
-    setLocationId(id)
-    setEventId('')
-    const next = new URLSearchParams({ location: id })
-    if (mode === 'year') next.set('year', String(year))
+  const chooseLayer = (nextLayer: MapLayerId) => {
+    setLayer(nextLayer)
+    const next = new URLSearchParams(params)
+    next.set('layer', nextLayer)
+    next.set('location', selectedNode.id)
     setParams(next)
   }
 
-  const chooseEvent = (id: string) => {
-    const event = getEvent(id)
-    if (!event) return
-    setEventId(id)
-    setLocationId(event.locationIds[0])
-    const next = new URLSearchParams({ event: id, location: event.locationIds[0] })
-    if (event.startYear) next.set('year', String(event.startYear))
+  const chooseNode = (id: string) => {
+    const next = new URLSearchParams(params)
+    next.set('layer', layer)
+    next.set('location', id)
+    setLocationId(id)
     setParams(next)
   }
 
   return (
     <main className="sub-page map-page">
-      <header className="page-head">
+      <header className="page-head map-page-head">
         <p>行迹</p>
-        <h1>沿江南重新行走</h1>
-        <span>地图是张岱文学空间的探索工具。地点点位为示意，年份筛选使用标准化 `startYear/endYear` 数据。</span>
+        <h1>张岱人生路线地图</h1>
+        <span>以真实行迹为默认层，作品地理与历史背景分层查看；不以摘录卡片或文学地点虚构路线。</span>
       </header>
 
-      <div className="map-controls">
-        <button className={mode === 'place' ? 'on' : ''} onClick={() => setMode('place')}>地点模式</button>
-        <button className={mode === 'year' ? 'on' : ''} onClick={enterYearMode}>年代模式</button>
-        <button className={mode === 'stage' ? 'on' : ''} onClick={() => setMode('stage')}>人生阶段</button>
-        {mode === 'year' && <input type="range" min="1600" max="1646" value={year} onChange={(event) => chooseYear(Number(event.target.value))} aria-label="年份" />}
-        {mode === 'year' && <strong>{year}</strong>}
-      </div>
-
-      <section className="literary-map">
-        <div className="map-canvas">
-          <ResponsiveImage image="map" alt="江南行迹示意地图" />
-          <svg viewBox="0 0 100 100" aria-hidden="true">
-            <path d="M54 10 C42 24 33 31 31 36 S45 42 48 44 S60 54 67 64 S72 72 82 63" />
-          </svg>
-          {mapLocations.map((item) => (
-            <button
-              className={`${item.id === location.id ? 'active' : ''} ${mode === 'year' && !visibleLocationIds.has(item.id) ? 'muted' : ''} ${mode === 'year' && visibleLocationIds.has(item.id) ? 'visible-year' : ''}`}
-              style={{ left: `${item.svgX}%`, top: `${item.svgY}%` }}
-              onClick={() => chooseLocation(item.id)}
-              key={item.id}
-            >
-              <i />
-              <span>{item.modernName}</span>
-            </button>
-          ))}
-        </div>
-        <aside className="location-panel">
-          <ResponsiveImage image={location.image ?? 'map'} alt={location.modernName} />
-          <p>{location.region ?? '区域待核'} · {location.historicalName ? `古称 ${location.historicalName}` : '古称待补'}</p>
-          <h2>{location.modernName}</h2>
-          <span>{location.description}</span>
-          <h3>相关事件</h3>
-          {relatedEvents.length ? relatedEvents.map((event) => {
-            const chapter = getPrimaryChapterForEvent(event.id)
-            return (
-              <button className={event.id === eventId ? 'selected' : ''} onClick={() => chooseEvent(event.id)} key={event.id}>
-                {event.displayDate} · {event.title}
-                <small>{event.sourceChapter ?? '篇目待核'} · {event.dateCertainty}</small>
-                {chapter && <Link to={`/read?chapter=${chapter.id}&event=${event.id}`}>阅读</Link>}
+      <section className="route-map-shell">
+        <div className="map-toolbar" aria-label="地图筛选">
+          <div className="layer-tabs">
+            {(Object.keys(layerLabels) as MapLayerId[]).map((item) => (
+              <button className={layer === item ? 'on' : ''} onClick={() => chooseLayer(item)} key={item}>
+                <strong>{layerLabels[item].title}</strong>
+                <span>{layerLabels[item].note}</span>
               </button>
-            )
-          }) : <small>本地点作为地图基础点保留，具体事件仍待史料补充。</small>}
-        </aside>
-      </section>
+            ))}
+          </div>
 
-      <div className="map-stage-row">
-        {stages.map((stage) => (
-          <button key={stage.id} onClick={() => {
-            setMode('stage')
-            const first = events.find((event) => event.stageId === stage.id)
-            if (first) chooseEvent(first.id)
-          }}>{stage.shortTitle}</button>
-        ))}
-      </div>
+          <div className="map-filter-row">
+            <label>
+              <span>时期</span>
+              <select value={period} onChange={(event) => setPeriod(event.target.value as RoutePeriod)}>
+                {(Object.keys(periodLabels) as RoutePeriod[]).map((item) => <option value={item} key={item}>{periodLabels[item]}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>篇目关系</span>
+              <select value={relation} onChange={(event) => setRelation(event.target.value as WorkRelationType)}>
+                {(Object.keys(relationLabels) as WorkRelationType[]).map((item) => <option value={item} key={item}>{relationLabels[item]}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>内容状态</span>
+              <select value={contentState} onChange={(event) => setContentState(event.target.value as ContentState)}>
+                {(Object.keys(stateLabels) as ContentState[]).map((item) => <option value={item} key={item}>{stateLabels[item]}</option>)}
+              </select>
+            </label>
+            <label className="search-filter">
+              <span>搜索</span>
+              <input value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} placeholder="地点、篇目、子地点" />
+            </label>
+          </div>
+        </div>
+
+        <section className="literary-map route-map-layout">
+          <div className={`map-canvas route-canvas layer-${layer}`}>
+            <ResponsiveImage image="map" alt="张岱人生路线示意地图" />
+            <svg className="route-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              {visibleSegments.map((segment) => {
+                const points = routePoints(segment)
+                return points.length > 1 ? (
+                  <polyline
+                    key={segment.id}
+                    className={`route-line route-${segment.certainty}`}
+                    points={points.map((point) => `${point.x},${point.y}`).join(' ')}
+                  />
+                ) : null
+              })}
+            </svg>
+
+            {layer === 'historicalContext' && historicalOverlayNodes.map((item) => {
+              const node = getRouteNode(item.nodeId)
+              const point = node ? projectNode(node) : null
+              if (!point) return null
+              return (
+                <button
+                  className={`history-node ${selectedNode.id === item.nodeId ? 'active' : ''}`}
+                  style={{ left: `${point.x}%`, top: `${point.y}%` }}
+                  onClick={() => chooseNode(item.nodeId)}
+                  key={item.id}
+                >
+                  <i />
+                  <span>{item.date} · {item.title}</span>
+                </button>
+              )
+            })}
+
+            {visibleNodes.map((node) => {
+              const point = projectNode(node)
+              if (!point) return null
+              const workCount = (node.directWorks?.length ?? 0) + (node.contextWorks?.length ?? 0)
+              return (
+                <button
+                  className={`map-node ${node.id === selectedNode.id ? 'active' : ''} importance-${node.importance}`}
+                  style={{ left: `${point.x}%`, top: `${point.y}%` }}
+                  onClick={() => chooseNode(node.id)}
+                  key={node.id}
+                >
+                  <i />
+                  <span>{node.name}</span>
+                  {layer === 'workGeography' && workCount > 0 ? <em>{workCount}</em> : null}
+                </button>
+              )
+            })}
+          </div>
+
+          <NodeDrawer node={selectedNode} relation={relation} />
+        </section>
+
+        {layer === 'lifeRoute' ? (
+          <div className="route-segment-strip">
+            <button className={activeRouteId === 'all' ? 'on' : ''} onClick={() => setActiveRouteId('all')}>全部路线</button>
+            {routeSegments.map((segment) => (
+              <button className={activeRouteId === segment.id ? 'on' : ''} onClick={() => setActiveRouteId(segment.id)} key={segment.id}>
+                {segment.label}
+                <small>{segment.certainty === 'exact' ? '确年' : segment.certainty === 'partial' ? '局部待考' : '约年'}</small>
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        {layer === 'historicalContext' ? (
+          <div className="history-overlay-list">
+            {historicalOverlayNodes.map((item) => (
+              <button className={selectedNode.id === item.nodeId ? 'on' : ''} onClick={() => chooseNode(item.nodeId)} key={item.id}>
+                <strong>{item.date} · {item.title}</strong>
+                <span>{item.note}</span>
+              </button>
+            ))}
+          </div>
+        ) : null}
+
+        {contentState === 'unmapped' || layer === 'workGeography' ? (
+          <section className="unmapped-works">
+            <h2>未定位作品</h2>
+            <p>地点证据不足的篇目不强行打点，也不进入真实行迹线。</p>
+            <div>
+              {unmappedWorks.length ? unmappedWorks.map((work) => (
+                <span key={work.title}>{work.title}<small>{work.status}</small></span>
+              )) : <small>当前数据未提供未定位条目。</small>}
+            </div>
+          </section>
+        ) : null}
+      </section>
     </main>
   )
 }
