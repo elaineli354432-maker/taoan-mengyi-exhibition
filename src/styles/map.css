@@ -21,14 +21,13 @@
 
 .layer-tabs {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
 .layer-tabs button,
 .map-filter-row label,
-.route-segment-strip button,
-.history-overlay-list button {
+.route-segment-strip button {
   border: 1px solid rgba(137, 122, 104, .32);
   background: rgba(250, 248, 242, .72);
   color: var(--text-primary);
@@ -133,10 +132,6 @@
   filter: saturate(.52) contrast(.94) brightness(1.06);
 }
 
-.route-canvas.layer-historicalContext .responsive-image::before {
-  filter: grayscale(.55) saturate(.36) contrast(.94) brightness(.96);
-}
-
 .route-lines {
   position: absolute;
   inset: 0;
@@ -163,8 +158,7 @@
   stroke: rgba(156, 75, 61, .54);
 }
 
-.map-node,
-.history-node {
+.map-node {
   position: absolute;
   z-index: 4;
   transform: translate(-50%, -50%);
@@ -178,8 +172,7 @@
   padding: 0;
 }
 
-.map-node i,
-.history-node i {
+.map-node i {
   display: block;
   width: 12px;
   height: 12px;
@@ -194,14 +187,12 @@
   height: 16px;
 }
 
-.map-node.active i,
-.history-node.active i {
+.map-node.active i {
   background: var(--accent-red);
   box-shadow: 0 0 0 9px rgba(164, 72, 58, .14);
 }
 
-.map-node span,
-.history-node span {
+.map-node span {
   display: block;
   margin-top: 5px;
   padding: 3px 7px;
@@ -222,10 +213,6 @@
   color: #fffaf0;
   font: 10px/1.4 var(--sans);
   font-style: normal;
-}
-
-.history-node span {
-  color: var(--accent-red);
 }
 
 .route-drawer {
@@ -382,42 +369,29 @@
   border-bottom: 1px solid rgba(25, 52, 43, .36);
 }
 
-.route-segment-strip,
-.history-overlay-list {
+.route-segment-strip {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 18px;
 }
 
-.route-segment-strip button,
-.history-overlay-list button {
+.route-segment-strip button {
   padding: 10px 13px;
   text-align: left;
   font: 13px/1.4 var(--sans);
 }
 
-.route-segment-strip button.on,
-.history-overlay-list button.on {
+.route-segment-strip button.on {
   border-color: rgba(164, 72, 58, .7);
   color: var(--accent-red);
   background: rgba(255, 252, 245, .95);
 }
 
-.route-segment-strip small,
-.history-overlay-list span {
+.route-segment-strip small {
   display: block;
   margin-top: 4px;
   color: var(--text-muted);
-}
-
-.history-overlay-list button {
-  width: min(100%, 360px);
-}
-
-.history-overlay-list strong {
-  display: block;
-  font-weight: 600;
 }
 
 .unmapped-works {
@@ -482,7 +456,6 @@
 
   .map-toolbar,
   .route-segment-strip,
-  .history-overlay-list,
   .unmapped-works {
     margin-left: 18px;
     margin-right: 18px;
@@ -494,8 +467,7 @@
     border-right: 0;
   }
 
-  .map-node span,
-  .history-node span {
+  .map-node span {
     max-width: 92px;
     white-space: normal;
   }

@@ -27,12 +27,12 @@ const obsessionBranchMeta: Record<string, { title: string; image: string; note: 
     note: '琴社让听觉训练与社交组织相互支撑。',
   },
   buxiyuan: {
-    title: '为园林而痴',
+    title: '为园林而痴之一',
     image: '/images/garden-obsession.png',
     note: '园林把审美安排为可居可游的日常。',
   },
   'goulou-shanfang': {
-    title: '为园林而痴',
+    title: '为园林而痴之二',
     image: '/images/goulou-shanfang.png',
     note: '山房把桥、阁、竹泉与溪声组织成可居可听的园林经验。',
   },
@@ -355,9 +355,9 @@ export function DreamPage() {
           </div>
         </article>
         <div className="asymmetric-pair">
-          <EventMini event={prosperity[2]} />
           <EventMini event={prosperity[4]} />
-          <EventStrip event={prosperity[3]} reverse />
+          <EventMini event={prosperity[2]} />
+          <EventMini event={prosperity[3]} />
         </div>
       </section>
 

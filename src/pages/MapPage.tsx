@@ -4,7 +4,6 @@ import { ResponsiveImage } from '../components/shared/ResponsiveImage'
 import {
   getNodeWorks,
   getRouteNode,
-  historicalOverlayNodes,
   periodMatches,
   routeNodes,
   routeSegments,
@@ -25,10 +24,6 @@ const layerLabels: Record<MapLayerId, { title: string; note: string }> = {
   workGeography: {
     title: '作品地理层',
     note: '呈现篇目和地点关系，但不把文学地点画成真实行走路线。',
-  },
-  historicalContext: {
-    title: '历史背景层',
-    note: '明亡、鲁王、避乱等背景只作半透明叠加，不与作品混写。',
   },
 }
 
@@ -243,7 +238,7 @@ export function MapPage() {
       <header className="page-head map-page-head">
         <p>行迹</p>
         <h1>张岱人生路线地图</h1>
-        <span>以真实行迹为默认层，作品地理与历史背景分层查看；不以摘录卡片或文学地点虚构路线。</span>
+        <span>以真实行迹为默认层，作品地理分层查看；不以摘录卡片或文学地点虚构路线。</span>
       </header>
 
       <section className="route-map-shell">
@@ -299,23 +294,6 @@ export function MapPage() {
               })}
             </svg>
 
-            {layer === 'historicalContext' && historicalOverlayNodes.map((item) => {
-              const node = getRouteNode(item.nodeId)
-              const point = node ? projectNode(node) : null
-              if (!point) return null
-              return (
-                <button
-                  className={`history-node ${selectedNode.id === item.nodeId ? 'active' : ''}`}
-                  style={{ left: `${point.x}%`, top: `${point.y}%` }}
-                  onClick={() => chooseNode(item.nodeId)}
-                  key={item.id}
-                >
-                  <i />
-                  <span>{item.date} · {item.title}</span>
-                </button>
-              )
-            })}
-
             {visibleNodes.map((node) => {
               const point = projectNode(node)
               if (!point) return null
@@ -345,17 +323,6 @@ export function MapPage() {
               <button className={activeRouteId === segment.id ? 'on' : ''} onClick={() => setActiveRouteId(segment.id)} key={segment.id}>
                 {segment.label}
                 <small>{segment.certainty === 'exact' ? '确年' : segment.certainty === 'partial' ? '局部待考' : '约年'}</small>
-              </button>
-            ))}
-          </div>
-        ) : null}
-
-        {layer === 'historicalContext' ? (
-          <div className="history-overlay-list">
-            {historicalOverlayNodes.map((item) => (
-              <button className={selectedNode.id === item.nodeId ? 'on' : ''} onClick={() => chooseNode(item.nodeId)} key={item.id}>
-                <strong>{item.date} · {item.title}</strong>
-                <span>{item.note}</span>
               </button>
             ))}
           </div>

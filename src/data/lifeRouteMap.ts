@@ -1,6 +1,6 @@
 import rawLifeRouteMap from './zhangdai_life_route_map_v2.json'
 
-export type MapLayerId = 'lifeRoute' | 'workGeography' | 'historicalContext'
+export type MapLayerId = 'lifeRoute' | 'workGeography'
 export type WorkRelationType = 'all' | 'direct' | 'context'
 export type ContentState = 'all' | 'hasWorks' | 'routeOnly' | 'unmapped'
 export type RoutePeriod = 'all' | 'early' | 'middle' | 'late' | 'uncertain'
@@ -51,14 +51,6 @@ export interface RouteSegment {
   period: RoutePeriod
   certainty: 'exact' | 'approximate' | 'partial'
   nodeIds: string[]
-}
-
-export interface HistoricalOverlayNode {
-  id: string
-  nodeId: string
-  date: string
-  title: string
-  note: string
 }
 
 export const lifeRouteMapData = rawLifeRouteMap as unknown as LifeRouteMapData
@@ -134,29 +126,6 @@ export const routeSegments: RouteSegment[] = [
   },
 ]
 
-export const historicalOverlayNodes: HistoricalOverlayNode[] = [
-  {
-    id: 'ming-fall',
-    nodeId: 'shaoxing',
-    date: '1644',
-    title: '明亡以后',
-    note: '历史背景仅作半透明叠加，不替代人生行迹与作品地理。',
-  },
-  {
-    id: 'luwang',
-    nodeId: 'shaoxing',
-    date: '1645',
-    title: '鲁王过越',
-    note: '作为南明余影的历史背景节点，仍需和作品、行迹分层查看。',
-  },
-  {
-    id: 'refuge',
-    nodeId: 'shengzhong_xibaishan',
-    date: '1645—1646',
-    title: '入山避乱',
-    note: '政治崩塌后的避居线索，保留为背景叠加。',
-  },
-]
 
 export function getRouteNode(id: string | null | undefined) {
   return routeNodes.find((node) => node.id === id)

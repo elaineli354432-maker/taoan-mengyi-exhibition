@@ -102,6 +102,19 @@
   .archive-entrances > div {
     grid-template-columns: 1fr;
   }
+  .chapter-prosperity .asymmetric-pair {
+    max-width: none;
+  }
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child > .scene-trigger,
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child > .scene-trigger > .responsive-image,
+  .chapter-prosperity .asymmetric-pair > .event-mini > .scene-trigger,
+  .chapter-prosperity .asymmetric-pair > .event-mini > .scene-trigger > .responsive-image {
+    min-height: 300px;
+  }
   .night-opera {
     min-height: 620px;
   }
