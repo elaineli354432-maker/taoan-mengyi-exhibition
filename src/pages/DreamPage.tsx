@@ -31,6 +31,11 @@ const obsessionBranchMeta: Record<string, { title: string; image: string; note: 
     image: '/images/garden-obsession.png',
     note: '园林把审美安排为可居可游的日常。',
   },
+  'goulou-shanfang': {
+    title: '为园林而痴',
+    image: '/images/goulou-shanfang.png',
+    note: '山房把桥、阁、竹泉与溪声组织成可居可听的园林经验。',
+  },
 }
 
 function EventMini({ event }: { event: EventRecord }) {
@@ -216,7 +221,7 @@ export function DreamPage() {
   const [guideOpen, setGuideOpen] = useState(false)
   const navigate = useNavigate()
   const formation = pick(['xuanyaoting', 'nanzhen', 'lanxue', 'qinpai'])
-  const prosperity = pick(['fengmen', 'jinshan', 'zhongqiu', 'buxiyuan'])
+  const prosperity = pick(['fengmen', 'jinshan', 'qinhuai-river-house', 'zhongqiu', 'buxiyuan'])
   const huxinting = getEvent('huxinting')!
   const collapse = pick(['lanterns', 'zhaoqing', 'famine', 'roadblock', 'mingwang'])
   const southMing = pick(['luwang', 'qidream'])
@@ -240,8 +245,8 @@ export function DreamPage() {
       id: 'obsession',
       number: '03',
       title: '天地一痴人',
-      description: '痴，不是一种标签，而是一种用行动进入世界的方法。湖心亭是主轴，茶、琴、园只是它的旁笺。',
-      slides: eventSlides([huxinting, ...pick(['lanxue', 'qinpai', 'buxiyuan'])]),
+      description: '痴，不是一种标签，而是一种用行动进入世界的方法。湖心亭是主轴，龙山雪延展“雪痴”，茶、琴、园只是它的旁笺。',
+      slides: eventSlides([huxinting, ...pick(['longshan-snow', 'lanxue', 'qinpai', 'buxiyuan', 'goulou-shanfang'])]),
     },
     {
       id: 'collapse',
@@ -351,7 +356,8 @@ export function DreamPage() {
         </article>
         <div className="asymmetric-pair">
           <EventMini event={prosperity[2]} />
-          <EventStrip event={prosperity[3]} reverse />
+          <EventMini event={prosperity[3]} />
+          <EventStrip event={prosperity[4]} reverse />
         </div>
       </section>
 
@@ -381,7 +387,7 @@ export function DreamPage() {
           </aside>
         </div>
         <div className="obsession-branches">
-          {pick(['lanxue', 'qinpai', 'buxiyuan']).map((event) => {
+          {pick(['lanxue', 'qinpai', 'buxiyuan', 'goulou-shanfang']).map((event) => {
             const branch = obsessionBranchMeta[event.id]
             const passage = getScenePassages(event.id)[0]
             return (

@@ -10,8 +10,8 @@ import { SceneMetadata } from './SceneMetadata'
 import { ScenePassagePanel } from './ScenePassagePanel'
 import { SceneProgress } from './SceneProgress'
 
-const coldScenes = new Set(['huxinting', 'mingwang', 'roadblock', 'old-zhangdai', 'qidream'])
-const warmScenes = new Set(['lanxue', 'fengmen', 'jinshan', 'zhongqiu', 'buxiyuan', 'lanterns', 'luwang'])
+const coldScenes = new Set(['huxinting', 'longshan-snow', 'mingwang', 'roadblock', 'old-zhangdai', 'qidream'])
+const warmScenes = new Set(['lanxue', 'fengmen', 'jinshan', 'qinhuai-river-house', 'zhongqiu', 'buxiyuan', 'goulou-shanfang', 'lanterns', 'luwang'])
 
 function sceneTone(sceneId: string) {
   if (coldScenes.has(sceneId)) return 'cold'
