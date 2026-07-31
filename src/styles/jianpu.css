@@ -150,39 +150,39 @@
 }
 
 .shizhuzhai-plate-1 .shizhuzhai-print {
-  --print-color-opacity: .88;
+  --print-color-opacity: .94;
   --print-ink-opacity: .98;
   --print-saturation: 1.12;
 }
 
 .shizhuzhai-plate-2 .shizhuzhai-print {
-  --print-color-opacity: .8;
-  --print-ink-opacity: .94;
-  --print-saturation: 1.02;
+  --print-color-opacity: .94;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
 }
 
 .shizhuzhai-plate-3 .shizhuzhai-print {
-  --print-color-opacity: .6;
-  --print-ink-opacity: .86;
-  --print-saturation: .78;
+  --print-color-opacity: .94;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
 }
 
 .shizhuzhai-plate-4 .shizhuzhai-print {
-  --print-color-opacity: .42;
-  --print-ink-opacity: .74;
-  --print-saturation: .48;
+  --print-color-opacity: .94;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
 }
 
 .shizhuzhai-plate-5 .shizhuzhai-print {
-  --print-color-opacity: .18;
-  --print-ink-opacity: .52;
-  --print-saturation: .22;
+  --print-color-opacity: .94;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
 }
 
 .shizhuzhai-plate-6 .shizhuzhai-print {
-  --print-color-opacity: .08;
-  --print-ink-opacity: .34;
-  --print-saturation: .08;
+  --print-color-opacity: .94;
+  --print-ink-opacity: .98;
+  --print-saturation: 1.12;
 }
 
 .shizhuzhai-bamboo {
