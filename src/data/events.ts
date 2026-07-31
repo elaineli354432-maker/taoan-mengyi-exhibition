@@ -104,7 +104,7 @@ const eventRecords: EventRecord[] = [
     sourceVolume: 3,
     sourceChapter: '兰雪茶',
     originalQuoteVerified: false,
-    curatorialText: '品泉、选叶、候火和择器，让张岱把审美落实到材料与工艺。茶事训练了他辨别微差的能力，也让滋味成为可被书写的记忆。',
+    curatorialText: '忆余少年时，死心究茶理。\n辨析入精微，身在水火里。\n日铸制佳茶，兰雪名以起。\n烹瀹恐不伦，乃为著茶史。\n遂使身后名，与茶相终始。\n今经丧乱余，断饮已四祀。',
     imageCaption: '兰雪茶素材呈现茶器、水与手工技艺。',
     heroImage: 'lanxue',
     relatedEventIds: ['xuanyaoting', 'qinpai'],
