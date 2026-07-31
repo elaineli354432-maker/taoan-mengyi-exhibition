@@ -15,26 +15,22 @@ import { sceneImageUrl } from '../components/exhibition/sceneImage'
 
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
 
-const obsessionBranchMeta: Record<string, { title: string; image: string; note: string }> = {
+const obsessionBranchMeta: Record<string, { title: string; image: string; note?: string }> = {
   lanxue: {
     title: '为茶而痴',
     image: '/images/tea-obsession.png',
-    note: '辨水、候火和择器，使“痴”落在味觉细节。',
   },
   qinpai: {
     title: '为琴而痴',
     image: '/images/qin-obsession.png',
-    note: '琴社让听觉训练与社交组织相互支撑。',
   },
   buxiyuan: {
     title: '为园林而痴之一',
     image: '/images/garden-obsession.png',
-    note: '园林把审美安排为可居可游的日常。',
   },
   'goulou-shanfang': {
     title: '为园林而痴之二',
     image: '/images/goulou-shanfang.png',
-    note: '山房把桥、阁、竹泉与溪声组织成可居可听的园林经验。',
   },
 }
 
@@ -231,14 +227,14 @@ export function DreamPage() {
       id: 'formation',
       number: '01',
       title: '感官的形成',
-      description: '张岱后来能敏锐记录声音、光线、器物和空间，不是偶然才情，而是童年书斋、园林、茶事与琴社长期训练出的辨别力。',
+      description: '张岱后来能敏锐记录声音、光线、器物和空间，靠的不是偶然的才情，而是这位富家少爷成长过程中，在书斋、园林、茶事与琴社中浸润出的文气与见多识广而自然产生的辨别力。',
       slides: eventSlides(formation),
     },
     {
       id: 'prosperity',
       number: '02',
       title: '创造一种生活',
-      description: '张岱不是晚明生活的旁观者。他组织戏曲、雅集、游赏和园林，把审美变成一套可以被实践的生活方式。',
+      description: '张岱通过对于戏曲、雅集、游赏和园林回忆的记录，把完美时代的士人生活与文人审美展现在我们面前。',
       slides: eventSlides(prosperity),
     },
     {
@@ -252,14 +248,14 @@ export function DreamPage() {
       id: 'collapse',
       number: '04',
       title: '人间散场',
-      description: '灯景、寺火、饥荒、香路断绝与国破家亡，让城市生活逐渐失去支撑。',
+      description: '灯景、寺火、饥荒、香路断绝与国破家亡，在一幕幕的演进之中，张岱优游自在的士人生活渐成泡影。',
       slides: eventSlides(collapse),
     },
     {
       id: 'south-ming',
       number: '04B',
       title: '南明余影',
-      description: '鲁王过越是外部政治行进，祁世培入梦是内部精神坍塌。两者共同通向“以文字存梦”。',
+      description: '看似朱家宗室仍旧“百足之虫，死而不僵”，但为一场关于已经殉国的祁彪佳的梦，说明了天下将亡的必然性，一句“天下事已不可为”，道出了国事的沉沦，只剩下个人精神世界的一片苍茫。',
       slides: [
         ...passageSlides('luwang', southMing[0]),
         ...passageSlides('qidream', southMing[1]),
@@ -269,7 +265,7 @@ export function DreamPage() {
       id: 'writing',
       number: '05',
       title: '以文字存梦',
-      description: '当园林、藏书、城市和交游消失之后，写作成为张岱保存感官世界的方式。',
+      description: '当园林、藏书、繁华都消逝，当旧时友人死的死、降的降，飞鸟各投林，落得白茫茫大地成为真干净。写作成为张岱保存感官世界的唯一方式。',
       slides: eventSlides(writing),
     },
   ]
@@ -396,7 +392,7 @@ export function DreamPage() {
                 <div>
                   <span>{event.displayDate} · {event.sourceChapter}</span>
                   <h3>{branch.title}</h3>
-                  <p>{branch.note}</p>
+                  {branch.note ? <p>{branch.note}</p> : null}
                   {passage && <blockquote>{passage.originalText}</blockquote>}
                   <Link to={`/?scene=${event.id}`}>进入旁笺</Link>
                 </div>
@@ -434,7 +430,7 @@ export function DreamPage() {
         <header className="chapter-head">
           <span>04B</span>
           <h2>南明余影</h2>
-          <p>这里不新增历史人物叙事，只复用既有鲁王与祁氏视觉素材：一个外部政治行进，一个内部精神坍塌，把“人间散场”沉降到“以文字存梦”。</p>
+          <p>人间散场，故人入梦。</p>
         </header>
         <div className="south-ming-dual">
           {southMing.map((event) => (
