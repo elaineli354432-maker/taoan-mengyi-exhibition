@@ -12,6 +12,7 @@ import { VerifiedQuote } from '../components/shared/VerifiedQuote'
 import { events, getEvent, type EventRecord } from '../data/events'
 import { getScenePassages, type ScenePassage } from '../data/scenePassages'
 import { sceneImageUrl } from '../components/exhibition/sceneImage'
+import { assetUrl } from '../utils/assetUrl'
 
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
 
@@ -149,6 +150,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
   const step = Math.min(Math.max(Number.isFinite(requestedStep) ? requestedStep : 0, 0), total - 1)
   const slide = step > 0 ? act.slides[step - 1] : undefined
   const titlePlateId = String(Math.min(actIndex + 1, 6)).padStart(2, '0')
+  const titlePlateImage = assetUrl(`/images/jianpu/patterns/shizhuzhai-pattern-${titlePlateId}.png`)
 
   const openActStep = (nextActIndex: number, nextStep: number) => {
     const wrappedActIndex = (nextActIndex + acts.length) % acts.length
@@ -184,10 +186,10 @@ function ActTour({ acts }: { acts: TourAct[] }) {
 
       {step === 0 ? (
         <article className="act-tour-title">
-          <div className={`shizhuzhai-print tour-jianpu-print shizhuzhai-plate-${actIndex + 1}`} style={{ ['--jianpu-image' as string]: `url('/images/jianpu/patterns/shizhuzhai-pattern-${titlePlateId}.png')` }}>
+          <div className={`shizhuzhai-print tour-jianpu-print shizhuzhai-plate-${actIndex + 1}`} style={{ ['--jianpu-image' as string]: `url('${titlePlateImage}')` }}>
             <span className="shizhuzhai-print-layer shizhuzhai-print-emboss" />
             <span className="shizhuzhai-print-layer shizhuzhai-print-color" />
-            <img className="shizhuzhai-art shizhuzhai-print-ink" src={`/images/jianpu/patterns/shizhuzhai-pattern-${titlePlateId}.png`} alt="" />
+            <img className="shizhuzhai-art shizhuzhai-print-ink" src={titlePlateImage} alt="" />
           </div>
           <span>{act.number}</span>
           <h1>{act.title}</h1>
