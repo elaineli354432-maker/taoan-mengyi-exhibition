@@ -16,10 +16,6 @@ export function ScenePassagePanel({ passage }: { passage: ScenePassage }) {
           <dt>来源</dt>
           <dd>{passage.sourceReference}</dd>
         </div>
-        <div>
-          <dt>校核</dt>
-          <dd>{passage.originalTextVerified ? '已校核' : '待人工核对'}</dd>
-        </div>
       </dl>
       <Link to={`/read?chapter=${passage.chapterId}&event=${passage.eventId}`}>阅读完整篇目</Link>
     </aside>

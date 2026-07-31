@@ -73,7 +73,7 @@ export function ReadPage() {
             {results.length ? results.map((item) => (
               <button onClick={() => chooseChapter(item.id)} key={item.id}>
                 {item.title}
-                <small>{item.originalTextVerified ? '原文已校核' : '原文校核中'}</small>
+                {item.sourceReference && <small>{item.sourceReference}</small>}
               </button>
             )) : <small>没有匹配篇目</small>}
           </div>
@@ -83,7 +83,7 @@ export function ReadPage() {
           {sortedChapters.map((item) => (
             <button className={item.id === chapter.id ? 'on' : ''} onClick={() => chooseChapter(item.id)} key={item.id}>
               《{item.title}》
-              <small>{item.originalTextVerified ? '原文已校核' : '校核中'}</small>
+              {item.sourceReference && <small>{item.sourceReference}</small>}
             </button>
           ))}
         </details>
@@ -94,7 +94,7 @@ export function ReadPage() {
           {relatedEvents[0]?.heroImage && <ResponsiveImage image={relatedEvents[0].heroImage} alt={`${chapter.title}关联场景`} className="reader-scene-thumb" />}
           <p>《陶庵梦忆》精选阅读</p>
           <h1>{chapter.title}</h1>
-          <span>{chapter.sourceReference ?? '卷次与篇目正在持续校核'} · {chapter.originalTextVerified ? '原文已校核' : '原文校核中'}</span>
+          {chapter.sourceReference && <span>{chapter.sourceReference}</span>}
           <div className="reader-settings">
             <button className={mode === 'clean' ? 'on' : ''} onClick={() => setMode('clean')}>清读</button>
             <button className={mode === 'annotated' ? 'on' : ''} onClick={() => setMode('annotated')}>注读</button>
@@ -110,14 +110,13 @@ export function ReadPage() {
           chapter.originalText.split('\n').map((paragraph, index) => <p key={`${chapter.id}-${index}`}>{paragraph}</p>)
         ) : (
           <section className="reader-scene-passages">
-            <p className="unverified-text">本篇完整原文仍在校核；以下先显示已绑定到首页场景的段落。</p>
             {chapterScenePassages.length ? chapterScenePassages.map((passage) => passage && (
               <article key={passage.id}>
-                <span>{passage.sourceReference} · {passage.originalTextVerified ? '已校核' : '待人工核对'}</span>
+                <span>{passage.sourceReference}</span>
                 <blockquote>{passage.originalText}</blockquote>
                 {passage.curatorialNote && <small>{passage.curatorialNote}</small>}
               </article>
-            )) : <p className="unverified-text">本篇尚未绑定可展示段落。</p>}
+            )) : null}
           </section>
         )}
         {chapter.curatorialIntroduction && <p className="reader-curatorial">{chapter.curatorialIntroduction}</p>}
@@ -144,7 +143,7 @@ export function ReadPage() {
             <section key={event.id}>
               <Link to={`/timeline?event=${event.id}`}>
                 {event.displayDate} · {event.title}
-                <small>{event.ageDisplay ?? '年龄待核'}</small>
+                {event.ageDisplay && <small>{event.ageDisplay}</small>}
               </Link>
               {(event.sceneExhibitionEnabled ?? chapterScenePassages.some((passage) => passage?.eventId === event.id)) && <Link to={`/?scene=${event.id}`}>返回场景展览</Link>}
             </section>

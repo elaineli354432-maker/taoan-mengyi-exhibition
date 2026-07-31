@@ -129,11 +129,11 @@ function NodeDrawer({ node, relation }: { node: RouteNode; relation: WorkRelatio
   return (
     <aside className="location-panel route-drawer">
       <div className="drawer-kicker">
-        <span>{node.modernRegion ?? '区域待核'}</span>
+        {node.modernRegion && <span>{node.modernRegion}</span>}
         <span>{node.nodeType}</span>
       </div>
       <h2>{node.name}</h2>
-      {node.historicalNames?.length ? <p>古称：{node.historicalNames.join(' / ')}</p> : <p>古称待核</p>}
+      {node.historicalNames?.length ? <p>古称：{node.historicalNames.join(' / ')}</p> : null}
 
       <section>
         <h3>到访记录</h3>
@@ -174,13 +174,6 @@ function NodeDrawer({ node, relation }: { node: RouteNode; relation: WorkRelatio
       </section>
 
       {node.nestedCatalog ? <NestedCatalog catalog={node.nestedCatalog} /> : null}
-
-      {node.notes ? (
-        <section>
-          <h3>校核说明</h3>
-          <p>{node.notes}</p>
-        </section>
-      ) : null}
 
       <Link className="map-timeline-link" to={`/timeline?location=${node.id}`}>在年谱中查看</Link>
     </aside>

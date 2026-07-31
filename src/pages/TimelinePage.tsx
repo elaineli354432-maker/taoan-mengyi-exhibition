@@ -11,7 +11,7 @@ const certaintyText: Record<DateCertainty, string> = {
   exact: '确年',
   inferred: '推定',
   approximate: '约略',
-  unknown: '待核',
+  unknown: '',
 }
 
 function TimelineEvent({ event, active }: { event: EventRecord; active: boolean }) {
@@ -24,15 +24,15 @@ function TimelineEvent({ event, active }: { event: EventRecord; active: boolean 
       <div className="timeline-year">
         <i className={event.dateCertainty} />
         <strong>{event.displayDate}</strong>
-        <span>{certaintyText[event.dateCertainty]}</span>
+        {certaintyText[event.dateCertainty] && <span>{certaintyText[event.dateCertainty]}</span>}
       </div>
       {isMajor && <ResponsiveImage image={event.heroImage ?? event.id} alt={event.title} />}
       <div className="timeline-copy">
-        <p>{event.ageDisplay ?? '年龄待核'} · {locations.map((location) => location?.modernName).join(' / ') || '地点待核'} · {event.sourceChapter ?? '篇目待核'}</p>
+        <p>{[event.ageDisplay, locations.map((location) => location?.modernName).join(' / '), event.sourceChapter].filter(Boolean).join(' · ')}</p>
         <h2>{event.title}</h2>
-        {event.originalQuoteVerified && event.originalQuote ? <blockquote>{event.originalQuote}</blockquote> : <small>原文摘录待人工核对，当前仅显示策展说明。</small>}
+        {event.originalQuoteVerified && event.originalQuote ? <blockquote>{event.originalQuote}</blockquote> : null}
         <span>{event.curatorialText}</span>
-        <em>日期来源：{event.dateSource ?? '待补充'}</em>
+        {event.dateSource && <em>日期来源：{event.dateSource}</em>}
         <div className="text-links">
           <Link to={`/map?event=${event.id}&location=${event.locationIds[0]}${event.startYear ? `&year=${event.startYear}` : ''}`}>地图中查看</Link>
           {chapter && <Link to={`/read?chapter=${chapter.id}&event=${event.id}`}>阅读篇目</Link>}
@@ -74,7 +74,6 @@ export function TimelinePage() {
           <p><i className="exact" /> 确年</p>
           <p><i className="inferred" /> 推定</p>
           <p><i className="approximate" /> 约略</p>
-          <p><i className="unknown" /> 待核</p>
         </aside>
         <div className="timeline-main">
           {visible.map((event) => <TimelineEvent event={event} active={targetEvent === event.id || String(event.startYear) === targetYear} key={event.id} />)}
