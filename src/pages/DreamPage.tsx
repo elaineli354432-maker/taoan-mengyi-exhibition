@@ -356,8 +356,8 @@ export function DreamPage() {
         </article>
         <div className="asymmetric-pair">
           <EventMini event={prosperity[2]} />
-          <EventMini event={prosperity[3]} />
-          <EventStrip event={prosperity[4]} reverse />
+          <EventMini event={prosperity[4]} />
+          <EventStrip event={prosperity[3]} reverse />
         </div>
       </section>
 
