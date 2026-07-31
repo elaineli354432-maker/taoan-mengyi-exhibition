@@ -47,9 +47,9 @@ export function ActPage() {
             <article id={event.id} className="act-scene" key={event.id}>
               <SceneImage kind={event.heroImage ?? event.id} variant={event.id} />
               <div className="act-overlay">
-                <p>{event.displayDate} · {event.age} · {event.sourceChapter ?? '篇目待核对'}</p>
+                <p>{[event.displayDate, event.age, event.sourceChapter].filter(Boolean).join(' · ')}</p>
                 <h2>{event.title}</h2>
-                {event.originalQuoteVerified && event.originalQuote ? <blockquote>{event.originalQuote}</blockquote> : <p className="curatorial-note">策展叙述 · 原文摘录待核对</p>}
+                {event.originalQuoteVerified && event.originalQuote ? <blockquote>{event.originalQuote}</blockquote> : null}
                 {event.id === 'birth' && <div className="birth-era">
                   <p><b>出身</b> 浙江山阴（今绍兴）仕宦书香之家；藏书、园林与水乡生活，是他最初的文化环境。</p>
                   <p><b>纪年</b> 1597年，万历二十五年，丁酉年。</p>

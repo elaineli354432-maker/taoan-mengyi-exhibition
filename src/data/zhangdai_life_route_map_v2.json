@@ -1,0 +1,915 @@
+﻿{
+    "version":  "2.0",
+    "module":  "张岱人生路线地图",
+    "nodes":  [
+                  {
+                      "id":  "shaoxing",
+                      "name":  "绍兴／山阴",
+                      "historicalNames":  [
+                                              "山阴",
+                                              "越中",
+                                              "会稽"
+                                          ],
+                      "modernRegion":  "浙江省绍兴市",
+                      "nodeType":  "residence",
+                      "importance":  5,
+                      "coordinate":  {
+                                         "lat":  30.0308,
+                                         "lng":  120.5802,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1597—1644",
+                                         "label":  "出生、成长与主要居住地"
+                                     },
+                                     {
+                                         "period":  "1645",
+                                         "label":  "鲁王播迁至越；张岱在家中接驾"
+                                     },
+                                     {
+                                         "period":  "1649以后",
+                                         "label":  "返绍兴，居龙山后麓快园，进入晚年著述阶段"
+                                     },
+                                     {
+                                         "period":  "1673",
+                                         "label":  "晚年与亲友游兰亭"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "山阴城",
+                                        "卧龙山／龙山",
+                                        "筠芝亭",
+                                        "砎园",
+                                        "梅花书屋",
+                                        "不二斋",
+                                        "天镜园",
+                                        "悬杪亭",
+                                        "雷殿",
+                                        "禊泉",
+                                        "阳和岭",
+                                        "陶堰",
+                                        "曹山",
+                                        "兰亭"
+                                    ],
+                      "directWorks":  [
+                                          "筠芝亭",
+                                          "砎园",
+                                          "越俗扫墓",
+                                          "绍兴琴派",
+                                          "表胜庵",
+                                          "梅花书屋",
+                                          "不二斋",
+                                          "丝社",
+                                          "南镇祈梦",
+                                          "禊泉",
+                                          "兰雪茶",
+                                          "白洋湖",
+                                          "阳和泉",
+                                          "龙喷池",
+                                          "朱文懿家桂",
+                                          "逍遥楼",
+                                          "天镜园",
+                                          "斗鸡社",
+                                          "杨神庙台阁",
+                                          "严助庙",
+                                          "世美堂灯",
+                                          "张氏声伎",
+                                          "樊江陈氏橘",
+                                          "治沅堂",
+                                          "目莲戏",
+                                          "绍兴灯景",
+                                          "韵山",
+                                          "噱社",
+                                          "及时雨",
+                                          "山艇子",
+                                          "悬杪亭",
+                                          "雷殿",
+                                          "龙山雪",
+                                          "庞公池",
+                                          "品山堂鱼宕",
+                                          "闰中秋",
+                                          "冰山记",
+                                          "龙山放灯",
+                                          "张东谷好酒",
+                                          "楼船",
+                                          "𪩘花阁",
+                                          "范与兰",
+                                          "蟹会",
+                                          "露兄",
+                                          "闰元宵",
+                                          "合采牌",
+                                          "瑞草谿亭",
+                                          "琅嬛福地",
+                                          "曹山",
+                                          "鲁王"
+                                      ],
+                      "contextWorks":  [
+                                           "金乳生草花",
+                                           "木犹龙",
+                                           "天砚",
+                                           "花石纲遗石",
+                                           "砂罐锡注",
+                                           "沈梅冈",
+                                           "三世藏书",
+                                           "陈章侯",
+                                           "雪精",
+                                           "乳酪",
+                                           "寗了",
+                                           "方物",
+                                           "诸工",
+                                           "炉峰月",
+                                           "刘晖吉女戏",
+                                           "彭天锡串戏",
+                                           "甘文台炉",
+                                           "水浒牌",
+                                           "朱氏收藏",
+                                           "仲叔古董",
+                                           "松花石"
+                                       ],
+                      "notes":  "默认展开张氏家园、城市风俗和晚年快园三组；同一篇目若涉及多地，可在多个节点出现，但只保留一个作品详情页。"
+                  },
+                  {
+                      "id":  "hangzhou",
+                      "name":  "杭州／西湖",
+                      "historicalNames":  [
+                                              "武林",
+                                              "钱塘"
+                                          ],
+                      "modernRegion":  "浙江省杭州市",
+                      "nodeType":  "second_home_and_literary_geography",
+                      "importance":  5,
+                      "coordinate":  {
+                                         "lat":  30.2741,
+                                         "lng":  120.1551,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "约1605—1606",
+                                         "label":  "幼年随祖父初游西湖"
+                                     },
+                                     {
+                                         "period":  "明亡以前",
+                                         "label":  "张家在西湖有园宅，长期往返与寓居"
+                                     },
+                                     {
+                                         "period":  "1654",
+                                         "label":  "晚年重游西湖"
+                                     },
+                                     {
+                                         "period":  "1656—1657",
+                                         "label":  "应谷应泰之邀，在西湖畔参与明史修撰"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "西湖总记",
+                                        "北路",
+                                        "西路",
+                                        "中路",
+                                        "南路",
+                                        "外景"
+                                    ],
+                      "directWorks":  [
+                                          "奔云石",
+                                          "岣嵝山房",
+                                          "包涵所",
+                                          "湖心亭看雪",
+                                          "西湖香市",
+                                          "西湖七月半"
+                                      ],
+                      "contextWorks":  [
+                                           "不系园",
+                                           "彭天锡串戏",
+                                           "朱楚生",
+                                           "麋公",
+                                           "苏州白兔"
+                                       ],
+                      "nestedCatalog":  {
+                                            "总记":  [
+                                                       "明圣二湖"
+                                                   ],
+                                            "西湖北路":  [
+                                                         "玉莲亭",
+                                                         "昭庆寺",
+                                                         "哇哇宕",
+                                                         "大佛头",
+                                                         "保俶塔",
+                                                         "玛瑙寺",
+                                                         "智果寺",
+                                                         "六贤祠",
+                                                         "西泠桥",
+                                                         "岳王坟",
+                                                         "紫云洞"
+                                                     ],
+                                            "西湖西路":  [
+                                                         "玉泉寺",
+                                                         "集庆寺",
+                                                         "飞来峰",
+                                                         "冷泉亭",
+                                                         "灵隐寺",
+                                                         "北高峰",
+                                                         "韬光庵",
+                                                         "岣嵝山房",
+                                                         "青莲山房",
+                                                         "呼猿洞",
+                                                         "三生石",
+                                                         "上天竺"
+                                                     ],
+                                            "西湖中路":  [
+                                                         "秦楼",
+                                                         "片石居",
+                                                         "十锦塘",
+                                                         "孤山",
+                                                         "关王庙",
+                                                         "苏小小墓",
+                                                         "陆宣公祠",
+                                                         "六一泉",
+                                                         "葛岭",
+                                                         "苏公堤",
+                                                         "湖心亭",
+                                                         "放生池",
+                                                         "醉白楼",
+                                                         "小青佛舍"
+                                                     ],
+                                            "西湖南路":  [
+                                                         "柳洲亭",
+                                                         "灵芝寺",
+                                                         "钱王祠",
+                                                         "净慈寺",
+                                                         "小蓬莱",
+                                                         "雷峰塔",
+                                                         "包衙庄",
+                                                         "南高峰",
+                                                         "烟霞石屋",
+                                                         "高丽寺",
+                                                         "法相寺",
+                                                         "于坟",
+                                                         "风篁岭",
+                                                         "龙井",
+                                                         "一片云",
+                                                         "九溪十八涧"
+                                                     ],
+                                            "西湖外景":  [
+                                                         "西溪",
+                                                         "虎跑泉",
+                                                         "凤凰山",
+                                                         "宋大内",
+                                                         "梵天寺",
+                                                         "胜果寺",
+                                                         "五云山",
+                                                         "云栖",
+                                                         "六和塔",
+                                                         "镇海楼",
+                                                         "伍公祠",
+                                                         "城隍庙",
+                                                         "火德庙",
+                                                         "芙蓉石",
+                                                         "云居庵",
+                                                         "施公庙",
+                                                         "三茅观",
+                                                         "紫阳庵"
+                                                     ]
+                                        },
+                      "notes":  "杭州节点不得把《西湖梦寻》72条压成一个列表。第一层显示五路与总记，第二层再展开具体地点。"
+                  },
+                  {
+                      "id":  "suzhou",
+                      "name":  "苏州／吴中",
+                      "historicalNames":  [
+                                              "吴中",
+                                              "姑苏"
+                                          ],
+                      "modernRegion":  "江苏省苏州市",
+                      "nodeType":  "travel",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  31.2989,
+                                         "lng":  120.5853,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1622",
+                                         "label":  "游葑门荷宕"
+                                     },
+                                     {
+                                         "period":  "1633",
+                                         "label":  "虎丘中秋夜游"
+                                     },
+                                     {
+                                         "period":  "1638",
+                                         "label":  "至苏州见白兔，继而抵武林"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "葑门",
+                                        "虎丘",
+                                        "天平山一带"
+                                    ],
+                      "directWorks":  [
+                                          "葑门荷宕",
+                                          "吴中绝技",
+                                          "范长白",
+                                          "虎邱中秋夜",
+                                          "苏州白兔"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "《苏州白兔》同时关联杭州与越中，用多地标签而非重复正文。"
+                  },
+                  {
+                      "id":  "zhenjiang",
+                      "name":  "镇江",
+                      "historicalNames":  [
+                                              "京口"
+                                          ],
+                      "modernRegion":  "江苏省镇江市",
+                      "nodeType":  "travel_hub",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  32.1878,
+                                         "lng":  119.425,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1629",
+                                         "label":  "赴兖州省父途中夜游金山寺"
+                                     },
+                                     {
+                                         "period":  "1642",
+                                         "label":  "再经镇江，观看金山竞渡"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "金山",
+                                        "焦山",
+                                        "北固一带"
+                                    ],
+                      "directWorks":  [
+                                          "金山夜戏",
+                                          "焦山",
+                                          "金山竞渡"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "nanjing",
+                      "name":  "南京",
+                      "historicalNames":  [
+                                              "金陵",
+                                              "留都"
+                                          ],
+                      "modernRegion":  "江苏省南京市",
+                      "nodeType":  "travel_and_cultural_network",
+                      "importance":  5,
+                      "coordinate":  {
+                                         "lat":  32.0603,
+                                         "lng":  118.7969,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1629",
+                                         "label":  "秦淮观览"
+                                     },
+                                     {
+                                         "period":  "1638",
+                                         "label":  "寓桃叶渡、鹫峰寺；游燕子矶、栖霞、牛首山，交游闵老子、姚简叔、阮大铖等"
+                                     },
+                                     {
+                                         "period":  "1642",
+                                         "label":  "经镇江再至南京"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "锺山",
+                                        "报恩寺塔",
+                                        "秦淮河",
+                                        "桃叶渡",
+                                        "鹫峰寺",
+                                        "燕子矶",
+                                        "栖霞山",
+                                        "牛首山",
+                                        "朱市"
+                                    ],
+                      "directWorks":  [
+                                          "锺山",
+                                          "报恩塔",
+                                          "燕子矶",
+                                          "秦淮河房",
+                                          "牛首山打猎",
+                                          "闵老子茶",
+                                          "栖霞",
+                                          "姚简叔画",
+                                          "柳敬亭说书",
+                                          "王月生",
+                                          "阮圆海戏",
+                                          "过剑门",
+                                          "濮仲谦雕刻"
+                                      ],
+                      "contextWorks":  [
+                                           "祁止祥癖",
+                                           "彭天锡串戏"
+                                       ],
+                      "notes":  "南京节点按“城市景观／秦淮生活／文人交游／戏曲演出”分组，避免十余篇目平铺。"
+                  },
+                  {
+                      "id":  "guazhou_yangzhou",
+                      "name":  "瓜洲／扬州",
+                      "historicalNames":  [
+                                              "广陵"
+                                          ],
+                      "modernRegion":  "江苏省扬州市",
+                      "nodeType":  "travel",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  32.394,
+                                         "lng":  119.412,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1642",
+                                         "label":  "观看瓜洲一带竞渡并继续北行"
+                                     },
+                                     {
+                                         "period":  "1667",
+                                         "label":  "晚年游广陵"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "瓜洲",
+                                        "二十四桥相关区域",
+                                        "扬州城"
+                                    ],
+                      "directWorks":  [
+                                          "于园",
+                                          "二十四桥风月",
+                                          "扬州清明",
+                                          "扬州瘦马"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "瓜洲作为扬州节点下的独立子点呈现。"
+                  },
+                  {
+                      "id":  "wuxi",
+                      "name":  "无锡",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "江苏省无锡市",
+                      "nodeType":  "return_route",
+                      "importance":  3,
+                      "coordinate":  {
+                                         "lat":  31.4912,
+                                         "lng":  120.3119,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1631",
+                                         "label":  "自山东返乡途中游惠山、愚公谷"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "惠山",
+                                        "愚公谷"
+                                    ],
+                      "directWorks":  [
+                                          "愚公谷"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "jiaxing",
+                      "name":  "嘉兴",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "浙江省嘉兴市",
+                      "nodeType":  "travel",
+                      "importance":  3,
+                      "coordinate":  {
+                                         "lat":  30.7461,
+                                         "lng":  120.7555,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "日期待考",
+                                         "label":  "游南湖烟雨楼"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "南湖",
+                                        "烟雨楼"
+                                    ],
+                      "directWorks":  [
+                                          "烟雨楼"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "时间未能可靠落实时，只显示“日期待考”，不要生成虚构年份。"
+                  },
+                  {
+                      "id":  "ningbo",
+                      "name":  "宁波／鄞县",
+                      "historicalNames":  [
+                                              "四明"
+                                          ],
+                      "modernRegion":  "浙江省宁波市",
+                      "nodeType":  "travel",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  29.8683,
+                                         "lng":  121.544,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1638",
+                                         "label":  "访天童寺，继而东行观海防水操、游普陀等地"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "日月湖",
+                                        "天童寺",
+                                        "阿育王寺"
+                                    ],
+                      "directWorks":  [
+                                          "日月湖",
+                                          "天童寺僧",
+                                          "阿育王寺舍利"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "zhenhai_dinghai_putuo",
+                      "name":  "镇海／定海／普陀",
+                      "historicalNames":  [
+                                              "定海",
+                                              "招宝山"
+                                          ],
+                      "modernRegion":  "浙江省宁波市镇海区、舟山市普陀区",
+                      "nodeType":  "coastal_route",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  29.9489,
+                                         "lng":  121.716,
+                                         "precision":  "regional"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1638",
+                                         "label":  "观定海水操，并游招宝山、沈家门、莲花洋、普陀等地"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "招宝山",
+                                        "沈家门",
+                                        "莲花洋",
+                                        "普陀山",
+                                        "梵音洞",
+                                        "西天门"
+                                    ],
+                      "directWorks":  [
+                                          "定海水操"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "普陀行迹可保留为人生路线事件，但不得伪造《陶庵梦忆》篇名。"
+                  },
+                  {
+                      "id":  "xiaoshan",
+                      "name":  "萧山／湘湖",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "浙江省杭州市萧山区",
+                      "nodeType":  "travel",
+                      "importance":  3,
+                      "coordinate":  {
+                                         "lat":  30.1505,
+                                         "lng":  120.2643,
+                                         "precision":  "district"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "日期待考",
+                                         "label":  "游湘湖"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "湘湖"
+                                    ],
+                      "directWorks":  [
+                                          "湘湖"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "qufu",
+                      "name":  "曲阜",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "山东省曲阜市",
+                      "nodeType":  "shandong_route",
+                      "importance":  4,
+                      "coordinate":  {
+                                         "lat":  35.5808,
+                                         "lng":  116.9865,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1629—1631山东居留期间",
+                                         "label":  "谒孔庙、游孔林"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "孔庙",
+                                        "孔林"
+                                    ],
+                      "directWorks":  [
+                                          "孔庙桧",
+                                          "孔林"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "yanzhou",
+                      "name":  "兖州",
+                      "historicalNames":  [
+                                              "鲁藩所在地"
+                                          ],
+                      "modernRegion":  "山东省济宁市兖州区",
+                      "nodeType":  "family_and_shandong_route",
+                      "importance":  5,
+                      "coordinate":  {
+                                         "lat":  35.5526,
+                                         "lng":  116.7838,
+                                         "precision":  "district"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1629",
+                                         "label":  "赴兖州省父"
+                                     },
+                                     {
+                                         "period":  "1631",
+                                         "label":  "在兖州观阅武等活动后返乡"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "鲁王府相关空间",
+                                        "校场"
+                                    ],
+                      "directWorks":  [
+                                          "鲁藩烟火",
+                                          "朱云崃女戏",
+                                          "兖州阅武",
+                                          "鲁府松棚",
+                                          "一尺雪",
+                                          "菊海"
+                                      ],
+                      "contextWorks":  [
+                                           "冰山记"
+                                       ],
+                      "notes":  "《冰山记》同时关联绍兴演出与兖州传播，可标注为多地篇目。"
+                  },
+                  {
+                      "id":  "taian",
+                      "name":  "泰安／泰山",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "山东省泰安市",
+                      "nodeType":  "shandong_route",
+                      "importance":  3,
+                      "coordinate":  {
+                                         "lat":  36.2003,
+                                         "lng":  117.12,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1629—1631山东居留期间",
+                                         "label":  "赴泰山进香并经泰安州"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "泰安州",
+                                        "泰山"
+                                    ],
+                      "directWorks":  [
+                                          "泰安州客店"
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  ""
+                  },
+                  {
+                      "id":  "huai_an",
+                      "name":  "淮安",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "江苏省淮安市",
+                      "nodeType":  "life_route_only",
+                      "importance":  2,
+                      "coordinate":  {
+                                         "lat":  33.6104,
+                                         "lng":  119.0153,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1642",
+                                         "label":  "北行至淮安访友"
+                                     }
+                                 ],
+                      "subplaces":  [
+
+                                    ],
+                      "directWorks":  [
+
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "该节点只有可靠行迹，没有对应《陶庵梦忆》篇目；界面必须允许“0篇目”节点存在。"
+                  },
+                  {
+                      "id":  "taizhou_tiantai",
+                      "name":  "台州／天台",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "浙江省台州市",
+                      "nodeType":  "travel_and_political_route",
+                      "importance":  3,
+                      "coordinate":  {
+                                         "lat":  28.6564,
+                                         "lng":  121.4208,
+                                         "precision":  "city"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "早年／日期待考",
+                                         "label":  "天台牡丹相关游历"
+                                     },
+                                     {
+                                         "period":  "1645",
+                                         "label":  "鲁王政局相关行迹"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "天台",
+                                        "台州"
+                                    ],
+                      "directWorks":  [
+                                          "天台牡丹"
+                                      ],
+                      "contextWorks":  [
+                                           "祁止祥癖"
+                                       ],
+                      "notes":  "政治行迹与篇目地点要分开标注，不能把《祁止祥癖》简单等同于台州游记。"
+                  },
+                  {
+                      "id":  "shengzhong_xibaishan",
+                      "name":  "剡中／嵊县西白山",
+                      "historicalNames":  [
+                                              "剡中",
+                                              "西白山"
+                                          ],
+                      "modernRegion":  "浙江省嵊州市一带",
+                      "nodeType":  "refuge",
+                      "importance":  5,
+                      "coordinate":  {
+                                         "lat":  29.5885,
+                                         "lng":  120.8217,
+                                         "precision":  "regional"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1645年九月以后",
+                                         "label":  "辞鲁王，入剡中隐居避乱"
+                                     },
+                                     {
+                                         "period":  "1646年正月",
+                                         "label":  "经北山、唐园岭，宿平水韩店；随后返山"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "西白山",
+                                        "北山",
+                                        "唐园岭",
+                                        "平水韩店",
+                                        "越王峥",
+                                        "剡溪山",
+                                        "项王里"
+                                    ],
+                      "directWorks":  [
+                                          "鹿苑寺方柿",
+                                          "祁世培"
+                                      ],
+                      "contextWorks":  [
+                                           "三世藏书"
+                                       ],
+                      "notes":  "这是明亡后人生转折的关键节点，视觉等级应与绍兴、杭州、南京、兖州相当。"
+                  },
+                  {
+                      "id":  "fuyang_tonglu_jiangxi",
+                      "name":  "富阳—桐庐—常山—玉山—三衢—广信—庐陵",
+                      "historicalNames":  [
+                                              "广信",
+                                              "庐陵"
+                                          ],
+                      "modernRegion":  "浙江、江西",
+                      "nodeType":  "late_life_route",
+                      "importance":  3,
+                      "coordinate":  null,
+                      "visits":  [
+                                     {
+                                         "period":  "1653",
+                                         "label":  "访弟张登子，并沿浙赣路线远游"
+                                     }
+                                 ],
+                      "subplaces":  [
+                                        "富阳",
+                                        "桐庐",
+                                        "常山",
+                                        "玉山",
+                                        "三衢",
+                                        "广信",
+                                        "庐陵"
+                                    ],
+                      "directWorks":  [
+
+                                      ],
+                      "contextWorks":  [
+
+                                       ],
+                      "notes":  "这些是晚年真实行迹，但不应强行绑定《陶庵梦忆》篇目。建议用折线分段展示，地点坐标由项目地图数据源补全。"
+                  },
+                  {
+                      "id":  "lanting",
+                      "name":  "兰亭",
+                      "historicalNames":  [
+
+                                          ],
+                      "modernRegion":  "浙江省绍兴市柯桥区兰亭街道",
+                      "nodeType":  "late_life_route",
+                      "importance":  2,
+                      "coordinate":  {
+                                         "lat":  29.997,
+                                         "lng":  120.493,
+                                         "precision":  "scenic_area"
+                                     },
+                      "visits":  [
+                                     {
+                                         "period":  "1673",
+                                         "label":  "晚年与张登子、周戬伯、陆癯庵等游兰亭"
+                                     }
+                                 ],
+                      "subplaces":  [
+
+                                    ],
+                      "directWorks":  [
+
+                                      ],
+                      "contextWorks":  [
+                                           "禊泉"
+                                       ],
+                      "notes":  "《禊泉》属于绍兴水脉与饮茶生活，不能直接改名为兰亭游记；这里只做关联入口。"
+                  }
+              ],
+    "unmappedWorks":  [
+                          "齐景公墓花樽",
+                          "草妖"
+                      ]
+}

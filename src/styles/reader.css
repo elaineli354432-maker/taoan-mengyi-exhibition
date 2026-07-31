@@ -171,3 +171,32 @@
   justify-content: center;
   margin-bottom: 8px;
 }
+.reader-scene-thumb {
+  min-height: 180px;
+  margin-bottom: 26px;
+}
+
+.reader-scene-passages {
+  display: grid;
+  gap: 22px;
+}
+
+.reader-scene-passages article {
+  padding: 22px 24px;
+  background: rgba(247, 243, 234, .66);
+  border-left: 3px solid rgba(154, 74, 63, .55);
+}
+
+.reader-scene-passages article span,
+.reader-scene-passages article small {
+  display: block;
+  color: #7a817a;
+  font: 12px/1.6 var(--sans);
+  letter-spacing: .06em;
+}
+
+.reader-scene-passages blockquote {
+  margin: 12px 0;
+  line-height: 2;
+  color: var(--text-primary);
+}

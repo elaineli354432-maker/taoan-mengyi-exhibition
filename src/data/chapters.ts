@@ -1,4 +1,5 @@
 import { getEvent } from './events'
+import { getChapterScenePassageIds } from './scenePassages'
 
 export interface ChapterRecord {
   id: string
@@ -14,11 +15,12 @@ export interface ChapterRecord {
   relatedEventIds: string[]
   relatedLocationIds: string[]
   relatedPersonIds: string[]
+  scenePassageIds?: string[]
 }
 
 const unverifiedNote = '本篇原文仍在校核，当前仅提供策展说明。'
 
-export const chapters: ChapterRecord[] = [
+const chapterRecords: ChapterRecord[] = [
   {
     id: 'huxinting',
     volume: 3,
@@ -46,6 +48,45 @@ export const chapters: ChapterRecord[] = [
     relatedEventIds: ['jinshan'],
     relatedLocationIds: ['zhenjiang-jinshan'],
     relatedPersonIds: ['zhang-dai', 'opera-company'],
+  },
+  {
+    id: 'longshan-snow',
+    volume: 7,
+    orderInVolume: 9,
+    title: '龙山雪',
+    originalText: '万山载雪，明月薄之，\n月不能光，雪皆呆白。\n坐久清冽，苍头送酒至，\n余勉强举大觥敌寒，\n酒气冉冉，积雪欲之，竟不得醉。',
+    originalTextVerified: true,
+    sourceReference: '卷七《龙山雪》',
+    curatorialIntroduction: getEvent('longshan-snow')?.curatorialText,
+    relatedEventIds: ['longshan-snow'],
+    relatedLocationIds: ['shaoxing-shanyin'],
+    relatedPersonIds: ['zhang-dai'],
+  },
+  {
+    id: 'goulou-shanfang',
+    volume: 4,
+    orderInVolume: 3,
+    title: '岣嵝山房',
+    originalText: '岣嵝山房，逼山、逼溪、逼韬光路，故无径不梁，无屋不阁。\n门外苍松傲睨，蓊以杂木，冷绿万顷，人面俱失。\n石桥低磴，可坐十人。寺僧刳竹引泉，桥下交交牙牙，皆为竹节。\n天启甲子，余键户其中者七阅月，耳饱溪声，目饱清樾。\n山上下多西栗、边笋，甘芳无比。邻人以山房为市，藤果羽族日致之，而独无鱼。\n乃潴溪为壑，系巨鱼数十头。有客至，辄取鱼给鲜。日晡，必步冷泉亭、包园、飞来峰。',
+    originalTextVerified: true,
+    sourceReference: '卷四《岣嵝山房》',
+    curatorialIntroduction: getEvent('goulou-shanfang')?.curatorialText,
+    relatedEventIds: ['goulou-shanfang'],
+    relatedLocationIds: ['hangzhou-xihu'],
+    relatedPersonIds: ['zhang-dai'],
+  },
+  {
+    id: 'qinhuai-river-house',
+    volume: 4,
+    orderInVolume: 5,
+    title: '秦淮河房',
+    originalText: '河房之外，家有露台，\n朱栏绮疏，竹帘纱幔。\n夏月浴罢，露台杂坐，\n两岸水楼中，茉莉风起，动儿女香甚。',
+    originalTextVerified: true,
+    sourceReference: '卷四《秦淮河房》',
+    curatorialIntroduction: getEvent('qinhuai-river-house')?.curatorialText,
+    relatedEventIds: ['qinhuai-river-house'],
+    relatedLocationIds: ['nanjing'],
+    relatedPersonIds: ['zhang-dai'],
   },
   {
     id: 'fengmen',
@@ -173,7 +214,40 @@ export const chapters: ChapterRecord[] = [
     relatedLocationIds: ['jiangnan', 'shaoxing-shanyin', 'hangzhou-xihu'],
     relatedPersonIds: ['zhang-dai'],
   },
+  {
+    id: 'luwang',
+    volume: 0,
+    orderInVolume: 2,
+    title: '鲁王过越',
+    originalText: '',
+    originalTextVerified: false,
+    editorialNote: '本专题复用既有《陶庵梦忆补·鲁王》材料，作为场景原文容器，仍待版本逐字核对。',
+    sourceReference: '《陶庵梦忆·补遗·鲁王》',
+    curatorialIntroduction: getEvent('luwang')?.curatorialText,
+    relatedEventIds: ['luwang'],
+    relatedLocationIds: ['shaoxing-shanyin'],
+    relatedPersonIds: ['zhang-dai', 'lu-wang-zhu-yihai', 'chen-hongshou'],
+  },
+  {
+    id: 'qidream',
+    volume: 0,
+    orderInVolume: 3,
+    title: '祁世培入梦',
+    originalText: '',
+    originalTextVerified: false,
+    editorialNote: '本专题复用既有《陶庵梦忆补·祁世培》材料，作为空间记忆容器，仍待版本逐字核对。',
+    sourceReference: '《陶庵梦忆·补遗·祁世培》',
+    curatorialIntroduction: getEvent('qidream')?.curatorialText,
+    relatedEventIds: ['qidream'],
+    relatedLocationIds: ['shengzhou-shanzhong'],
+    relatedPersonIds: ['zhang-dai', 'qi-biaojia'],
+  },
 ]
+
+export const chapters: ChapterRecord[] = chapterRecords.map((chapter) => ({
+  ...chapter,
+  scenePassageIds: getChapterScenePassageIds(chapter.id),
+}))
 
 export const sortedChapters = [...chapters].sort((a, b) => a.volume - b.volume || a.orderInVolume - b.orderInVolume)
 export const getChapter = (id: string) => chapters.find((chapter) => chapter.id === id)

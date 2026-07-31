@@ -31,6 +31,48 @@
     margin-left: 22px;
     width: min(560px, 86vw);
   }
+  .home-guide {
+    left: 20px;
+    right: 20px;
+    bottom: 74px;
+    width: auto;
+  }
+  .home-guide nav {
+    grid-template-columns: 1fr;
+    max-height: 36svh;
+    overflow: auto;
+  }
+  .home-guide-actions {
+    flex-direction: column;
+  }
+  .act-tour-title {
+    margin-left: 20px;
+    padding-left: 28px;
+    padding-right: 22px;
+  }
+  .act-tour-title .tour-jianpu-print {
+    left: auto;
+    right: 18px;
+    top: 108px;
+    width: min(48vw, 220px);
+    max-height: 28vh;
+    opacity: .42;
+  }
+  .act-tour-title h1 {
+    font-size: clamp(54px, 17vw, 86px);
+  }
+  .act-tour-title p {
+    font-size: 18px;
+  }
+  .act-tour-image > div {
+    left: 22px;
+    right: 22px;
+    bottom: 96px;
+    width: auto;
+  }
+  .act-tour-image h2 {
+    font-size: clamp(40px, 14vw, 64px);
+  }
   .home-chapter,
   .archive-entrances,
   .sub-page {
@@ -59,6 +101,19 @@
   .obsession-branches,
   .archive-entrances > div {
     grid-template-columns: 1fr;
+  }
+  .chapter-prosperity .asymmetric-pair {
+    max-width: none;
+  }
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child > .scene-trigger,
+  .chapter-prosperity .asymmetric-pair > .event-mini:first-child > .scene-trigger > .responsive-image,
+  .chapter-prosperity .asymmetric-pair > .event-mini > .scene-trigger,
+  .chapter-prosperity .asymmetric-pair > .event-mini > .scene-trigger > .responsive-image {
+    min-height: 300px;
   }
   .night-opera {
     min-height: 620px;
