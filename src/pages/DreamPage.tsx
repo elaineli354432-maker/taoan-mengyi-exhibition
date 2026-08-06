@@ -19,19 +19,19 @@ const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as
 const obsessionBranchMeta: Record<string, { title: string; image: string; note?: string }> = {
   lanxue: {
     title: '为茶而痴',
-    image: '/images/tea-obsession.png',
+    image: '/images/tea-obsession.webp',
   },
   qinpai: {
     title: '为琴而痴',
-    image: '/images/qin-obsession.png',
+    image: '/images/qin-obsession.webp',
   },
   buxiyuan: {
     title: '为园林而痴之一',
-    image: '/images/garden-obsession.png',
+    image: '/images/garden-obsession.webp',
   },
   'goulou-shanfang': {
     title: '为园林而痴之二',
-    image: '/images/goulou-shanfang.png',
+    image: '/images/goulou-shanfang.webp',
   },
 }
 
@@ -150,7 +150,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
   const step = Math.min(Math.max(Number.isFinite(requestedStep) ? requestedStep : 0, 0), total - 1)
   const slide = step > 0 ? act.slides[step - 1] : undefined
   const titlePlateId = String(Math.min(actIndex + 1, 6)).padStart(2, '0')
-  const titlePlateImage = assetUrl(`/images/jianpu/patterns/shizhuzhai-pattern-${titlePlateId}.png`)
+  const titlePlateImage = assetUrl(`/images/jianpu/patterns/shizhuzhai-pattern-${titlePlateId}.webp`)
 
   const openActStep = (nextActIndex: number, nextStep: number) => {
     const wrappedActIndex = (nextActIndex + acts.length) % acts.length
@@ -189,7 +189,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
           <div className={`shizhuzhai-print tour-jianpu-print shizhuzhai-plate-${actIndex + 1}`} style={{ ['--jianpu-image' as string]: `url('${titlePlateImage}')` }}>
             <span className="shizhuzhai-print-layer shizhuzhai-print-emboss" />
             <span className="shizhuzhai-print-layer shizhuzhai-print-color" />
-            <img className="shizhuzhai-art shizhuzhai-print-ink" src={titlePlateImage} alt="" />
+            <img loading="lazy" decoding="async" className="shizhuzhai-art shizhuzhai-print-ink" src={titlePlateImage} alt="" />
           </div>
           <span>{act.number}</span>
           <h1>{act.title}</h1>
@@ -197,7 +197,7 @@ function ActTour({ acts }: { acts: TourAct[] }) {
         </article>
       ) : slide && (
         <article className="act-tour-image">
-          <img src={sceneImageUrl(slide.image ?? slide.event.heroImage ?? slide.event.id)} alt={slide.title ?? slide.event.title} />
+          <img loading="lazy" decoding="async" src={sceneImageUrl(slide.image ?? slide.event.heroImage ?? slide.event.id)} alt={slide.title ?? slide.event.title} />
           <div>
             <span>{slide.kicker ?? `${slide.event.displayDate} · ${slide.event.sourceChapter}`}</span>
             <h2>{slide.title ?? slide.event.title}</h2>

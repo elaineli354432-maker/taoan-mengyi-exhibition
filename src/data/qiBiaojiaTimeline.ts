@@ -47,7 +47,7 @@ export const qiDreamSection = {
     '乙酉秋九月，余见时事日非，辞鲁国主，隐居剡中。方磐石遣礼币，聘余出山，商确军务，檄县官上门敦促。余不得已，于丙戌正月十一日，道北山，逾唐园岭，宿平水韩店。余适疽发于背，痛楚呻吟，倚枕假寐。见青衣持一刺示余，曰：“祁彪佳拜！”余惊起，见世培排闼入，白衣冠。余肃入，坐定。余梦中知其已死，曰：“世培尽忠报国，为吾辈生色。”世培微笑，遽言曰：“宗老此时不埋名屏迹，出山何为耶？”余曰：“余欲辅鲁监国耳。”因言其如此如此，已有成算。世培笑曰：“尔要做，谁许尔做？且强尔出，无他意，十日内有人勒尔助饷。”余曰：“方磐石诚心邀余共事，应不我欺。”世培曰：“尔自知之矣。天下事至此，已不可为矣。尔试观天象。”拉余起，下阶西南望，见大小星堕落如雨，崩裂有声。世培曰：“天数如此，奈何！奈何！宗老，尔速还山，随尔高手，到后来只好下我这着！”起，出门附耳曰：“完《石匮书》。”洒然竟去。余但闻犬声如豹，惊寤，汗浴背，门外犬吠嗥嗥，与梦中声接续。蹴儿子起，语之。次日抵家，阅十日，镳儿被缚去，果有逼勒助饷之事。忠魂之笃，而灵也如此。',
   scenes: [
     {
-      image: '/images/qi-dream-blue-servant.png',
+      image: '/images/qi-dream-blue-servant.webp',
       year: '乙酉秋九月',
       theme: '辞鲁还山',
       title: '时事日非',
@@ -55,7 +55,7 @@ export const qiDreamSection = {
       note: '张岱已选择退隐，却又被军务、檄文和县官催促推回乱局。'
     },
     {
-      image: '/images/qi-dream-white-entry.png',
+      image: '/images/qi-dream-white-entry.webp',
       year: '丙戌正月十一日',
       theme: '平水韩店',
       title: '青衣持刺',
@@ -63,7 +63,7 @@ export const qiDreamSection = {
       note: '病痛、旅店、假寐打开了梦境：先是青衣持名刺通报，随后已死的祁世培以白衣冠入室。'
     },
     {
-      image: '/images/qi-dream-dialogue.png',
+      image: '/images/qi-dream-dialogue.webp',
       year: '梦中对坐',
       theme: '出处之问',
       title: '出山何为',
@@ -71,7 +71,7 @@ export const qiDreamSection = {
       note: '这节的核心不是神异，而是亡友逼问张岱：乱世中究竟应出，还是应隐。'
     },
     {
-      image: '/images/qi-dream-falling-stars.png',
+      image: '/images/qi-dream-falling-stars.webp',
       year: '梦中阶前',
       theme: '天象如雨',
       title: '已不可为',
@@ -79,7 +79,7 @@ export const qiDreamSection = {
       note: '大小星堕落如雨，崩裂有声，天象把政治判断化成可见的末世画面。'
     },
     {
-      image: '/images/qi-dream-shikui-whisper.png',
+      image: '/images/qi-dream-shikui-whisper.webp',
       year: '梦醒之后',
       theme: '还山著史',
       title: '完《石匮书》',

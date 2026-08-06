@@ -16,7 +16,7 @@ export const luWangSection = {
   scenes: [
     {
       id: 'arrival',
-      image: '/images/lu-wang-arrival.png',
+      image: '/images/lu-wang-arrival.webp',
       year: '1645',
       place: '越中旧臣第',
       title: '仓促接驾',
@@ -25,7 +25,7 @@ export const luWangSection = {
     },
     {
       id: 'banquet',
-      image: '/images/lu-wang-banquet.png',
+      image: '/images/lu-wang-banquet.webp',
       year: '1645',
       place: '高厅事',
       title: '七重御席',
@@ -34,7 +34,7 @@ export const luWangSection = {
     },
     {
       id: 'offering',
-      image: '/images/lu-wang-offering.png',
+      image: '/images/lu-wang-offering.webp',
       year: '1645',
       place: '御前',
       title: '献膳奏乐',
@@ -43,7 +43,7 @@ export const luWangSection = {
     },
     {
       id: 'mud-horse',
-      image: '/images/lu-wang-opera-mud-horse.png',
+      image: '/images/lu-wang-opera-mud-horse.webp',
       year: '1645',
       place: '戏台',
       title: '泥马渡康王',
@@ -52,7 +52,7 @@ export const luWangSection = {
     },
     {
       id: 'night-exit',
-      image: '/images/lu-wang-night-exit.png',
+      image: '/images/lu-wang-night-exit.webp',
       year: '二鼓后',
       place: '不二斋 / 梅花书屋',
       title: '喜极起驾',

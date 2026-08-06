@@ -32,7 +32,7 @@ export function SceneArtwork({
       style={style}
       aria-label={showPassage ? `切换${title}下一段原文` : `显示${title}原文`}
     >
-      <img src={sceneImageUrl(passage?.image ?? image)} alt={title} />
+      <img loading="lazy" decoding="async" src={sceneImageUrl(passage?.image ?? image)} alt={title} />
     </button>
   )
 }

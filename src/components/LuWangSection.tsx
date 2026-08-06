@@ -42,7 +42,7 @@ export function LuWangSection() {
       <div className="lu-act-scenes" aria-label="鲁王过越五组图像素材">
         {luWangSection.scenes.map((scene, index) => (
           <article id={`lu-${scene.id}`} className="lu-act-scene" key={scene.id}>
-            <img src={assetUrl(scene.image)} alt="" aria-hidden="true" />
+            <img loading="lazy" decoding="async" src={assetUrl(scene.image)} alt="" aria-hidden="true" />
             <div className="lu-act-overlay">
               <p>{String(index + 1).padStart(2, '0')} · {scene.year} · {scene.place}</p>
               <h3>{scene.title}</h3>
