@@ -20,6 +20,11 @@
   background-color: #d6ddd7;
   background-position: 52% 48%;
 }
+.dream-hero .responsive-image img {
+  object-fit: contain;
+  object-position: 52% 48%;
+  background: #d6ddd7;
+}
 .dream-hero-copy {
   position: relative;
   z-index: 1;
