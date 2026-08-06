@@ -1,5 +1,5 @@
 import { type CSSProperties } from 'react'
-import { assetUrl } from '../../utils/assetUrl'
+import { assetUrl, fallbackAssetUrl } from '../../utils/assetUrl'
 
 export const imagePaths: Record<string, string> = {
   cover: '/images/taoan-cover-pan-tianshou.webp',
@@ -38,10 +38,15 @@ export function ResponsiveImage({
   priority?: boolean
   className?: string
 }) {
-  const src = assetUrl(imagePaths[image] ?? (image.startsWith('/images/') ? image : imagePaths.cover))
+  const imagePath = imagePaths[image] ?? (image.startsWith('/images/') ? image : imagePaths.cover)
+  const src = assetUrl(imagePath)
+  const fallbackSrc = fallbackAssetUrl(imagePath)
   return (
     <figure className={`responsive-image ${className}`} style={{ '--image-src': `url("${src}")` } as CSSProperties}>
-      <img src={src} alt={alt} width="1600" height="900" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />
+      <picture>
+        <source srcSet={src} type="image/webp" />
+        <img src={fallbackSrc} alt={alt} width="1600" height="900" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />
+      </picture>
     </figure>
   )
 }

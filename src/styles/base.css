@@ -65,11 +65,14 @@ h1, h2, h3, p, blockquote { margin-top: 0; }
   background-position: center;
   transition: transform 1.2s ease, filter .8s ease;
 }
+.responsive-image picture,
 .responsive-image img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+.responsive-image img {
   opacity: 1;
   object-fit: cover;
   object-position: center;

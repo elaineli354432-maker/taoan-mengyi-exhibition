@@ -1,10 +1,25 @@
 export function assetUrl(path: string) {
   if (/^(https?:)?\/\//.test(path)) return path
   const resolvedPath = mobileImagePath(path)
+  return withBase(resolvedPath)
+}
+
+export function fallbackAssetUrl(path: string) {
+  if (/^(https?:)?\/\//.test(path)) return path
+  return withBase(fallbackImagePath(path))
+}
+
+function withBase(path: string) {
   const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`
-  if (resolvedPath.startsWith(base)) return resolvedPath
-  const cleanPath = resolvedPath.replace(/^\/+/, '')
+  if (path.startsWith(base)) return path
+  const cleanPath = path.replace(/^\/+/, '')
   return `${base}${cleanPath}`
+}
+
+function fallbackImagePath(path: string) {
+  if (path === '/zhang-dai-hero.webp') return '/zhang-dai-hero.png'
+  if (!path.startsWith('/images/') || !path.endsWith('.webp')) return path
+  return path.replace(/\.webp$/i, '.png')
 }
 
 function mobileImagePath(path: string) {
