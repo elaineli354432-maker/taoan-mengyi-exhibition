@@ -863,7 +863,7 @@
   background:
     radial-gradient(circle at 82% 18%, rgba(154, 74, 63, .12), transparent 26%),
     linear-gradient(90deg, rgba(244, 241, 234, .98), rgba(244, 241, 234, .88)),
-    url('/images/old-zhangdai.webp') center / cover;
+    url('../images/old-zhangdai.webp') center / cover;
   color: #242624;
 }
 

@@ -62,7 +62,7 @@
   overflow: hidden;
   background:
     linear-gradient(90deg, rgba(255,255,255,.1), transparent 42%, rgba(255,255,255,.22)),
-    url('/images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
+    url('../images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
     #f1eee8;
   scroll-snap-align: center;
 }
@@ -188,7 +188,7 @@
 .shizhuzhai-bamboo {
   background:
     linear-gradient(90deg, rgba(255,255,255,.08), transparent 46%, rgba(255,255,255,.22)),
-    url('/images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
+    url('../images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
     #f1eee8;
 }
 
@@ -199,7 +199,7 @@
 .shizhuzhai-snow {
   background:
     linear-gradient(90deg, rgba(255,255,255,.12), transparent 46%, rgba(255,255,255,.24)),
-    url('/images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
+    url('../images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
     #f2f0eb;
 }
 
@@ -210,7 +210,7 @@
 .shizhuzhai-loss {
   background:
     linear-gradient(90deg, rgba(255,255,255,.08), transparent 44%, rgba(255,255,255,.2)),
-    url('/images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
+    url('../images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
     #ece9e3;
 }
 
@@ -221,7 +221,7 @@
 .shizhuzhai-blank {
   background:
     linear-gradient(90deg, rgba(255,255,255,.1), transparent 46%, rgba(255,255,255,.22)),
-    url('/images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
+    url('../images/jianpu/transition-uploaded-bg.webp') center 42% / cover no-repeat,
     #f1eee8;
 }
 
