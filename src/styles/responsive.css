@@ -69,7 +69,7 @@
     top: 108px;
     width: min(48vw, 220px);
     max-height: 28vh;
-    opacity: .42;
+    opacity: .76;
   }
   .act-tour-title h1 {
     font-size: clamp(54px, 17vw, 86px);
