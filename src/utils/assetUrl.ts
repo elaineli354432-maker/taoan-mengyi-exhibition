@@ -24,9 +24,7 @@ function fallbackImagePath(path: string) {
 
 function mobileImagePath(path: string) {
   if (!shouldUseMobileImages()) return path
-  if (path === '/zhang-dai-hero.webp') return '/zhang-dai-hero-mobile.webp'
-  if (!path.startsWith('/images/') || !/\.(webp|jpe?g|png)$/i.test(path)) return path
-  return path.replace(/^\/images\//, '/images-mobile/')
+  return fallbackImagePath(path)
 }
 
 function shouldUseMobileImages() {

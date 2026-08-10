@@ -41,10 +41,11 @@ export function ResponsiveImage({
   const imagePath = imagePaths[image] ?? (image.startsWith('/images/') ? image : imagePaths.cover)
   const src = assetUrl(imagePath)
   const fallbackSrc = fallbackAssetUrl(imagePath)
+  const webpSrc = src.endsWith('.webp') ? src : undefined
   return (
     <figure className={`responsive-image ${className}`} style={{ '--image-src': `url("${src}")` } as CSSProperties}>
       <picture>
-        <source srcSet={src} type="image/webp" />
+        {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
         <img src={fallbackSrc} alt={alt} width="1600" height="900" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : 'auto'} decoding="async" />
       </picture>
     </figure>

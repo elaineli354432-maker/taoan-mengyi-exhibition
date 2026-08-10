@@ -40,6 +40,7 @@ export function SceneImage({ kind, variant, className = '', priority = false }: 
   const imagePath = images[variant || kind] || '/images/jiangnan-antique-map-wash.webp'
   const src = assetUrl(imagePath)
   const fallbackSrc = fallbackAssetUrl(imagePath)
+  const webpSrc = src.endsWith('.webp') ? src : undefined
   const ref = useRef<HTMLDivElement>(null)
   const [shouldLoad, setShouldLoad] = useState(priority || kind === 'cover' || variant === 'cover')
 
@@ -75,7 +76,7 @@ export function SceneImage({ kind, variant, className = '', priority = false }: 
     >
       {shouldLoad && (
         <picture>
-          <source srcSet={src} type="image/webp" />
+          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
           <img
             alt=""
             decoding="async"
