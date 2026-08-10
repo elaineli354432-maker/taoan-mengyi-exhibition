@@ -31,6 +31,19 @@
     margin-left: 22px;
     width: min(560px, 86vw);
   }
+  .dream-hero .responsive-image,
+  .dream-hero .responsive-image::before,
+  .dream-hero .responsive-image img {
+    min-height: 100svh;
+  }
+  .dream-hero .responsive-image::before {
+    background-size: cover;
+    background-position: 74% 50%;
+  }
+  .dream-hero .responsive-image img {
+    object-fit: cover;
+    object-position: 74% 50%;
+  }
   .home-guide {
     left: 20px;
     right: 20px;
