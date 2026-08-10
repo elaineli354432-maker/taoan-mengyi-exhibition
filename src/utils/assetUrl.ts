@@ -1,12 +1,39 @@
+const IMAGE_CDN_BASE = 'https://cdn.jsdelivr.net/gh/elaineli354432-maker/taoan-mengyi-exhibition@gh-pages/'
+
 export function assetUrl(path: string) {
   if (/^(https?:)?\/\//.test(path)) return path
-  const resolvedPath = mobileImagePath(path)
-  return withBase(resolvedPath)
+  return withCdn(path)
 }
 
 export function fallbackAssetUrl(path: string) {
   if (/^(https?:)?\/\//.test(path)) return path
+  return withCdn(fallbackImagePath(path))
+}
+
+export function localFallbackAssetUrl(path: string) {
+  if (/^(https?:)?\/\//.test(path)) return path
   return withBase(fallbackImagePath(path))
+}
+
+export function installImageFallbacks() {
+  if (typeof window === 'undefined') return
+  window.addEventListener(
+    'error',
+    (event) => {
+      const image = event.target
+      if (!(image instanceof HTMLImageElement)) return
+      const nextSrc = nextImageFallback(image.currentSrc || image.src)
+      if (!nextSrc || image.src === nextSrc) return
+      image.src = nextSrc
+    },
+    true,
+  )
+}
+
+function withCdn(path: string) {
+  if (!isProjectImage(path)) return withBase(path)
+  const cleanPath = path.replace(/^\/+/, '')
+  return `${IMAGE_CDN_BASE}${cleanPath}`
 }
 
 function withBase(path: string) {
@@ -22,14 +49,26 @@ function fallbackImagePath(path: string) {
   return path.replace(/\.webp$/i, '.png')
 }
 
-function mobileImagePath(path: string) {
-  if (!shouldUseMobileImages()) return path
-  return fallbackImagePath(path)
+function isProjectImage(path: string) {
+  return path === '/zhang-dai-hero.webp' || path === '/zhang-dai-hero.png' || path.startsWith('/images/')
 }
 
-function shouldUseMobileImages() {
-  if (typeof window === 'undefined') return false
-  if (window.matchMedia('(max-width: 820px)').matches) return true
-  const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection
-  return Boolean(connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType ?? ''))
+function nextImageFallback(src: string) {
+  const path = projectPathFromUrl(src)
+  if (!path) return undefined
+  if (path.endsWith('.webp')) return withCdn(fallbackImagePath(path))
+  if (src.startsWith(IMAGE_CDN_BASE)) return withBase(path)
+  return undefined
+}
+
+function projectPathFromUrl(src: string) {
+  if (src.startsWith(IMAGE_CDN_BASE)) return `/${src.slice(IMAGE_CDN_BASE.length).replace(/^\/+/, '')}`
+  try {
+    const url = new URL(src, window.location.href)
+    const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`
+    if (!url.pathname.startsWith(base)) return undefined
+    return `/${url.pathname.slice(base.length).replace(/^\/+/, '')}`
+  } catch {
+    return undefined
+  }
 }

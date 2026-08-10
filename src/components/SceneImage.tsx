@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
-import { assetUrl, fallbackAssetUrl } from '../utils/assetUrl'
+import { assetUrl } from '../utils/assetUrl'
 
 // Event IDs are intentionally mapped one-to-one to assets. Do not use one
 // illustration as a visual fallback for another episode in the narrative.
@@ -39,8 +39,6 @@ const images: Record<string, string> = {
 export function SceneImage({ kind, variant, className = '', priority = false }: { kind: string; variant?: string; className?: string; priority?: boolean }) {
   const imagePath = images[variant || kind] || '/images/jiangnan-antique-map-wash.webp'
   const src = assetUrl(imagePath)
-  const fallbackSrc = fallbackAssetUrl(imagePath)
-  const webpSrc = src.endsWith('.webp') ? src : undefined
   const ref = useRef<HTMLDivElement>(null)
   const [shouldLoad, setShouldLoad] = useState(priority || kind === 'cover' || variant === 'cover')
 
@@ -75,18 +73,15 @@ export function SceneImage({ kind, variant, className = '', priority = false }: 
       className={`scene-image scene-${kind} ${className} ${shouldLoad ? 'is-loaded' : 'is-pending'}`}
     >
       {shouldLoad && (
-        <picture>
-          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
-          <img
-            alt=""
-            decoding="async"
-            fetchPriority={priority ? 'high' : 'auto'}
-            loading={priority ? 'eager' : 'lazy'}
-            src={fallbackSrc}
-            width="1600"
-            height="900"
-          />
-        </picture>
+        <img
+          alt=""
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          loading={priority ? 'eager' : 'lazy'}
+          src={src}
+          width="1600"
+          height="900"
+        />
       )}
     </div>
   )
