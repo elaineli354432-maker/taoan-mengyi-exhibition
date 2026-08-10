@@ -776,14 +776,6 @@
   margin-bottom: clamp(24px, 5vh, 54px);
 }
 
-.act-tour-title span::after {
-  content: "";
-  width: 86px;
-  height: 1px;
-  background: currentColor;
-  opacity: .4;
-}
-
 .act-tour-title h1 {
   position: relative;
   z-index: 2;
