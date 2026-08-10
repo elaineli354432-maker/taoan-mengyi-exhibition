@@ -17,6 +17,11 @@ import { assetUrl } from '../utils/assetUrl'
 const pick = (ids: string[]) => ids.map((id) => getEvent(id)).filter(Boolean) as EventRecord[]
 
 const obsessionBranchMeta: Record<string, { title: string; image: string; note?: string }> = {
+  'longshan-snow': {
+    title: '为雪而痴之二',
+    image: '/images/longshan-snow.webp',
+    note: '《龙山雪》把雪夜之痴从湖心亭推向更寒、更久坐的身体经验。',
+  },
   lanxue: {
     title: '为茶而痴',
     image: '/images/tea-obsession.webp',
@@ -385,7 +390,7 @@ export function DreamPage() {
           </aside>
         </div>
         <div className="obsession-branches">
-          {pick(['lanxue', 'qinpai', 'buxiyuan', 'goulou-shanfang']).map((event) => {
+          {pick(['longshan-snow', 'lanxue', 'qinpai', 'buxiyuan', 'goulou-shanfang']).map((event) => {
             const branch = obsessionBranchMeta[event.id]
             const passage = getScenePassages(event.id)[0]
             return (
